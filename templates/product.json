@@ -18,6 +18,9 @@
     },
     "tabs": {
       "type": "varchas-product-tabs",
+      "custom_css": [
+        ".tab-nav {overflow: hidden;}"
+      ],
       "settings": {
         "story_quote": "Rise, O Arjuna. The world needs your sword.",
         "story_text": "Krishna speaks to a hesitant Arjuna on the battlefield of Kurukshetra. The words echo across millennia. We took those words — eternal, electric — and placed them on your chest. On the streets. In the gyms. In the colleges.\n\nBecause the battle isn't over. It's moved. From the Maidan to the boardroom. From Kurukshetra to every challenge you face. And in that arena, you are Arjuna. And the call is the same:\n\nARISE.",
