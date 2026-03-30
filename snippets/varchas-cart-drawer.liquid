@@ -11,7 +11,7 @@
   
   <div class="cart-body" id="cartBody">
     <div class="cart-shipping-bar">
-      <div class="shipping-label">Add <span id="shippingLeft">₹999</span> more for FREE shipping 🚀</div>
+      <div class="shipping-label">Add <span id="shippingLeft">₹999</span> more for FREE shipping <svg width="14" height="14" style="vertical-align:middle;margin-left:4px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
       <div class="shipping-track"><div class="shipping-fill" id="shippingFill" style="width:0%"></div></div>
     </div>
     
@@ -19,7 +19,7 @@
     <div class="cart-items" id="cartItems"></div>
     
     <div class="cart-empty" id="cartEmpty">
-      <div class="ce-icon">🛒</div>
+      <div class="ce-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--saffron)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></div>
       <div class="ce-title">YOUR CART AWAITS</div>
       <div class="ce-sub">Add something worthy of your lineage.</div>
       <button class="ce-cta" onclick="if(window.VARCHAS_CART) VARCHAS_CART.closeSidebar(); window.location.href='{{ routes.all_products_collection_url }}';">Shop the Drop →</button>

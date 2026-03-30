@@ -193,11 +193,11 @@
         {% endfor %}
       {% endunless %}
 
-      <span class="size-guide-link" onclick="openSizeModal()">📐 Size Guide & Measurements</span>
+      <span class="size-guide-link" onclick="openSizeModal()"><span style="width:16px;display:inline-block;vertical-align:middle;margin-right:4px;">{% render 'icon', icon: 'ruler' %}</span> Size Guide & Measurements</span>
 
       <!-- Countdown -->
       <div class="countdown-bar">
-        <span class="cd-icon">⏰</span>
+        <span class="cd-icon" style="width:18px;display:inline-flex;">{% render 'icon', icon: 'stopwatch' %}</span>
         <span class="cd-text">Sale ends in</span>
         <div class="cd-timer">
           <div class="cd-unit"><div class="cd-num" id="cdH">08</div><div class="cd-label">HRS</div></div>
@@ -224,9 +224,9 @@
         <button type="submit" class="btn-atc" id="atcBtn" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
           {% if product.selected_or_first_available_variant.available %}
              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="atc-icn" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-             ADD TO CART
+             <span class="btn-text">ADD TO CART</span>
           {% else %}
-             SOLD OUT
+             <span class="btn-text">SOLD OUT</span>
           {% endif %}
         </button>
       </div>
@@ -239,10 +239,10 @@
 
     <!-- Trust strip -->
     <div class="trust-strip">
-      <div class="trust-item"><span class="ti-icon">🚚</span><span class="ti-label">Free Shipping<br>Above ₹999</span></div>
-      <div class="trust-item"><span class="ti-icon">↩️</span><span class="ti-label">Easy Returns<br>7 Days</span></div>
-      <div class="trust-item"><span class="ti-icon">🇮🇳</span><span class="ti-label">Made in<br>India</span></div>
-      <div class="trust-item"><span class="ti-icon">🔒</span><span class="ti-label">Secure<br>Payment</span></div>
+      <div class="trust-item"><span class="ti-icon" style="width:24px;display:inline-block;margin-bottom:8px;">{% render 'icon', icon: 'truck' %}</span><span class="ti-label">Free Shipping<br>Above ₹999</span></div>
+      <div class="trust-item"><span class="ti-icon" style="width:24px;display:inline-block;margin-bottom:8px;">{% render 'icon', icon: 'return' %}</span><span class="ti-label">Easy Returns<br>7 Days</span></div>
+      <div class="trust-item"><span class="ti-icon" style="width:24px;display:inline-block;margin-bottom:8px;">{% render 'icon', icon: 'map_pin' %}</span><span class="ti-label">Made in<br>India</span></div>
+      <div class="trust-item"><span class="ti-icon" style="width:24px;display:inline-block;margin-bottom:8px;">{% render 'icon', icon: 'lock' %}</span><span class="ti-label">Secure<br>Payment</span></div>
     </div>
 
     <!-- Payment -->

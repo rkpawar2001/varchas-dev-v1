@@ -93,10 +93,16 @@
     },
 
     submitForm: function(form, btn) {
+      var textSpan = btn ? btn.querySelector('span') : null;
+      var originalText = '';
       if(btn) {
          btn.disabled = true;
-         var originalText = btn.innerHTML;
-         btn.innerHTML = 'ADDING...';
+         originalText = textSpan ? textSpan.innerHTML : btn.innerHTML;
+         if (textSpan) {
+           textSpan.innerHTML = 'ADDING...';
+         } else {
+           btn.innerHTML = 'ADDING...';
+         }
       }
 
       fetch(window.Shopify.routes.root + 'cart/add.js', {
@@ -118,16 +124,27 @@
       .finally(() => {
         if(btn) {
           btn.disabled = false;
+          if(textSpan) {
+            textSpan.innerHTML = originalText;
+          } else {
+            btn.innerHTML = originalText;
+          }
           // btn originalText logic shouldn't ruin pdp btn
           if(btn.id === 'atcBtn') {
-             btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ADDED TO CART';
+             if (textSpan) {
+               textSpan.innerHTML = 'ADDED TO CART';
+             } else {
+               btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="atc-icn" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> ADDED TO CART';
+             }
              btn.classList.add('added');
              setTimeout(function(){
                btn.classList.remove('added');
-               btn.innerHTML = originalText;
+               if (textSpan) {
+                 textSpan.innerHTML = originalText;
+               } else {
+                 btn.innerHTML = originalText;
+               }
              }, 2500);
-          } else {
-             btn.innerHTML = originalText;
           }
         }
       });
