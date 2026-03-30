@@ -6,8 +6,23 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
+    "divider_i94DeE": {
+      "type": "divider",
+      "name": "t:names.divider_section",
+      "settings": {
+        "color_scheme": "",
+        "section_width": "full-width",
+        "thickness": 1,
+        "corner_radius": "square",
+        "width_percent": 100,
+        "alignment_horizontal": "center",
+        "padding-block-start": 16,
+        "padding-block-end": 16
+      }
+    },
     "section": {
       "type": "section",
       "blocks": {
@@ -158,7 +173,6 @@
             "group_dCDKMz": {
               "type": "_product-card-group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": false,
                 "horizontal_alignment": "space-between",
@@ -186,6 +200,8 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -196,7 +212,6 @@
                   "type": "_product-card-group",
                   "name": "t:names.group",
                   "settings": {
-                    "open_in_new_tab": false,
                     "content_direction": "column",
                     "vertical_on_mobile": true,
                     "horizontal_alignment": "flex-start",
@@ -224,6 +239,8 @@
                     "overlay_color": "#00000026",
                     "overlay_style": "solid",
                     "gradient_direction": "to top",
+                    "link": "",
+                    "open_in_new_tab": false,
                     "padding-block-start": 8,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
@@ -313,6 +330,8 @@
         "layout_type": "grid",
         "product_card_size": "large",
         "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,
@@ -326,6 +345,7 @@
     }
   },
   "order": [
+    "divider_i94DeE",
     "section",
     "main"
   ]
