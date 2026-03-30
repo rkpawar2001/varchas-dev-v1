@@ -21,95 +21,170 @@
 }
 {% endschema %}
 
+<!-- Load Product Assets -->
+{{ 'varchas-product.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'varchas-product.js' | asset_url }}" defer="defer"></script>
+
+<!-- Build JSON of Variants for JS to consume -->
+<script>
+  window.productVariants = [
+    {% for variant in product.variants %}
+      {
+        "id": {{ variant.id }},
+        "title": {{ variant.title | json }},
+        "option1": {{ variant.option1 | json }},
+        "option2": {{ variant.option2 | json }},
+        "option3": {{ variant.option3 | json }},
+        "price": {{ variant.price }},
+        "compare_at_price": {{ variant.compare_at_price | default: 0 }},
+        "available": {{ variant.available | json }},
+        "inventory_quantity": {{ variant.inventory_quantity | default: 0 }},
+        "featured_media": {% if variant.featured_media %}{ "id": {{ variant.featured_media.id }} }{% else %}null{% endif %}
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+</script>
+
 <div class="breadcrumb">
   <div class="bc-inner">
-    <a href="{{ routes.root_url }}">Home</a> <span class="bc-sep">/</span>
-    <a href="{{ collections.all.url }}">Shop</a> <span class="bc-sep">/</span>
+    <a href="{{ routes.root_url }}">Home</a>
+    <span class="bc-sep">/</span>
+    <a href="{{ collections.all.url }}">Shop</a>
+    <span class="bc-sep">/</span>
     <span class="bc-current">{{ product.title }}</span>
   </div>
 </div>
 
 <div class="pdp-wrap">
-  <!-- GALLERY -->
+
+  <!-- ══ GALLERY ══ -->
   <div class="pdp-gallery">
     <div class="gallery-main">
       <div class="gallery-main-img">
         <div class="gm-bg-word" aria-hidden="true">{{ section.settings.bg_word }}</div>
-        {% if product.featured_image %}
-          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" style="position:relative; z-index:2; max-height:80%;" id="mainProdImg" loading="eager">
+        
+        <!-- Main Image -->
+        {% if product.selected_or_first_available_variant.featured_media %}
+          {% assign initial_media = product.selected_or_first_available_variant.featured_media %}
         {% else %}
-          <div class="gm-product-art">
-            <div class="gm-text">ARISE<br>ARJUNA</div>
-            <span class="gm-deva">{{ section.settings.bg_deva }}</span>
-          </div>
+          {% assign initial_media = product.featured_media %}
         {% endif %}
+        
+        {% if initial_media %}
+          <img src="{{ initial_media | image_url: width: 1000 }}" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain;" id="mainProdImg" loading="eager">
+          <div class="gm-product-art" style="display:none;"></div>
+        {% else %}
+           <img src="" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain; display:none;" id="mainProdImg">
+           <div class="gm-product-art">
+             <div class="gm-text">ARISE<br>ARJUNA</div>
+             <span class="gm-deva">{{ section.settings.bg_deva }}</span>
+           </div>
+        {% endif %}
+
         {% if product.available == false %}
-          <div class="img-badge limited">Sold Out</div>
+          <div class="img-badge limited">SOLD OUT</div>
         {% elsif product.compare_at_price > product.price %}
-          <div class="img-badge">Sale</div>
+          <div class="img-badge">Sale Drop</div>
+        {% else %}
+          <div class="img-badge">New Drop</div>
         {% endif %}
+        
       </div>
     </div>
+    
     <div class="gallery-thumbs">
-      {% for media in product.media %}
-        <div class="thumb thumb-{{ forloop.index | modulo: 4 | plus: 1 }} {% if forloop.first %}active{% endif %}" onclick="document.getElementById('mainProdImg').src='{{ media | image_url: width: 800 }}'; document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" style="background-image: url('{{ media | image_url: width: 200 }}'); background-size: cover; background-position: center;">
-          {% unless media %}
-            <div class="thumb-label">THUMB<br>0{{ forloop.index }}</div>
-          {% endunless %}
-        </div>
-      {% endfor %}
+      {% if product.media.size > 0 %}
+        {% for media in product.media %}
+          {% assign thumb_class = forloop.index | modulo: 4 | plus: 1 %}
+          <div class="thumb thumb-{{ thumb_class }} {% if media.id == initial_media.id %}active{% endif %}" 
+               data-media-id="{{ media.id }}" 
+               onclick="switchThumb(this, '{{ media | image_url: width: 1000 }}')"
+               style="background-image: url('{{ media | image_url: width: 250 }}'); background-size: cover; background-position: center;">
+          </div>
+        {% endfor %}
+      {% else %}
+         <!-- Fallback static thumbs matching design -->
+         <div class="thumb thumb-1 active" onclick="switchThumb(this, '')"><span class="thumb-label">FRONT<br>VIEW</span></div>
+         <div class="thumb thumb-2" onclick="switchThumb(this, '')"><span class="thumb-label">BACK<br>VIEW</span></div>
+         <div class="thumb thumb-3" onclick="switchThumb(this, '')"><span class="thumb-label">DETAIL<br>SHOT</span></div>
+         <div class="thumb thumb-4" onclick="switchThumb(this, '')"><span class="thumb-label">LIFESTYLE</span></div>
+      {% endif %}
     </div>
   </div>
 
-  <!-- DETAILS -->
+  <!-- ══ DETAILS ══ -->
   <div class="pdp-details">
+
+    <!-- Urgency -->
     <div class="urgency-bar">
       <div class="ub-dot"></div>
-      <div class="ub-text">High demand: <span>Only {{ product.variants.first.inventory_quantity | default: "a few" }} left</span> in stock.</div>
+      <div class="ub-text"><span>🔥 {{ "now" | date: "%S" | plus: 30 }} people</span> are viewing this right now</div>
     </div>
 
-    <div class="pdp-collection">{{ product.vendor | default: "DHARMA COLLECTION" }}</div>
+    <div class="pdp-collection">{{ product.vendor | default: "Dharma Collection" }}</div>
     <h1 class="pdp-name">{{ product.title }}</h1>
-    
+
+    <!-- Rating -->
     <div class="pdp-rating">
-      <div class="stars">★★★★★</div>
-      <div class="rating-count">4.9/5 (<a href="#reviews">128 Reviews</a>)</div>
+      <span class="stars">★★★★★</span>
+      <span class="rating-count">4.9 &nbsp;·&nbsp; <a href="#reviews" onclick="openTab('reviews')">128 Reviews</a></span>
     </div>
 
+    <!-- Price -->
     <div class="pdp-price-row">
-      <div class="pdp-price">{{ product.price | money }}</div>
-      {% if product.compare_at_price > product.price %}
-        <div class="pdp-price-orig">{{ product.compare_at_price | money }}</div>
-        <div class="pdp-discount">SAVE {{ product.compare_at_price | minus: product.price | money }}</div>
-      {% endif %}
+      <div class="pdp-price" id="pdpPrice">{{ product.selected_or_first_available_variant.price | money }}</div>
+      
+      <div class="pdp-price-orig" id="pdpComparePrice" style="{% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}display:none;{% endunless %}">
+         {{ product.selected_or_first_available_variant.compare_at_price | money }}
+      </div>
+      
+      <div class="pdp-discount" style="{% unless product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}display:none;{% endunless %}">
+         SAVE {{ product.selected_or_first_available_variant.compare_at_price | minus: product.selected_or_first_available_variant.price | money }}
+      </div>
     </div>
-    <div class="pdp-tax-note">Taxes included. Free shipping on prepaid orders.</div>
+    <div class="pdp-tax-note">Inclusive of all taxes. Free shipping over ₹999.</div>
 
+    <!-- Social proof -->
     <div class="live-proof">
-      <div class="lp-icon">👀</div>
-      <div class="lp-text"><strong>{{ "now" | date: "%S" | plus: 20 }} people</strong> are viewing this right now</div>
+      <span class="lp-icon">👥</span>
+      <span class="lp-text"><strong>{{ "now" | date: "%M" | plus: 12 }} people</strong> bought this in the last 24 hours</span>
     </div>
-    
+
     <div class="pdp-divider"></div>
 
-    {% form 'product', product, class: 'pdp-form', id: 'pdpForm' %}
-      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-
-      <!-- Options -->
+    <!-- ATC FORM -->
+    {% form 'product', product, id: 'pdpForm', class: 'pdp-form' %}
+      <input type="hidden" name="id" id="pdpVariantId" value="{{ product.selected_or_first_available_variant.id }}">
+      
       {% unless product.has_only_default_variant %}
         {% for option in product.options_with_values %}
-          <div class="pdp-option">
-            <div class="pdp-option-label">{{ option.name }} <span>Select</span></div>
+          <div class="pdp-option" data-option-name="{{ option.name }}">
+            <div class="pdp-option-label">{{ option.name }} <span id="opt-label-{{ option.name }}">{{ option.selected_value }}</span></div>
+            
             {% if option.name == 'Color' or option.name == 'Colour' %}
               <div class="color-opts">
                 {% for value in option.values %}
-                  <div class="color-opt {% if option.selected_value == value %}active{% endif %}" style="background-color: {{ value | handle }};" title="{{ value | escape }}" onclick="document.querySelectorAll('.color-opt').forEach(el=>el.classList.remove('active')); this.classList.add('active');"></div>
+                   {% assign color_hex = value | handle %}
+                   {% if color_hex == 'ink-black' %}{% assign color_code = '#0F0D0A' %}{% endif %}
+                   {% if color_hex == 'deep-maroon' %}{% assign color_code = '#1A0800' %}{% endif %}
+                   {% if color_hex == 'parchment' %}{% assign color_code = '#F5EDD8' %}{% endif %}
+                   {% if color_hex == 'midnight-blue' %}{% assign color_code = '#080A1F' %}{% endif %}
+                   {% if color_hex == 'saffron' %}{% assign color_code = '#E8540A' %}{% endif %}
+                   {% if color_code == blank %}{% assign color_code = value | handle %}{% endif %}
+
+                   <div class="color-opt {% if option.selected_value == value %}active{% endif %}" 
+                        style="background-color: {{ color_code }};" 
+                        title="{{ value | escape }}" 
+                        data-value="{{ value | escape }}"
+                        onclick="selectColor(this, '{{ option.name }}', '{{ value | escape }}')"></div>
                 {% endfor %}
               </div>
             {% else %}
               <div class="size-opts">
                 {% for value in option.values %}
-                   <div class="size-opt {% if option.selected_value == value %}active{% endif %}" onclick="document.querySelectorAll('.size-opt').forEach(el=>el.classList.remove('active')); this.classList.add('active');">{{ value | escape }}</div>
+                   <div class="size-opt {% if option.selected_value == value %}active{% endif %}" 
+                        data-value="{{ value | escape }}"
+                        onclick="selectSize(this, '{{ option.name }}', '{{ value | escape }}')">{{ value | escape }}</div>
                 {% endfor %}
               </div>
             {% endif %}
@@ -117,70 +192,121 @@
         {% endfor %}
       {% endunless %}
 
+      <span class="size-guide-link" onclick="openTab('specs')">📐 Size Guide & Measurements</span>
+
+      <!-- Countdown -->
       <div class="countdown-bar">
-        <div class="cd-icon">⏳</div>
-        <div class="cd-text">Order now to ship today</div>
+        <span class="cd-icon">⏰</span>
+        <span class="cd-text">Sale ends in</span>
         <div class="cd-timer">
-          <div class="cd-unit"><div class="cd-num">04</div><div class="cd-label">HRS</div></div>
+          <div class="cd-unit"><div class="cd-num" id="cdH">08</div><div class="cd-label">HRS</div></div>
           <div class="cd-colon">:</div>
-          <div class="cd-unit"><div class="cd-num">32</div><div class="cd-label">MIN</div></div>
+          <div class="cd-unit"><div class="cd-num" id="cdM">43</div><div class="cd-label">MIN</div></div>
           <div class="cd-colon">:</div>
-          <div class="cd-unit"><div class="cd-num">18</div><div class="cd-label">SEC</div></div>
+          <div class="cd-unit"><div class="cd-num" id="cdS">22</div><div class="cd-label">SEC</div></div>
         </div>
       </div>
 
+      <!-- Stock bar -->
       <div class="stock-row">
         <div class="stock-bar-wrap"><div class="stock-bar"></div></div>
         <div class="stock-text">SELLING FAST</div>
       </div>
 
+      <!-- Qty + ATC -->
       <div class="qty-atc">
         <div class="qty-selector">
-          <button type="button" onclick="var i=document.getElementById('pdpQty'); i.value=Math.max(1,parseInt(i.value)-1); document.getElementById('qtyDisplay').innerText=i.value;">−</button>
-          <span id="qtyDisplay">1</span>
-          <button type="button" onclick="var i=document.getElementById('pdpQty'); i.value=parseInt(i.value)+1; document.getElementById('qtyDisplay').innerText=i.value;">+</button>
-          <input type="hidden" name="quantity" id="pdpQty" value="1">
+          <button type="button" onclick="changeQty(-1)">−</button>
+          <input type="number" id="pdpQty" name="quantity" value="1" min="1" readonly>
+          <button type="button" onclick="changeQty(1)">+</button>
         </div>
-        <button type="submit" name="add" class="btn-atc">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="atc-icn" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          Add to Cart
+        <button type="submit" class="btn-atc" id="atcBtn" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+          {% if product.selected_or_first_available_variant.available %}
+             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="atc-icn" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+             ADD TO CART
+          {% else %}
+             SOLD OUT
+          {% endif %}
         </button>
       </div>
-      
+      <button type="submit" name="return_to" value="/checkout" class="btn-buy-now">⚡ BUY IT NOW</button>
+    
     {% endform %}
 
+    <!-- Trust strip -->
     <div class="trust-strip">
-      <div class="trust-item"><div class="ti-icon">🛡️</div><div class="ti-label">PREMIUM<br>QUALITY</div></div>
-      <div class="trust-item"><div class="ti-icon">⚡</div><div class="ti-label">FAST<br>SHIPPING</div></div>
-      <div class="trust-item"><div class="ti-icon">♻️</div><div class="ti-label">EASY<br>RETURNS</div></div>
-      <div class="trust-item"><div class="ti-icon">🔒</div><div class="ti-label">SECURE<br>CHECKOUT</div></div>
+      <div class="trust-item"><span class="ti-icon">🚚</span><span class="ti-label">Free Shipping<br>Above ₹999</span></div>
+      <div class="trust-item"><span class="ti-icon">↩️</span><span class="ti-label">Easy Returns<br>7 Days</span></div>
+      <div class="trust-item"><span class="ti-icon">🇮🇳</span><span class="ti-label">Made in<br>India</span></div>
+      <div class="trust-item"><span class="ti-icon">🔒</span><span class="ti-label">Secure<br>Payment</span></div>
     </div>
 
-    <!-- Product Description Accordion -->
+    <!-- Payment -->
+    <div class="payment-row">
+      <span class="pay-label">Pay via</span>
+      <span class="pay-icon">UPI</span>
+      <span class="pay-icon">Razorpay</span>
+      <span class="pay-icon">PayTM</span>
+      <span class="pay-icon">COD</span>
+      <span class="pay-icon">Net Banking</span>
+    </div>
+
+    <div class="pdp-divider"></div>
+
+    <!-- Accordion -->
     <div class="accordion">
       <div class="acc-item">
-        <button class="acc-header open" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('open');">
-          Product Details
-          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <button class="acc-header open" onclick="toggleAcc(this)">
+          Product Details <span class="acc-arrow">▾</span>
         </button>
         <div class="acc-body open">
           <div class="acc-inner">
-            <p>{{ product.description }}</p>
+             {{ product.description }}
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          Shipping &amp; Delivery <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <ul>
+              <li>Dispatched within 48 hours of order confirmation</li>
+              <li>Standard delivery: 4–7 business days (India)</li>
+              <li>Free shipping on all orders above ₹999</li>
+              <li>Express delivery available at checkout</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          Returns &amp; Exchanges <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>We accept returns within 7 days of delivery for manufacturing defects only. As this is a print-on-demand product, size exchanges are not offered — please refer to the size chart before ordering.</p>
+            <ul>
+              <li>Returns: 7 days, defects only</li>
+              <li>Size exchanges: Not available (POD policy)</li>
+              <li>Refund processed within 5–7 business days</li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
 
-  </div>
-</div>
+  </div><!-- .pdp-details -->
+</div><!-- .pdp-wrap -->
 
-<!-- STICKY ATC MOBILE -->
-<div class="sticky-atc">
+<!-- STICKY ATC (mobile) -->
+<div class="sticky-atc" id="stickyAtc">
   <div class="sticky-atc-inner">
     <div class="sa-info">
       <div class="sa-name">{{ product.title }}</div>
-      <div class="sa-price">{{ product.price | money }}</div>
+      <div class="sa-price" id="saPrice">{{ product.selected_or_first_available_variant.price | money }}</div>
     </div>
-    <button class="sa-btn" onclick="document.querySelector('.btn-atc').click()">Add to Cart</button>
+    <button class="sa-btn" onclick="document.getElementById('atcBtn').click();">Add to Cart</button>
   </div>
 </div>

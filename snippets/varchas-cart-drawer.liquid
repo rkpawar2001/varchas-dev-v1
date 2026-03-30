@@ -8,21 +8,16 @@
     </div>
     <button class="cart-close" id="cartClose" aria-label="Close cart" onclick="if(window.VARCHAS_CART) VARCHAS_CART.closeSidebar()">✕</button>
   </div>
+  
   <div class="cart-body" id="cartBody">
     <div class="cart-shipping-bar">
       <div class="shipping-label">Add <span id="shippingLeft">₹999</span> more for FREE shipping 🚀</div>
       <div class="shipping-track"><div class="shipping-fill" id="shippingFill" style="width:0%"></div></div>
     </div>
+    
+    <!-- Rendered Dynamically by varchas-custom.js -->
     <div class="cart-items" id="cartItems"></div>
-    <div class="cart-upsell" id="cartUpsell" style="display:none;">
-      <div class="cu-img">ARISE<br>ARJUNA</div>
-      <div class="cu-text">
-        <div class="cu-label">Pair it with</div>
-        <div class="cu-name">Arise Arjuna Tee</div>
-        <div class="cu-price">₹ 999</div>
-      </div>
-      <button class="cu-add" onclick="if(window.addUpsell) addUpsell()">+ Add</button>
-    </div>
+    
     <div class="cart-empty" id="cartEmpty">
       <div class="ce-icon">🛒</div>
       <div class="ce-title">YOUR CART AWAITS</div>
@@ -30,20 +25,22 @@
       <button class="ce-cta" onclick="if(window.VARCHAS_CART) VARCHAS_CART.closeSidebar(); window.location.href='{{ routes.all_products_collection_url }}';">Shop the Drop →</button>
     </div>
   </div>
+
   <div class="cart-foot" id="cartFoot" style="display:none;">
     <div class="cart-subtotal">
       <div class="cst-label">Subtotal</div>
       <div class="cst-amount" id="cartTotal">₹ 0</div>
     </div>
     <div class="cart-tax-note">Taxes &amp; shipping calculated at checkout</div>
+    
     <form action="{{ routes.cart_url }}" method="post" id="cartSidebarForm">
       <button type="submit" name="checkout" class="btn-checkout">Proceed to Checkout →</button>
     </form>
-    <a href="{{ routes.cart_url }}" class="btn-view-cart">View Full Cart</a>
+    
     <div class="cart-trust">
-      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure</div>
-      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Free Returns</div>
-      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Ships 48hrs</div>
+      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="ct-svg" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure</div>
+      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="ct-svg" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Free Returns</div>
+      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" class="ct-svg" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Ships 48hrs</div>
     </div>
   </div>
 </aside>

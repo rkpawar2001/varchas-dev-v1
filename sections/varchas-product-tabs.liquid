@@ -1,103 +1,137 @@
 {% schema %}
 {
   "name": "Product Tabs",
-  "settings": [],
+  "settings": [
+    {
+       "type": "text",
+       "id": "story_quote",
+       "label": "Default Story Quote",
+       "default": "Rise, O Arjuna. The world needs your sword."
+    },
+    {
+       "type": "textarea",
+       "id": "story_text",
+       "label": "Default Story Text",
+       "default": "Krishna speaks to a hesitant Arjuna on the battlefield of Kurukshetra. The words echo across millennia. We took those words — eternal, electric — and placed them on your chest. On the streets. In the gyms. In the colleges.\n\nBecause the battle isn't over. It's moved. From the Maidan to the boardroom. From Kurukshetra to every challenge you face. And in that arena, you are Arjuna. And the call is the same:\n\nARISE."
+    },
+    {
+       "type": "text",
+       "id": "story_graphic_text_en",
+       "label": "Graphic Text (English)",
+       "default": "ARISE<br>ARJUNA"
+    },
+    {
+       "type": "text",
+       "id": "story_graphic_text_hi",
+       "label": "Graphic Text (Hindi)",
+       "default": "तस्माद् उत्तिष्ठ कौन्तेय"
+    },
+    {
+       "type": "text",
+       "id": "story_graphic_footer",
+       "label": "Graphic Footer Text",
+       "default": "Tasmad uttishtha Kaunteya — Therefore arise, son of Kunti"
+    }
+  ],
   "presets": [
-    { "name": "Varchas Product Tabs" }
+    { "name": "Product Tabs" }
   ]
 }
 {% endschema %}
 
+<!-- TABS — STORY / SPECS / REVIEWS -->
 <section class="pdp-tabs-section">
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabStory').classList.add('active');">STORY</button>
-    <button class="tab-btn" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabSpecs').classList.add('active');">SPECS & CARE</button>
-    <button class="tab-btn" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabSize').classList.add('active');">SIZE CHART</button>
-    <button class="tab-btn" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabReviews').classList.add('active');">REVIEWS</button>
+    <button class="tab-btn active" data-tab-target="story" onclick="openTab('story')">The Story</button>
+    <button class="tab-btn" data-tab-target="specs" onclick="openTab('specs')">Specifications &amp; Size Guide</button>
+    <button class="tab-btn" data-tab-target="reviews" id="reviews-tab" onclick="openTab('reviews')">Reviews</button>
   </div>
 
-  <div class="tab-content">
-    
-    <!-- STORY -->
-    <div id="tabStory" class="tab-pane active">
-      <div class="story-grid">
-        <div>
-          <div class="story-quote">"SLAIN, YOU GAIN HEAVEN.<br><span>VICTORIOUS, YOU ENJOY THE EARTH.</span>"</div>
-          <p class="story-body">{{ product.description | truncatewords: 80 }}</p>
+  <!-- Story -->
+  <div class="tab-pane active" id="tab-story">
+    <div class="story-grid">
+      <div>
+        <div class="story-quote">"{{ product.metafields.custom.story_quote | default: section.settings.story_quote }}"</div>
+        <div class="story-body">
+           {% assign p_story = product.metafields.custom.story_text | default: section.settings.story_text %}
+           {{ p_story | newline_to_br }}
         </div>
-        <div class="story-visual-card">
-          <div class="svc-text">INDIA<br>AWAKES</div>
-          <div class="svc-foot">
-            <span class="svc-deva">रामो विग्रहवान् धर्मः</span>
-            <div class="svc-label">Dharma Collection</div>
-          </div>
+      </div>
+      <div class="story-visual-card">
+        <div class="svc-text">{{ product.metafields.custom.story_graphic_en | default: section.settings.story_graphic_text_en }}</div>
+        <div class="svc-foot">
+          <span class="svc-deva">{{ product.metafields.custom.story_graphic_hi | default: section.settings.story_graphic_text_hi }}</span>
+          <div class="svc-label">{{ product.metafields.custom.story_footer | default: section.settings.story_graphic_footer }}</div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- SPECS -->
-    <div id="tabSpecs" class="tab-pane">
-      <table class="specs-table">
-        <tbody>
-          <tr><td>MATERIAL</td><td>100% Premium Bio-Washed Cotton (240 GSM for Oversized, 180 GSM for Regular)</td></tr>
-          <tr><td>FIT</td><td>{{ product.title | append: ' Fit' }}</td></tr>
-          <tr><td>PRINT</td><td>High-density screen print with localized puff accents. Soft handfeel.</td></tr>
-          <tr><td>CARE INSTRUCTIONS</td><td>Machine wash cold, inside out. Do not iron directly on print. Do not bleach.</td></tr>
-          <tr><td>ORIGIN</td><td>Proudly conceived and crafted in India.</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- SIZE -->
-    <div id="tabSize" class="tab-pane">
-      <table class="size-chart-table">
-        <thead>
-          <tr><th>SIZE</th><th>CHEST (IN)</th><th>LENGTH (IN)</th><th>SHOULDER (IN)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>S</td><td>42</td><td>28</td><td>20</td></tr>
-          <tr class="hl"><td>M</td><td>44</td><td>29</td><td>21</td></tr>
-          <tr><td>L</td><td>46</td><td>30</td><td>22</td></tr>
-          <tr><td>XL</td><td>48</td><td>31</td><td>23</td></tr>
-        </tbody>
-      </table>
-      <div style="text-align:center; margin-top:16px;">
-        <span class="size-guide-link">Need Help Finding Your Size? Contact Us.</span>
+  <!-- Specs -->
+  <div class="tab-pane" id="tab-specs">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;" class="specs-grid-resp">
+      <div>
+        <div class="eyebrow" style="margin-bottom:20px;">Product Specifications</div>
+        <table class="specs-table">
+          <tr><td>Fabric</td><td>100% Bio-washed Cotton</td></tr>
+          <tr><td>Weight</td><td>240 GSM</td></tr>
+          <tr><td>Fit</td><td>Oversized, Drop Shoulder</td></tr>
+          <tr><td>Print Method</td><td>Screen Printing</td></tr>
+          <tr><td>Neck</td><td>Ribbed Crew Neck</td></tr>
+          <tr><td>Seam</td><td>Side-seamed</td></tr>
+          <tr><td>Care</td><td>Machine Wash Cold, Inside Out</td></tr>
+          <tr><td>Origin</td><td>Made in India 🇮🇳</td></tr>
+          <tr><td>SKU</td><td>{{ product.selected_or_first_available_variant.sku | default: "VRC-GENERIC" }}</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px;">Size Guide</div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--parchment);opacity:.4;margin-bottom:16px;">All measurements in inches</p>
+        <table class="size-chart-table">
+          <thead>
+            <tr><th>Size</th><th>Chest</th><th>Length</th><th>Shoulder</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>S</td><td>42</td><td>27</td><td>19</td></tr>
+            <tr class="hl"><td>M ✓</td><td>44</td><td>28</td><td>20</td></tr>
+            <tr><td>L</td><td>46</td><td>29</td><td>21</td></tr>
+            <tr><td>XL</td><td>48</td><td>30</td><td>22</td></tr>
+            <tr><td>2XL</td><td>50</td><td>31</td><td>23</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--parchment);opacity:.35;margin-top:12px;line-height:1.6;">±0.5 inch variation is normal in manufacturing. For oversized fit, choose your regular size. For a more relaxed silhouette, size up.</p>
       </div>
     </div>
+    <style>
+      @media(max-width:768px){ .specs-grid-resp{ grid-template-columns:1fr !important; } }
+    </style>
+  </div>
 
-    <!-- REVIEWS -->
-    <div id="tabReviews" class="tab-pane">
-      <div class="reviews-summary">
-        <div class="rs-score">
-          <div class="rs-num">4.9</div>
-          <div class="rs-stars">★★★★★</div>
-          <div class="rs-count">Based on 128 Reviews</div>
-        </div>
-        <div class="rs-bars">
-          <div class="rb-row"><div class="rb-label">5 ★</div><div class="rb-track"><div class="rb-fill" style="width:90%"></div></div><div class="rb-pct">90%</div></div>
-          <div class="rb-row"><div class="rb-label">4 ★</div><div class="rb-track"><div class="rb-fill" style="width:8%"></div></div><div class="rb-pct">8%</div></div>
-          <div class="rb-row"><div class="rb-label">3 ★</div><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><div class="rb-pct">2%</div></div>
-          <div class="rb-row"><div class="rb-label">2 ★</div><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><div class="rb-pct">0%</div></div>
-          <div class="rb-row"><div class="rb-label">1 ★</div><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><div class="rb-pct">0%</div></div>
-        </div>
+  <!-- Reviews (Static mockup integration, will eventually be tied to a reviews app integration like Yotpo/Judge.me) -->
+  <div class="tab-pane" id="tab-reviews" id="reviews">
+    <div class="reviews-summary">
+      <div class="rs-score">
+        <div class="rs-num">4.9</div>
+        <div class="rs-stars">★★★★★</div>
+        <div class="rs-count">128 Reviews</div>
       </div>
-      <div class="reviews-list">
-        <!-- Static placeholder reviews -->
-        <div class="review-card">
-          <div class="rv-header">
-            <div>
-              <div class="rv-stars">★★★★★</div>
-              <div class="rv-name">Aryan Mehta</div>
-            </div>
-            <div class="rv-date">12 May 2025</div>
-          </div>
-          <div class="rv-tag">Oversized Fit · Black</div>
-          <p class="rv-text">"I've been waiting for a brand like this my whole life. The tee isn't just a shirt — it's a statement I wear every day to the gym."</p>
-          <div class="rv-verified">✓ Verified Buyer</div>
-        </div>
+      <div class="rs-bars">
+        <div class="rb-row"><span class="rb-label">5★</span><div class="rb-track"><div class="rb-fill" style="width:88%"></div></div><span class="rb-pct">88%</span></div>
+        <div class="rb-row"><span class="rb-label">4★</span><div class="rb-track"><div class="rb-fill" style="width:9%"></div></div><span class="rb-pct">9%</span></div>
+        <div class="rb-row"><span class="rb-label">3★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-pct">2%</span></div>
+        <div class="rb-row"><span class="rb-label">2★</span><div class="rb-track"><div class="rb-fill" style="width:1%"></div></div><span class="rb-pct">1%</span></div>
+        <div class="rb-row"><span class="rb-label">1★</span><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><span class="rb-pct">0%</span></div>
       </div>
     </div>
-
+    <div class="reviews-list">
+      <div class="review-card">
+        <div class="rv-header"><span class="rv-name">Aryan Mehta</span><span class="rv-date">Feb 2025</span></div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-tag">Verified Purchase · M / Ink Black</div>
+        <p class="rv-text">"This is the most fire tee I own. The print quality is absolutely insane — I've washed it 12+ times and it still looks brand new. The oversized fit is perfect for the gym. It's not just a piece of clothing, it's a declaration."</p>
+        <div class="rv-verified"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Verified Purchase</div>
+      </div>
+      <!-- Add more static reviews based on your HTML template if needed -->
+    </div>
   </div>
 </section>

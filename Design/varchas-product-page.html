@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arise Arjuna Oversized Tee — VARCHAS</title>
+<meta name="description" content="Arise Arjuna Oversized Tee — Answer the Call of Dharma. Premium Indian streetwear by Varchas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700;900&family=Barlow:wght@300;400;500&family=Noto+Serif+Devanagari:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════
+   TOKENS
+═══════════════════════════════ */
+:root {
+  --saffron:    #E8540A;
+  --saffron-dk: #B83D00;
+  --saffron-lt: #FF6C1B;
+  --cream:      #F5EDD8;
+  --parchment:  #EDE0C4;
+  --ink:        #0F0D0A;
+  --ink-soft:   #1A1713;
+  --gold:       #C4922A;
+  --blue-deep:  #1B2FA8;
+  --red-war:    #C41B1B;
+  --green-ok:   #2D9E5F;
+  --bar-h:  40px;
+  --nav-h:  68px;
+  --hdr-h:  108px;
+}
+
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--ink); color:var(--cream); font-family:'Barlow',sans-serif; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+a { text-decoration:none; color:inherit; }
+img { display:block; max-width:100%; }
+::-webkit-scrollbar       { width:4px; }
+::-webkit-scrollbar-track { background:var(--ink); }
+::-webkit-scrollbar-thumb { background:var(--saffron); border-radius:2px; }
+body::after { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity:.022; pointer-events:none; z-index:9999; }
+
+/* ═══════════════════════════════
+   ANNOUNCEMENT BAR
+═══════════════════════════════ */
+.bar {
+  position:fixed; top:0; left:0; right:0;
+  height:var(--bar-h); z-index:1001;
+  background:var(--saffron);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:12px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--ink); padding:0 16px; text-align:center;
+}
+
+/* ═══════════════════════════════
+   NAV
+═══════════════════════════════ */
+nav {
+  position:fixed; top:var(--bar-h); left:0; right:0;
+  height:var(--nav-h); z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px;
+  background:rgba(10,8,5,.97);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(232,84,10,.18);
+}
+.logo { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:.18em; color:var(--cream); flex-shrink:0; }
+.logo span { color:var(--saffron); }
+.nav-ul { display:flex; gap:32px; list-style:none; }
+.nav-ul a { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--cream); opacity:.68; transition:opacity .2s,color .2s; }
+.nav-ul a:hover { opacity:1; color:var(--saffron); }
+.nav-right { display:flex; align-items:center; gap:14px; }
+.btn-cart { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--ink); background:var(--saffron); padding:10px 18px; transition:background .2s; white-space:nowrap; border:none; cursor:pointer; display:flex; align-items:center; gap:8px; }
+.btn-cart:hover { background:var(--saffron-lt); }
+.cart-count { background:var(--ink); color:var(--cream); font-size:10px; font-weight:900; width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+.burger { display:none; flex-direction:column; justify-content:center; gap:5px; width:34px; height:34px; background:none; border:none; cursor:pointer; padding:4px; }
+.burger span { display:block; height:2px; background:var(--cream); border-radius:1px; transition:transform .3s,opacity .3s; transform-origin:left center; }
+.burger span:nth-child(2) { width:72%; }
+body.open .burger span:nth-child(1) { transform:rotate(37deg); }
+body.open .burger span:nth-child(2) { opacity:0; }
+body.open .burger span:nth-child(3) { transform:rotate(-37deg); }
+.mob { display:none; position:fixed; top:var(--hdr-h); left:0; right:0; background:var(--ink-soft); border-bottom:2px solid rgba(232,84,10,.22); z-index:998; padding:20px 20px 24px; flex-direction:column; }
+.mob.show { display:flex; }
+.mob a { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--cream); padding:13px 0; border-bottom:1px solid rgba(245,237,216,.07); opacity:.76; }
+.mob a:last-child { border-bottom:none; }
+.mob-cart { background:var(--saffron) !important; color:var(--ink) !important; text-align:center; opacity:1 !important; border:none !important; padding:14px 0 !important; margin-top:14px; }
+
+/* ═══════════════════════════════
+   CART SIDEBAR (shared)
+═══════════════════════════════ */
+.cart-overlay { position:fixed; inset:0; background:rgba(0,0,0,.65); z-index:2000; opacity:0; pointer-events:none; transition:opacity .32s; backdrop-filter:blur(3px); }
+.cart-overlay.active { opacity:1; pointer-events:all; }
+.cart-sidebar { position:fixed; top:0; right:0; bottom:0; width:min(420px,100vw); background:var(--ink-soft); border-left:1px solid rgba(232,84,10,.22); z-index:2001; display:flex; flex-direction:column; transform:translateX(105%); transition:transform .36s cubic-bezier(.4,0,.2,1); box-shadow:-24px 0 60px rgba(0,0,0,.55); }
+.cart-sidebar.active { transform:translateX(0); }
+.cart-head { display:flex; align-items:center; justify-content:space-between; padding:20px 22px; border-bottom:1px solid rgba(245,237,216,.07); flex-shrink:0; }
+.cart-head-title { font-family:'Bebas Neue',sans-serif; font-size:20px; letter-spacing:.12em; color:var(--cream); }
+.cart-head-sub { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--saffron); margin-top:1px; }
+.cart-close { background:none; border:none; cursor:pointer; color:var(--cream); opacity:.42; font-size:20px; line-height:1; transition:opacity .2s; padding:4px; }
+.cart-close:hover { opacity:1; }
+.cart-body { flex:1; overflow-y:auto; display:flex; flex-direction:column; }
+.cart-body::-webkit-scrollbar { width:3px; }
+.cart-body::-webkit-scrollbar-thumb { background:var(--saffron); }
+.cart-shipping-bar { padding:12px 22px; background:rgba(232,84,10,.07); border-bottom:1px solid rgba(245,237,216,.05); flex-shrink:0; }
+.shipping-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--cream); opacity:.65; margin-bottom:7px; }
+.shipping-label span { color:var(--saffron); opacity:1; }
+.shipping-track { height:3px; background:rgba(245,237,216,.1); border-radius:2px; }
+.shipping-fill { height:100%; width:0%; background:var(--saffron); border-radius:2px; transition:width .5s ease; }
+.cart-items { flex:1; }
+.cart-item { display:flex; gap:13px; align-items:flex-start; padding:14px 22px; border-bottom:1px solid rgba(245,237,216,.05); }
+.ci-img { width:68px; height:68px; flex-shrink:0; background:var(--ink); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:11px; color:var(--saffron); letter-spacing:.04em; text-align:center; line-height:1.2; white-space:pre-line; }
+.ci-info { flex:1; min-width:0; }
+.ci-name { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--cream); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ci-variant { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--parchment); opacity:.38; margin-bottom:9px; }
+.ci-row { display:flex; align-items:center; justify-content:space-between; }
+.ci-qty { display:flex; align-items:center; border:1px solid rgba(245,237,216,.12); }
+.ci-qty button { background:none; border:none; cursor:pointer; color:var(--cream); opacity:.55; width:26px; height:26px; font-size:15px; transition:opacity .2s,color .2s; display:flex; align-items:center; justify-content:center; }
+.ci-qty button:hover { opacity:1; color:var(--saffron); }
+.ci-qty span { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; color:var(--cream); width:26px; text-align:center; line-height:26px; }
+.ci-price { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700; color:var(--saffron); }
+.ci-remove { background:none; border:none; cursor:pointer; color:var(--parchment); opacity:.25; font-size:13px; padding:2px; transition:opacity .2s,color .2s; align-self:flex-start; margin-top:1px; }
+.ci-remove:hover { opacity:.8; color:#C41B1B; }
+.cart-upsell { margin:8px 22px; background:rgba(232,84,10,.07); border:1px solid rgba(232,84,10,.18); padding:12px; display:flex; gap:11px; align-items:center; }
+.cu-img { width:48px; height:48px; flex-shrink:0; background:linear-gradient(135deg,#1A0800,#E8540A); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:9px; color:var(--cream); text-align:center; line-height:1.2; }
+.cu-text { flex:1; }
+.cu-label { font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--saffron); margin-bottom:2px; }
+.cu-name { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--cream); }
+.cu-price { font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; color:var(--saffron); }
+.cu-add { background:var(--saffron); color:var(--ink); border:none; cursor:pointer; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; padding:7px 12px; transition:background .2s; }
+.cu-add:hover { background:var(--saffron-lt); }
+.cart-empty { display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; padding:40px 24px; text-align:center; }
+.ce-icon { font-size:44px; margin-bottom:14px; opacity:.22; }
+.ce-title { font-family:'Bebas Neue',sans-serif; font-size:26px; letter-spacing:.1em; color:var(--cream); margin-bottom:7px; }
+.ce-sub { font-family:'Barlow Condensed',sans-serif; font-size:12px; letter-spacing:.14em; color:var(--parchment); opacity:.4; margin-bottom:20px; line-height:1.5; }
+.ce-cta { background:var(--saffron); color:var(--ink); font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; padding:13px 28px; border:none; cursor:pointer; }
+.cart-foot { flex-shrink:0; padding:18px 22px 22px; border-top:1px solid rgba(245,237,216,.07); background:var(--ink); }
+.cart-subtotal { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
+.cst-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--parchment); opacity:.5; }
+.cst-amount { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:.05em; color:var(--cream); }
+.cart-tax-note { font-family:'Barlow Condensed',sans-serif; font-size:10px; letter-spacing:.1em; color:var(--parchment); opacity:.28; margin-bottom:14px; }
+.btn-checkout { display:block; width:100%; background:var(--saffron); color:var(--ink); font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; padding:17px; text-align:center; border:none; cursor:pointer; transition:background .2s; margin-bottom:9px; }
+.btn-checkout:hover { background:var(--saffron-lt); }
+.btn-view-cart { display:block; width:100%; text-align:center; font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--parchment); opacity:.38; border:1px solid rgba(245,237,216,.1); padding:11px; transition:opacity .2s; }
+.cart-trust { display:flex; justify-content:center; gap:18px; margin-top:13px; }
+.ct-item { display:flex; align-items:center; gap:5px; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--parchment); opacity:.3; }
+
+/* ═══════════════════════════════
+   BREADCRUMB
+═══════════════════════════════ */
+.breadcrumb {
+  padding-top:var(--hdr-h);
+  background:var(--ink);
+  padding-left:48px; padding-right:48px;
+  padding-bottom:0;
+}
+.bc-inner {
+  display:flex; align-items:center; gap:8px;
+  padding:16px 0;
+  border-bottom:1px solid rgba(245,237,216,.06);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px; font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--parchment); opacity:.4;
+}
+.bc-inner a { color:inherit; transition:opacity .2s; }
+.bc-inner a:hover { opacity:.8; }
+.bc-sep { opacity:.3; }
+.bc-current { color:var(--cream); opacity:.7; }
+
+/* ═══════════════════════════════
+   PRODUCT LAYOUT
+═══════════════════════════════ */
+.pdp-wrap {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:0;
+  background:var(--ink);
+  min-height:calc(100vh - var(--hdr-h));
+}
+
+/* ── IMAGE GALLERY ── */
+.pdp-gallery {
+  position:sticky;
+  top:var(--hdr-h);
+  height:calc(100vh - var(--hdr-h));
+  overflow:hidden;
+  background:var(--ink-soft);
+}
+.gallery-main {
+  width:100%; height:80%;
+  position:relative; overflow:hidden;
+}
+.gallery-main-img {
+  width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(145deg,#1A0800 0%,#2D0E00 100%);
+  position:relative; overflow:hidden;
+}
+.gm-bg-word {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(100px,14vw,180px);
+  color:var(--saffron); opacity:.07;
+  pointer-events:none; user-select:none; line-height:1;
+}
+.gm-product-art {
+  position:relative; z-index:2;
+  text-align:center;
+}
+.gm-text {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(56px,7vw,96px);
+  color:var(--saffron); line-height:.88;
+  letter-spacing:.02em;
+}
+.gm-deva {
+  font-family:'Noto Serif Devanagari',serif;
+  font-size:clamp(14px,1.5vw,20px);
+  color:var(--cream); opacity:.38;
+  margin-top:10px; letter-spacing:.06em;
+  display:block;
+}
+/* image badge */
+.img-badge {
+  position:absolute; top:20px; left:20px;
+  background:var(--saffron); color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif;
+  font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  padding:6px 14px; z-index:10;
+}
+.img-badge.limited { background:var(--red-war); color:var(--cream); }
+
+/* gallery thumbnails */
+.gallery-thumbs {
+  height:20%; display:flex; gap:3px;
+  padding:3px;
+}
+.thumb {
+  flex:1; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:11px;
+  color:rgba(245,237,216,.35); letter-spacing:.06em;
+  border:2px solid transparent; transition:border-color .2s;
+  position:relative; overflow:hidden;
+}
+.thumb:hover, .thumb.active { border-color:var(--saffron); }
+.thumb-1 { background:linear-gradient(135deg,#1A0800,#2D0E00); }
+.thumb-2 { background:linear-gradient(135deg,#080A1F,#0F1530); }
+.thumb-3 { background:linear-gradient(135deg,#0F0D0A,#1A1713); }
+.thumb-4 { background:linear-gradient(135deg,#1F0A00,#3A1500); }
+.thumb-label { position:relative; z-index:2; text-align:center; line-height:1.2; font-size:10px; }
+
+/* ── PRODUCT DETAILS ── */
+.pdp-details {
+  padding:40px 48px 60px;
+  background:var(--ink);
+  overflow-y:auto;
+  max-height:calc(100vh - var(--hdr-h) + 200px);
+}
+
+/* Urgency bar */
+.urgency-bar {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(196,27,27,.1); border:1px solid rgba(196,27,27,.3);
+  padding:10px 14px; margin-bottom:20px;
+  animation:pulse-border 2s ease-in-out infinite;
+}
+@keyframes pulse-border {
+  0%,100% { border-color:rgba(196,27,27,.3); }
+  50% { border-color:rgba(196,27,27,.7); }
+}
+.ub-dot { width:8px; height:8px; border-radius:50%; background:#FF4444; flex-shrink:0; animation:blink 1.2s ease-in-out infinite; }
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:.25; } }
+.ub-text {
+  font-family:'Barlow Condensed',sans-serif; font-size:12px;
+  font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--cream); opacity:.85;
+}
+.ub-text span { color:#FF6B6B; }
+
+/* Collection tag */
+.pdp-collection {
+  font-family:'Barlow Condensed',sans-serif; font-size:11px;
+  font-weight:700; letter-spacing:.35em; text-transform:uppercase;
+  color:var(--saffron); margin-bottom:10px;
+}
+
+/* Product name */
+.pdp-name {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,4.5vw,58px);
+  line-height:.92; letter-spacing:.02em;
+  color:var(--cream); margin-bottom:14px;
+}
+
+/* Rating row */
+.pdp-rating {
+  display:flex; align-items:center; gap:14px; margin-bottom:16px;
+}
+.stars { color:var(--gold); font-size:14px; letter-spacing:2px; }
+.rating-count {
+  font-family:'Barlow Condensed',sans-serif; font-size:12px;
+  font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--parchment); opacity:.5;
+}
+.rating-count a { color:var(--saffron); text-decoration:underline; text-underline-offset:3px; opacity:.7; }
+
+/* Price row */
+.pdp-price-row {
+  display:flex; align-items:center; gap:14px; margin-bottom:6px;
+}
+.pdp-price {
+  font-family:'Bebas Neue',sans-serif; font-size:36px;
+  letter-spacing:.04em; color:var(--cream);
+}
+.pdp-price-orig {
+  font-family:'Barlow Condensed',sans-serif; font-size:18px;
+  font-weight:600; color:var(--parchment); opacity:.35;
+  text-decoration:line-through;
+}
+.pdp-discount {
+  font-family:'Barlow Condensed',sans-serif; font-size:12px;
+  font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  background:rgba(45,158,95,.15); color:#5FD98A;
+  border:1px solid rgba(45,158,95,.3); padding:4px 10px;
+}
+.pdp-tax-note {
+  font-family:'Barlow Condensed',sans-serif; font-size:11px;
+  letter-spacing:.12em; color:var(--parchment); opacity:.32; margin-bottom:20px;
+}
+
+/* Social proof / live viewers */
+.live-proof {
+  display:flex; align-items:center; gap:10px;
+  padding:11px 14px;
+  background:rgba(196,146,42,.07); border:1px solid rgba(196,146,42,.2);
+  margin-bottom:20px;
+}
+.lp-icon { font-size:16px; }
+.lp-text {
+  font-family:'Barlow Condensed',sans-serif; font-size:12px;
+  font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--parchment); opacity:.75;
+}
+.lp-text strong { color:var(--gold); }
+
+/* Divider */
+.pdp-divider { height:1px; background:rgba(245,237,216,.07); margin:18px 0; }
+
+/* Color selector */
+.pdp-option-label {
+  font-family:'Barlow Condensed',sans-serif; font-size:11px;
+  font-weight:700; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--parchment); opacity:.5; margin-bottom:10px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.pdp-option-label span {
+  font-family:'Barlow Condensed',sans-serif; font-size:12px;
+  font-weight:700; color:var(--cream); opacity:1;
+  letter-spacing:.06em; text-transform:none;
+}
+.color-opts { display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap; }
+.color-opt {
+  width:32px; height:32px; border-radius:50%;
+  cursor:pointer; border:2px solid transparent;
+  transition:border-color .2s, transform .15s;
+  position:relative;
+}
+.color-opt:hover { transform:scale(1.08); }
+.color-opt.active { border-color:var(--saffron); box-shadow:0 0 0 3px rgba(232,84,10,.25); }
+.color-opt::after {
+  content:attr(title);
+  position:absolute; bottom:calc(100% + 8px); left:50%; transform:translateX(-50%);
+  font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink); background:var(--cream);
+  padding:3px 8px; white-space:nowrap; pointer-events:none;
+  opacity:0; transition:opacity .2s;
+}
+.color-opt:hover::after { opacity:1; }
+
+/* Size selector */
+.size-opts { display:flex; gap:6px; margin-bottom:8px; flex-wrap:wrap; }
+.size-opt {
+  font-family:'Barlow Condensed',sans-serif; font-size:13px;
+  font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--cream); border:1px solid rgba(245,237,216,.2);
+  width:52px; height:44px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:border-color .2s, background .2s, color .2s;
+}
+.size-opt:hover { border-color:rgba(232,84,10,.5); }
+.size-opt.active { background:var(--saffron); color:var(--ink); border-color:var(--saffron); }
+.size-opt.sold-out { opacity:.3; cursor:not-allowed; text-decoration:line-through; }
+.size-guide-link {
+  font-family:'Barlow Condensed',sans-serif; font-size:11px;
+  font-weight:600; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--saffron); text-decoration:underline; text-underline-offset:3px;
+  margin-bottom:20px; display:inline-block; cursor:pointer;
+}
+
+/* Countdown timer */
+.countdown-bar {
+  display:flex; align-items:center; gap:14px;
+  background:rgba(232,84,10,.08); border:1px solid rgba(232,84,10,.2);
+  padding:12px 16px; margin-bottom:20px;
+}
+.cd-icon { font-size:18px; }
+.cd-text {
+  font-family:'Barlow Condensed',sans-serif; font-size:12px;
+  font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--cream); opacity:.75; flex:1;
+}
+.cd-timer {
+  display:flex; gap:6px; align-items:center;
+}
+.cd-unit {
+  text-align:center; min-width:40px;
+}
+.cd-num {
+  font-family:'Bebas Neue',sans-serif; font-size:22px;
+  letter-spacing:.05em; color:var(--saffron); line-height:1;
+}
+.cd-label {
+  font-family:'Barlow Condensed',sans-serif; font-size:9px;
+  font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--parchment); opacity:.4;
+}
+.cd-colon { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--saffron); opacity:.5; margin-top:-2px; }
+
+/* Stock indicator */
+.stock-row {
+  display:flex; align-items:center; gap:8px; margin-bottom:18px;
+}
+.stock-bar-wrap { flex:1; height:4px; background:rgba(245,237,216,.1); border-radius:2px; }
+.stock-bar { height:100%; width:28%; background:var(--red-war); border-radius:2px; }
+.stock-text {
+  font-family:'Barlow Condensed',sans-serif; font-size:11px;
+  font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:#FF6B6B;
+}
+
+/* Quantity + ATC */
+.qty-atc { display:flex; gap:8px; margin-bottom:14px; }
+.qty-selector {
+  display:flex; align-items:center;
+  border:1px solid rgba(245,237,216,.18);
+  flex-shrink:0;
+}
+.qty-selector button {
+  background:none; border:none; cursor:pointer;
+  color:var(--cream); opacity:.55; width:44px; height:52px;
+  font-size:20px; font-weight:300; transition:opacity .2s,color .2s;
+  display:flex; align-items:center; justify-content:center;
+}
+.qty-selector button:hover { opacity:1; color:var(--saffron); }
+.qty-selector span {
+  font-family:'Barlow Condensed',sans-serif; font-size:16px;
+  font-weight:700; color:var(--cream);
+  width:44px; text-align:center; line-height:52px;
+}
+.btn-atc {
+  flex:1; background:var(--saffron); color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif; font-size:15px;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  border:none; cursor:pointer; padding:16px 24px;
+  transition:background .2s, transform .15s;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.btn-atc:hover { background:var(--saffron-lt); transform:translateY(-1px); }
+.btn-atc.added { background:var(--green-ok); }
+.btn-atc svg { transition:transform .3s; }
+.btn-atc:hover svg { transform:scale(1.1); }
+
+.btn-buy-now {
+  display:block; width:100%;
+  background:var(--cream); color:var(--ink);
+  font-family:'Barlow Condensed',sans-serif; font-size:14px;
+  font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  border:none; cursor:pointer; padding:15px;
+  transition:background .2s; margin-bottom:16px;
+  text-align:center;
+}
+.btn-buy-now:hover { background:var(--parchment); }
+
+/* Trust badges */
+.trust-strip {
+  display:flex; gap:0;
+  border:1px solid rgba(245,237,216,.08);
+  margin-bottom:20px; flex-wrap:wrap;
+}
+.trust-item {
+  flex:1; min-width:100px;
+  display:flex; flex-direction:column; align-items:center;
+  gap:5px; padding:12px 8px;
+  border-right:1px solid rgba(245,237,216,.08);
+  text-align:center;
+}
+.trust-item:last-child { border-right:none; }
+.ti-icon { font-size:18px; opacity:.65; }
+.ti-label {
+  font-family:'Barlow Condensed',sans-serif; font-size:10px;
+  font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--parchment); opacity:.42; line-height:1.3;
+}
+
+/* Payment icons */
+.payment-row {
+  display:flex; align-items:center; gap:8px; margin-bottom:20px; flex-wrap:wrap;
+}
+.pay-label {
+  font-family:'Barlow Condensed',sans-serif; font-size:10px;
+  font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--parchment); opacity:.3; flex-shrink:0;
+}
+.pay-icon {
+  background:rgba(245,237,216,.07); border:1px solid rgba(245,237,216,.1);
+  padding:4px 8px;
+  font-family:'Barlow Condensed',sans-serif; font-size:10px;
+  font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--parchment); opacity:.4;
+}
+
+/* Accordion */
+.accordion { margin-bottom:0; }
+.acc-item { border-top:1px solid rgba(245,237,216,.08); }
+.acc-item:last-child { border-bottom:1px solid rgba(245,237,216,.08); }
+.acc-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 0; cursor:pointer;
+  font-family:'Barlow Condensed',sans-serif; font-size:13px;
+  font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--cream); opacity:.72;
+  background:none; border:none; width:100%; text-align:left;
+  transition:opacity .2s, color .2s;
+}
+.acc-header:hover { opacity:1; color:var(--saffron); }
+.acc-header.open { opacity:1; color:var(--saffron); }
+.acc-arrow { font-size:16px; transition:transform .25s; flex-shrink:0; opacity:.6; }
+.acc-header.open .acc-arrow { transform:rotate(180deg); }
+.acc-body {
+  overflow:hidden; max-height:0;
+  transition:max-height .35s ease, padding .25s ease;
+}
+.acc-body.open { max-height:600px; }
+.acc-inner { padding:0 0 18px; }
+.acc-inner p {
+  font-size:14px; line-height:1.85;
+  color:var(--parchment); opacity:.62; margin-bottom:12px;
+}
+.acc-inner ul {
+  list-style:none; display:flex; flex-direction:column; gap:7px;
+  padding:0; margin-bottom:12px;
+}
+.acc-inner li {
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:14px; color:var(--parchment); opacity:.62; line-height:1.5;
+}
+.acc-inner li::before { content:'—'; color:var(--saffron); opacity:.7; flex-shrink:0; }
+
+/* ═══════════════════════════════
+   TABS — STORY / SPECS / REVIEWS
+═══════════════════════════════ */
+.pdp-tabs-section {
+  background:var(--ink-soft);
+  padding:72px 48px;
+}
+.tab-nav {
+  display:flex; gap:0; border-bottom:1px solid rgba(245,237,216,.08);
+  margin-bottom:48px; overflow-x:auto; flex-wrap:nowrap;
+}
+.tab-btn {
+  font-family:'Barlow Condensed',sans-serif; font-size:13px;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--cream); opacity:.4; padding:14px 28px;
+  border:none; background:none; cursor:pointer;
+  border-bottom:2px solid transparent; white-space:nowrap;
+  transition:opacity .2s, color .2s, border-color .2s;
+  margin-bottom:-1px;
+}
+.tab-btn:hover { opacity:.75; }
+.tab-btn.active { opacity:1; color:var(--saffron); border-bottom-color:var(--saffron); }
+.tab-pane { display:none; }
+.tab-pane.active { display:block; }
+
+/* story tab */
+.story-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+.story-quote {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(28px,3.5vw,44px);
+  line-height:1.05; color:var(--cream);
+  opacity:.85; letter-spacing:.03em; margin-bottom:24px;
+}
+.story-quote span { color:var(--saffron); }
+.story-body { font-size:15px; line-height:1.88; color:var(--parchment); opacity:.62; }
+.story-visual-card {
+  background:linear-gradient(145deg,#1B2FA8,#E8540A);
+  aspect-ratio:4/5; position:relative; overflow:hidden;
+}
+.svc-text {
+  position:absolute; inset:0;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(40px,5vw,72px);
+  color:rgba(245,237,216,.12);
+  letter-spacing:.05em;
+}
+.svc-foot {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:24px;
+  background:linear-gradient(to top,rgba(10,8,5,.9),transparent);
+}
+.svc-deva { font-family:'Noto Serif Devanagari',serif; font-size:20px; color:var(--cream); opacity:.85; display:block; margin-bottom:4px; }
+.svc-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.3em; text-transform:uppercase; color:var(--saffron); }
+
+/* specs tab */
+.specs-table { width:100%; border-collapse:collapse; }
+.specs-table tr:nth-child(even) td { background:rgba(245,237,216,.02); }
+.specs-table td {
+  padding:14px 16px;
+  border-bottom:1px solid rgba(245,237,216,.06);
+  font-family:'Barlow',sans-serif; font-size:14px;
+  color:var(--parchment); opacity:.65; line-height:1.5;
+}
+.specs-table td:first-child {
+  font-family:'Barlow Condensed',sans-serif; font-size:12px;
+  font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--cream); opacity:.5; width:36%; white-space:nowrap;
+}
+
+/* size chart */
+.size-chart-table { width:100%; border-collapse:collapse; margin-top:24px; }
+.size-chart-table th {
+  font-family:'Barlow Condensed',sans-serif; font-size:11px;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--saffron); padding:10px 14px;
+  border-bottom:2px solid rgba(232,84,10,.2); text-align:center;
+}
+.size-chart-table td {
+  padding:12px 14px; text-align:center;
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:600;
+  color:var(--parchment); opacity:.6;
+  border-bottom:1px solid rgba(245,237,216,.05);
+}
+.size-chart-table tr.hl td { background:rgba(232,84,10,.08); color:var(--saffron); opacity:1; }
+
+/* reviews tab */
+.reviews-summary {
+  display:grid; grid-template-columns:200px 1fr;
+  gap:48px; margin-bottom:48px; align-items:center;
+}
+.rs-score {
+  text-align:center;
+  border-right:1px solid rgba(245,237,216,.08);
+  padding-right:48px;
+}
+.rs-num { font-family:'Bebas Neue',sans-serif; font-size:80px; letter-spacing:.02em; color:var(--cream); line-height:1; }
+.rs-stars { color:var(--gold); font-size:18px; letter-spacing:3px; margin:4px 0; }
+.rs-count { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--parchment); opacity:.35; }
+.rs-bars { display:flex; flex-direction:column; gap:8px; }
+.rb-row { display:flex; align-items:center; gap:12px; }
+.rb-label { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; letter-spacing:.12em; color:var(--parchment); opacity:.45; width:40px; text-align:right; flex-shrink:0; }
+.rb-track { flex:1; height:5px; background:rgba(245,237,216,.08); border-radius:3px; }
+.rb-fill { height:100%; border-radius:3px; background:var(--gold); }
+.rb-pct { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:600; color:var(--parchment); opacity:.35; width:30px; }
+.reviews-list { display:flex; flex-direction:column; gap:3px; }
+.review-card {
+  background:var(--ink); padding:24px 22px;
+  border-top:2px solid transparent;
+}
+.review-card:nth-child(1) { border-color:var(--saffron); }
+.review-card:nth-child(2) { border-color:var(--gold); }
+.review-card:nth-child(3) { border-color:var(--blue-deep); }
+.rv-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.rv-name { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--cream); }
+.rv-date { font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:.12em; color:var(--parchment); opacity:.3; text-transform:uppercase; }
+.rv-stars { color:var(--gold); font-size:12px; letter-spacing:2px; margin-bottom:8px; }
+.rv-tag { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:9px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; background:rgba(232,84,10,.12); color:var(--saffron); border:1px solid rgba(232,84,10,.2); padding:3px 8px; margin-bottom:10px; }
+.rv-text { font-size:14px; line-height:1.76; color:var(--parchment); opacity:.68; }
+.rv-verified { display:flex; align-items:center; gap:6px; margin-top:12px; font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--green-ok); opacity:.75; }
+
+/* ═══════════════════════════════
+   RECENTLY VIEWED / RELATED
+═══════════════════════════════ */
+.related-section {
+  padding:72px 48px;
+  background:var(--ink);
+}
+.related-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:3px; margin-top:44px; }
+.rel-card { cursor:pointer; background:var(--ink-soft); overflow:hidden; }
+.rel-card:hover .rel-img { opacity:.82; }
+.rel-card:hover .rel-add { opacity:1; transform:translateY(0); }
+.rel-img { aspect-ratio:1; position:relative; overflow:hidden; transition:opacity .3s; }
+.rel-mock { width:100%; height:100%; display:flex; align-items:center; justify-content:center; }
+.rel-bg { position:absolute; inset:0; }
+.rel-1 .rel-bg { background:linear-gradient(145deg,#080A1F,#1B2FA8); }
+.rel-2 .rel-bg { background:linear-gradient(145deg,#3D2200,#C4922A); }
+.rel-3 .rel-bg { background:linear-gradient(145deg,#5A0000,#C41B1B); }
+.rel-4 .rel-bg { background:linear-gradient(145deg,#0F0D0A,#2A2520); }
+.rel-gfx { position:relative; z-index:2; font-family:'Bebas Neue',sans-serif; font-size:clamp(20px,2.5vw,34px); text-align:center; line-height:.9; }
+.rel-1 .rel-gfx { color:#8EB0FF; }
+.rel-2 .rel-gfx { color:var(--gold); }
+.rel-3 .rel-gfx { color:#FF7070; }
+.rel-4 .rel-gfx { color:var(--cream); opacity:.7; }
+.rel-add { position:absolute; bottom:0; left:0; right:0; background:var(--saffron); color:var(--ink); font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; text-align:center; padding:11px; opacity:0; transform:translateY(100%); transition:opacity .22s,transform .22s; border:none; cursor:pointer; z-index:10; }
+.rel-info { padding:14px 14px 18px; }
+.rel-name { font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--cream); margin-bottom:2px; }
+.rel-price { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700; color:var(--saffron); }
+
+/* Eyebrow / title shared */
+.eyebrow { font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:.42em; text-transform:uppercase; color:var(--saffron); margin-bottom:11px; }
+.stitle { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,5vw,62px); line-height:.93; letter-spacing:.02em; color:var(--cream); }
+
+/* ═══════════════════════════════
+   STICKY ATC MOBILE BAR
+═══════════════════════════════ */
+.sticky-atc {
+  display:none;
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--ink-soft);
+  border-top:1px solid rgba(232,84,10,.22);
+  padding:12px 16px;
+  z-index:500;
+  box-shadow:0 -8px 30px rgba(0,0,0,.4);
+}
+.sticky-atc-inner { display:flex; align-items:center; gap:10px; }
+.sa-info { flex:1; }
+.sa-name { font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--cream); }
+.sa-price { font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700; color:var(--saffron); }
+.sa-btn { background:var(--saffron); color:var(--ink); font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; border:none; cursor:pointer; padding:14px 22px; white-space:nowrap; transition:background .2s; }
+.sa-btn:hover { background:var(--saffron-lt); }
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width:1024px) {
+  .pdp-wrap { grid-template-columns:1fr; }
+  .pdp-gallery { position:relative; top:auto; height:auto; }
+  .gallery-main { height:60vw; max-height:480px; }
+  .gallery-thumbs { height:80px; }
+  .pdp-details { padding:32px 28px 52px; max-height:none; overflow-y:visible; }
+  .breadcrumb { padding-left:28px; padding-right:28px; }
+  .story-grid { grid-template-columns:1fr; }
+  .reviews-summary { grid-template-columns:1fr; }
+  .rs-score { border-right:none; padding-right:0; border-bottom:1px solid rgba(245,237,216,.08); padding-bottom:24px; margin-bottom:24px; }
+  .related-grid { grid-template-columns:repeat(2,1fr); }
+  .pdp-tabs-section { padding:56px 28px; }
+  .related-section { padding:56px 28px; }
+  nav { padding:0 28px; }
+}
+
+@media (max-width:768px) {
+  :root { --bar-h:36px; --nav-h:58px; --hdr-h:94px; }
+  .announce-bar { font-size:10px; letter-spacing:.14em; }
+  nav { padding:0 18px; }
+  .nav-ul { display:none; }
+  .btn-cart-txt { display:none; }
+  .burger { display:flex; }
+  .breadcrumb { padding-left:16px; padding-right:16px; }
+  .gallery-main { height:72vw; }
+  .pdp-details { padding:24px 16px 100px; }
+  .qty-atc { flex-direction:column; }
+  .btn-atc, .btn-buy-now { width:100%; }
+  .trust-strip { flex-wrap:wrap; }
+  .trust-item { min-width:calc(50% - 1px); }
+  .related-grid { grid-template-columns:repeat(2,1fr); }
+  .pdp-tabs-section { padding:48px 16px; }
+  .related-section { padding:48px 16px; }
+  .sticky-atc { display:block; }
+  .tab-btn { padding:14px 18px; font-size:12px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="bar">
+  🔥 Free Shipping on Orders Above ₹999 &nbsp;·&nbsp; New Drop: Kurukshetra Collection Live Now →
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="varchas-shopify-homepage.html" class="logo">VAR<span>C</span>HAS</a>
+  <ul class="nav-ul">
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">Collections</a></li>
+    <li><a href="#">Our Dharma</a></li>
+    <li><a href="#">Lookbook</a></li>
+    <li><a href="#">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-cart" id="cartBtn" aria-label="Open cart" onclick="VARCHAS_CART.open()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="btn-cart-txt">Cart</span> <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<nav class="mob" id="mobNav">
+  <a href="varchas-shopify-homepage.html">Home</a>
+  <a href="#">Shop</a>
+  <a href="#">Collections</a>
+  <a href="#">Our Dharma</a>
+  <a href="#">About</a>
+  <a href="#" class="mob-cart" onclick="VARCHAS_CART.open();return false;">Cart <span class="cart-count">0</span></a>
+</nav>
+
+<!-- CART OVERLAY + SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="VARCHAS_CART.closeSidebar()"></div>
+<aside class="cart-sidebar" id="cartSidebar" aria-label="Shopping cart">
+  <div class="cart-head">
+    <div>
+      <div class="cart-head-title">YOUR CART</div>
+      <div class="cart-head-sub" id="cartItemLabel">0 Items</div>
+    </div>
+    <button class="cart-close" onclick="VARCHAS_CART.closeSidebar()" aria-label="Close">✕</button>
+  </div>
+  <div class="cart-body">
+    <div class="cart-shipping-bar">
+      <div class="shipping-label">Add <span id="shippingLeft">₹999</span> more for FREE shipping 🚀</div>
+      <div class="shipping-track"><div class="shipping-fill" id="shippingFill" style="width:0%"></div></div>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-upsell" id="cartUpsell" style="display:none;">
+      <div class="cu-img">WARRIOR<br>LINEAGE</div>
+      <div class="cu-text">
+        <div class="cu-label">Pair it with</div>
+        <div class="cu-name">Warrior Lineage Tee</div>
+        <div class="cu-price">₹ 849</div>
+      </div>
+      <button class="cu-add" onclick="addUpsell()">+ Add</button>
+    </div>
+    <div class="cart-empty" id="cartEmpty">
+      <div class="ce-icon">🛒</div>
+      <div class="ce-title">YOUR CART AWAITS</div>
+      <div class="ce-sub">Add something worthy of your lineage.</div>
+      <button class="ce-cta" onclick="VARCHAS_CART.closeSidebar()">Shop the Drop →</button>
+    </div>
+  </div>
+  <div class="cart-foot" id="cartFoot" style="display:none;">
+    <div class="cart-subtotal">
+      <div class="cst-label">Subtotal</div>
+      <div class="cst-amount" id="cartTotal">₹ 0</div>
+    </div>
+    <div class="cart-tax-note">Taxes &amp; shipping calculated at checkout</div>
+    <button class="btn-checkout">Proceed to Checkout →</button>
+    <a href="#" class="btn-view-cart">View Full Cart</a>
+    <div class="cart-trust">
+      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> Secure</div>
+      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Free Returns</div>
+      <div class="ct-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Ships 48hrs</div>
+    </div>
+  </div>
+</aside>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="bc-inner">
+    <a href="varchas-shopify-homepage.html">Home</a>
+    <span class="bc-sep">/</span>
+    <a href="#">Dharma Collection</a>
+    <span class="bc-sep">/</span>
+    <span class="bc-current">Arise Arjuna Oversized Tee</span>
+  </div>
+</div>
+
+<!-- MAIN PRODUCT SECTION -->
+<div class="pdp-wrap">
+
+  <!-- ══ GALLERY ══ -->
+  <div class="pdp-gallery">
+    <div class="gallery-main">
+      <div class="gallery-main-img" id="mainImg">
+        <div class="gm-bg-word" aria-hidden="true">ARISE</div>
+        <div class="gm-product-art">
+          <div class="gm-text">ARISE<br>ARJUNA</div>
+          <span class="gm-deva">तस्माद् उत्तिष्ठ कौन्तेय</span>
+        </div>
+        <div class="img-badge">New Drop</div>
+      </div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="thumb thumb-1 active" onclick="switchThumb(this,'ARISE\\nARJUNA','#1A0800','#2D0E00','var(--saffron)')">
+        <span class="thumb-label">FRONT<br>VIEW</span>
+      </div>
+      <div class="thumb thumb-2" onclick="switchThumb(this,'BACK\\nVIEW','#080A1F','#0F1530','#8EB0FF')">
+        <span class="thumb-label">BACK<br>VIEW</span>
+      </div>
+      <div class="thumb thumb-3" onclick="switchThumb(this,'DETAIL\\nSHOT','#0F0D0A','#1A1713','rgba(245,237,216,.7)')">
+        <span class="thumb-label">DETAIL<br>SHOT</span>
+      </div>
+      <div class="thumb thumb-4" onclick="switchThumb(this,'LIFESTYLE','#1F0A00','#3A1500','var(--saffron)')">
+        <span class="thumb-label">LIFE<br>STYLE</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DETAILS ══ -->
+  <div class="pdp-details">
+
+    <!-- Urgency -->
+    <div class="urgency-bar">
+      <div class="ub-dot"></div>
+      <div class="ub-text"><span>🔥 47 people</span> are viewing this right now</div>
+    </div>
+
+    <div class="pdp-collection">Dharma Collection</div>
+    <h1 class="pdp-name">ARISE ARJUNA<br>OVERSIZED TEE</h1>
+
+    <!-- Rating -->
+    <div class="pdp-rating">
+      <span class="stars">★★★★★</span>
+      <span class="rating-count">4.9 &nbsp;·&nbsp; <a href="#reviews">128 Reviews</a></span>
+      <span class="rating-count">|&nbsp; 5000+ Sold</span>
+    </div>
+
+    <!-- Price -->
+    <div class="pdp-price-row">
+      <div class="pdp-price">₹ 999</div>
+      <div class="pdp-price-orig">₹ 1,299</div>
+      <div class="pdp-discount">23% OFF</div>
+    </div>
+    <div class="pdp-tax-note">Inclusive of all taxes</div>
+
+    <!-- Social proof -->
+    <div class="live-proof">
+      <span class="lp-icon">👥</span>
+      <span class="lp-text"><strong>23 people</strong> bought this in the last 24 hours</span>
+    </div>
+
+    <div class="pdp-divider"></div>
+
+    <!-- Color -->
+    <div class="pdp-option-label">Color <span id="colorLabel">Ink Black</span></div>
+    <div class="color-opts">
+      <div class="color-opt active" style="background:#0F0D0A;" title="Ink Black" onclick="selectColor(this,'Ink Black')"></div>
+      <div class="color-opt" style="background:#1A0800;" title="Deep Maroon" onclick="selectColor(this,'Deep Maroon')"></div>
+      <div class="color-opt" style="background:#F5EDD8;" title="Parchment" onclick="selectColor(this,'Parchment')"></div>
+      <div class="color-opt" style="background:#080A1F;" title="Midnight Blue" onclick="selectColor(this,'Midnight Blue')"></div>
+      <div class="color-opt" style="background:#E8540A;" title="Saffron" onclick="selectColor(this,'Saffron')"></div>
+    </div>
+
+    <!-- Size -->
+    <div class="pdp-option-label">Size <span id="sizeLabel">Select Size</span></div>
+    <div class="size-opts">
+      <div class="size-opt sold-out" title="Sold out">XS</div>
+      <div class="size-opt" onclick="selectSize(this,'S')">S</div>
+      <div class="size-opt active" onclick="selectSize(this,'M')">M</div>
+      <div class="size-opt" onclick="selectSize(this,'L')">L</div>
+      <div class="size-opt" onclick="selectSize(this,'XL')">XL</div>
+      <div class="size-opt" onclick="selectSize(this,'2XL')">2XL</div>
+    </div>
+    <span class="size-guide-link" onclick="openTab('specs')">📐 Size Guide & Measurements</span>
+
+    <!-- Countdown -->
+    <div class="countdown-bar">
+      <span class="cd-icon">⏰</span>
+      <span class="cd-text">Sale ends in</span>
+      <div class="cd-timer">
+        <div class="cd-unit"><div class="cd-num" id="cdH">08</div><div class="cd-label">HRS</div></div>
+        <div class="cd-colon">:</div>
+        <div class="cd-unit"><div class="cd-num" id="cdM">43</div><div class="cd-label">MIN</div></div>
+        <div class="cd-colon">:</div>
+        <div class="cd-unit"><div class="cd-num" id="cdS">22</div><div class="cd-label">SEC</div></div>
+      </div>
+    </div>
+
+    <!-- Stock bar -->
+    <div class="stock-row">
+      <div class="stock-bar-wrap"><div class="stock-bar"></div></div>
+      <div class="stock-text">⚡ Only 9 left in M / Ink Black</div>
+    </div>
+
+    <!-- Qty + ATC -->
+    <div class="qty-atc">
+      <div class="qty-selector">
+        <button onclick="changeQty(-1)">−</button>
+        <span id="qtyVal">1</span>
+        <button onclick="changeQty(+1)">+</button>
+      </div>
+      <button class="btn-atc" id="atcBtn" onclick="addToCart()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        ADD TO CART
+      </button>
+    </div>
+    <button class="btn-buy-now">⚡ BUY IT NOW</button>
+
+    <!-- Trust strip -->
+    <div class="trust-strip">
+      <div class="trust-item">
+        <span class="ti-icon">🚚</span>
+        <span class="ti-label">Free Shipping<br>Above ₹999</span>
+      </div>
+      <div class="trust-item">
+        <span class="ti-icon">↩️</span>
+        <span class="ti-label">Easy Returns<br>7 Days</span>
+      </div>
+      <div class="trust-item">
+        <span class="ti-icon">🇮🇳</span>
+        <span class="ti-label">Made in<br>India</span>
+      </div>
+      <div class="trust-item">
+        <span class="ti-icon">🔒</span>
+        <span class="ti-label">Secure<br>Payment</span>
+      </div>
+    </div>
+
+    <!-- Payment -->
+    <div class="payment-row">
+      <span class="pay-label">Pay via</span>
+      <span class="pay-icon">UPI</span>
+      <span class="pay-icon">Razorpay</span>
+      <span class="pay-icon">PayTM</span>
+      <span class="pay-icon">COD</span>
+      <span class="pay-icon">Net Banking</span>
+    </div>
+
+    <div class="pdp-divider"></div>
+
+    <!-- Accordion -->
+    <div class="accordion">
+      <div class="acc-item">
+        <button class="acc-header open" onclick="toggleAcc(this)">
+          Product Details <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body open">
+          <div class="acc-inner">
+            <p>The Arise Arjuna Oversized Tee is a statement piece rooted in civilizational pride. Featuring the Gita verse "Tasmad uttishtha Kaunteya" — Rise, O son of Kunti — screen-printed in bold typography across the front.</p>
+            <ul>
+              <li>100% Bio-washed Cotton — 240 GSM premium weight</li>
+              <li>Oversized drop-shoulder silhouette</li>
+              <li>Screen printed — built to last, wash after wash</li>
+              <li>Ribbed crew neck</li>
+              <li>Side-seamed for a cleaner fit</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          Shipping &amp; Delivery <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <ul>
+              <li>Dispatched within 48 hours of order confirmation</li>
+              <li>Standard delivery: 4–7 business days (India)</li>
+              <li>Free shipping on all orders above ₹999</li>
+              <li>Express delivery available at checkout</li>
+              <li>Fulfillment partner: Qikink (Print-on-demand)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          Returns &amp; Exchanges <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>We accept returns within 7 days of delivery for manufacturing defects only. As this is a print-on-demand product, size exchanges are not offered — please refer to the size chart before ordering.</p>
+            <ul>
+              <li>Returns: 7 days, defects only</li>
+              <li>Size exchanges: Not available (POD policy)</li>
+              <li>Refund processed within 5–7 business days</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-header" onclick="toggleAcc(this)">
+          The Design Story <span class="acc-arrow">▾</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-inner">
+            <p>Krishna speaks to a hesitant Arjuna on the battlefield of Kurukshetra. The words echo across millennia: "Rise, O Arjuna." We took those words — eternal, electric — and placed them where they belong: on your chest, on the streets, in the gyms, in the colleges. Because the battle isn't over. It's just moved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- .pdp-details -->
+</div><!-- .pdp-wrap -->
+
+<!-- TABS — STORY / SPECS / REVIEWS -->
+<section class="pdp-tabs-section">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="openTab('story')">The Story</button>
+    <button class="tab-btn" onclick="openTab('specs')">Specifications &amp; Size Guide</button>
+    <button class="tab-btn" id="reviews-tab" onclick="openTab('reviews')">Reviews (128)</button>
+  </div>
+
+  <!-- Story -->
+  <div class="tab-pane active" id="tab-story">
+    <div class="story-grid">
+      <div>
+        <div class="story-quote">"Rise, O Arjuna. The world <span>needs</span> your sword."</div>
+        <p class="story-body">Krishna speaks to a hesitant Arjuna on the battlefield of Kurukshetra. The words echo across millennia. We took those words — eternal, electric — and placed them on your chest. On the streets. In the gyms. In the colleges.<br><br>Because the battle isn't over. It's moved. From the Maidan to the boardroom. From Kurukshetra to every challenge you face. And in that arena, you are Arjuna. And the call is the same:<br><br><strong style="color:var(--saffron);font-family:'Bebas Neue';font-size:24px;letter-spacing:.05em;">ARISE.</strong></p>
+      </div>
+      <div class="story-visual-card">
+        <div class="svc-text">ARISE<br>ARJUNA</div>
+        <div class="svc-foot">
+          <span class="svc-deva">तस्माद् उत्तिष्ठ कौन्तेय</span>
+          <div class="svc-label">Tasmad uttishtha Kaunteya — Therefore arise, son of Kunti</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Specs -->
+  <div class="tab-pane" id="tab-specs">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
+      <div>
+        <div class="eyebrow" style="margin-bottom:20px;">Product Specifications</div>
+        <table class="specs-table">
+          <tr><td>Fabric</td><td>100% Bio-washed Cotton</td></tr>
+          <tr><td>Weight</td><td>240 GSM</td></tr>
+          <tr><td>Fit</td><td>Oversized, Drop Shoulder</td></tr>
+          <tr><td>Print Method</td><td>Screen Printing</td></tr>
+          <tr><td>Neck</td><td>Ribbed Crew Neck</td></tr>
+          <tr><td>Seam</td><td>Side-seamed</td></tr>
+          <tr><td>Care</td><td>Machine Wash Cold, Inside Out</td></tr>
+          <tr><td>Origin</td><td>Made in India 🇮🇳</td></tr>
+          <tr><td>SKU</td><td>VRC-AA-OVZ-001</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:8px;">Size Guide</div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--parchment);opacity:.4;margin-bottom:16px;">All measurements in inches</p>
+        <table class="size-chart-table">
+          <thead>
+            <tr><th>Size</th><th>Chest</th><th>Length</th><th>Shoulder</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>S</td><td>42</td><td>27</td><td>19</td></tr>
+            <tr class="hl"><td>M ✓</td><td>44</td><td>28</td><td>20</td></tr>
+            <tr><td>L</td><td>46</td><td>29</td><td>21</td></tr>
+            <tr><td>XL</td><td>48</td><td>30</td><td>22</td></tr>
+            <tr><td>2XL</td><td>50</td><td>31</td><td>23</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px;color:var(--parchment);opacity:.35;margin-top:12px;line-height:1.6;">±0.5 inch variation is normal in manufacturing. For oversized fit, choose your regular size. For a more relaxed silhouette, size up.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <div class="tab-pane" id="tab-reviews" id="reviews">
+    <div class="reviews-summary">
+      <div class="rs-score">
+        <div class="rs-num">4.9</div>
+        <div class="rs-stars">★★★★★</div>
+        <div class="rs-count">128 Reviews</div>
+      </div>
+      <div class="rs-bars">
+        <div class="rb-row"><span class="rb-label">5★</span><div class="rb-track"><div class="rb-fill" style="width:88%"></div></div><span class="rb-pct">88%</span></div>
+        <div class="rb-row"><span class="rb-label">4★</span><div class="rb-track"><div class="rb-fill" style="width:9%"></div></div><span class="rb-pct">9%</span></div>
+        <div class="rb-row"><span class="rb-label">3★</span><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><span class="rb-pct">2%</span></div>
+        <div class="rb-row"><span class="rb-label">2★</span><div class="rb-track"><div class="rb-fill" style="width:1%"></div></div><span class="rb-pct">1%</span></div>
+        <div class="rb-row"><span class="rb-label">1★</span><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><span class="rb-pct">0%</span></div>
+      </div>
+    </div>
+    <div class="reviews-list">
+      <div class="review-card">
+        <div class="rv-header"><span class="rv-name">Aryan Mehta</span><span class="rv-date">Feb 2025</span></div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-tag">Verified Purchase · M / Ink Black</div>
+        <p class="rv-text">"This is the most fire tee I own. The print quality is absolutely insane — I've washed it 12+ times and it still looks brand new. The oversized fit is perfect for the gym. It's not just a piece of clothing, it's a declaration."</p>
+        <div class="rv-verified"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Verified Purchase</div>
+      </div>
+      <div class="review-card">
+        <div class="rv-header"><span class="rv-name">Riya Sharma</span><span class="rv-date">Jan 2025</span></div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-tag">Verified Purchase · S / Parchment</div>
+        <p class="rv-text">"I read the Gita every morning and wearing this tee throughout the day feels like carrying that energy with me. The fabric is premium — way better quality than I expected at this price point. Will definitely order more."</p>
+        <div class="rv-verified"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Verified Purchase</div>
+      </div>
+      <div class="review-card">
+        <div class="rv-header"><span class="rv-name">Karthik Iyer</span><span class="rv-date">Mar 2025</span></div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-tag">Verified Purchase · L / Deep Maroon</div>
+        <p class="rv-text">"Got stopped three times on the street by people asking about the brand. That's how fire this design is. The cultural weight behind it is real — Varchas isn't just streetwear, it's a movement. Proud to be part of it."</p>
+        <div class="rv-verified"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Verified Purchase</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PRODUCTS -->
+<section class="related-section">
+  <div class="eyebrow">You May Also Like</div>
+  <h2 class="stitle">COMPLETE YOUR<br>ARSENAL</h2>
+  <div class="related-grid">
+    <div class="rel-card rel-1" onclick="location.href='#'">
+      <div class="rel-img">
+        <div class="rel-mock">
+          <div class="rel-bg"></div>
+          <div class="rel-gfx">RAMA<br>DHARMA</div>
+        </div>
+        <button class="rel-add" onclick="event.stopPropagation();VARCHAS_CART.add({id:'ramo-vigor-m',name:'Ramo Vigrahavan Hoodie',price:1699,size:'M',color:'Midnight Blue',graphic:'RAMA\nDHARMA'})">+ Add to Cart</button>
+      </div>
+      <div class="rel-info">
+        <div class="rel-name">Ramo Vigrahavan Hoodie</div>
+        <div class="rel-price">₹ 1,699</div>
+      </div>
+    </div>
+    <div class="rel-card rel-2" onclick="location.href='#'">
+      <div class="rel-img">
+        <div class="rel-mock">
+          <div class="rel-bg"></div>
+          <div class="rel-gfx">DHARMO<br>RAKSHATI</div>
+        </div>
+        <button class="rel-add" onclick="event.stopPropagation();VARCHAS_CART.add({id:'dharmo-m',name:'Dharmo Rakshati Tee',price:899,size:'M',color:'Heritage Gold',graphic:'DHARMO\nRAKSHATI'})">+ Add to Cart</button>
+      </div>
+      <div class="rel-info">
+        <div class="rel-name">Dharmo Rakshati Tee</div>
+        <div class="rel-price">₹ 899</div>
+      </div>
+    </div>
+    <div class="rel-card rel-3" onclick="location.href='#'">
+      <div class="rel-img">
+        <div class="rel-mock">
+          <div class="rel-bg"></div>
+          <div class="rel-gfx">WARRIOR<br>LINEAGE</div>
+        </div>
+        <button class="rel-add" onclick="event.stopPropagation();VARCHAS_CART.add({id:'warrior-m',name:'Warrior Lineage Regular Tee',price:849,size:'M',color:'Ink Black',graphic:'WARRIOR\nLINEAGE'})">+ Add to Cart</button>
+      </div>
+      <div class="rel-info">
+        <div class="rel-name">Warrior Lineage Regular Tee</div>
+        <div class="rel-price">₹ 849</div>
+      </div>
+    </div>
+    <div class="rel-card rel-4" onclick="location.href='#'">
+      <div class="rel-img">
+        <div class="rel-mock">
+          <div class="rel-bg"></div>
+          <div class="rel-gfx">YOGI<br>MINDSET</div>
+        </div>
+        <button class="rel-add" onclick="event.stopPropagation();VARCHAS_CART.add({id:'yogi-m',name:'Yogi Mindset Sweatshirt',price:1499,size:'M',color:'Charcoal',graphic:'YOGI\nMINDSET'})">+ Add to Cart</button>
+      </div>
+      <div class="rel-info">
+        <div class="rel-name">Yogi Mindset Sweatshirt</div>
+        <div class="rel-price">₹ 1,499</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STICKY ATC (mobile) -->
+<div class="sticky-atc" id="stickyAtc">
+  <div class="sticky-atc-inner">
+    <div class="sa-info">
+      <div class="sa-name">Arise Arjuna Oversized Tee</div>
+      <div class="sa-price">₹ 999</div>
+    </div>
+    <button class="sa-btn" onclick="addToCart()">Add to Cart</button>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ── SHARED CART ── */
+window.VARCHAS_CART = {
+  items:[], threshold:999,
+  add:function(item){
+    var ex=this.items.find(function(i){return i.id===item.id&&i.size===item.size&&i.color===item.color;});
+    if(ex){ex.qty++;}else{this.items.push(Object.assign({qty:1},item));}
+    this.render(); this.open();
+  },
+  remove:function(idx){this.items.splice(idx,1);this.render();},
+  changeQty:function(idx,d){this.items[idx].qty=Math.max(1,this.items[idx].qty+d);this.render();},
+  total:function(){return this.items.reduce(function(s,i){return s+i.price*i.qty;},0);},
+  count:function(){return this.items.reduce(function(s,i){return s+i.qty;},0);},
+  open:function(){
+    var ov=document.getElementById('cartOverlay'),sb=document.getElementById('cartSidebar');
+    if(ov)ov.classList.add('active');
+    if(sb)sb.classList.add('active');
+    document.body.style.overflow='hidden';
+  },
+  closeSidebar:function(){
+    var ov=document.getElementById('cartOverlay'),sb=document.getElementById('cartSidebar');
+    if(ov)ov.classList.remove('active');
+    if(sb)sb.classList.remove('active');
+    document.body.style.overflow='';
+  },
+  render:function(){
+    var count=this.count(),total=this.total();
+    var left=Math.max(0,this.threshold-total);
+    var pct=Math.min(100,(total/this.threshold)*100);
+    document.querySelectorAll('.cart-count,[id="cartCount"]').forEach(function(el){el.textContent=count;});
+    var ct=document.getElementById('cartTotal');if(ct)ct.textContent='₹ '+total.toLocaleString('en-IN');
+    var cl=document.getElementById('cartItemLabel');if(cl)cl.textContent=count+(count===1?' Item':' Items');
+    var sl=document.getElementById('shippingLeft');if(sl)sl.textContent=left>0?'₹'+left.toLocaleString('en-IN'):'FREE shipping unlocked 🎉';
+    var sf=document.getElementById('shippingFill');if(sf)sf.style.width=pct+'%';
+    var container=document.getElementById('cartItems');
+    var emptyEl=document.getElementById('cartEmpty');
+    var upsellEl=document.getElementById('cartUpsell');
+    var footEl=document.getElementById('cartFoot');
+    if(!container)return;
+    if(this.items.length===0){
+      container.innerHTML='';
+      if(emptyEl)emptyEl.style.display='flex';
+      if(upsellEl)upsellEl.style.display='none';
+      if(footEl)footEl.style.display='none';
+    }else{
+      if(emptyEl)emptyEl.style.display='none';
+      if(upsellEl)upsellEl.style.display='flex';
+      if(footEl)footEl.style.display='block';
+      container.innerHTML=this.items.map(function(item,i){
+        return '<div class="cart-item"><div class="ci-img">'+item.graphic+'</div><div class="ci-info"><div class="ci-name">'+item.name+'</div><div class="ci-variant">'+item.size+' · '+item.color+'</div><div class="ci-row"><div class="ci-qty"><button onclick="VARCHAS_CART.changeQty('+i+',-1)">−</button><span>'+item.qty+'</span><button onclick="VARCHAS_CART.changeQty('+i+',+1)">+</button></div><div class="ci-price">₹ '+(item.price*item.qty).toLocaleString('en-IN')+'</div></div></div><button class="ci-remove" onclick="VARCHAS_CART.remove('+i+')">✕</button></div>';
+      }).join('');
+    }
+  }
+};
+function closeCart(){VARCHAS_CART.closeSidebar();}
+function addUpsell(){VARCHAS_CART.add({id:'upsell-warrior-m',name:'Warrior Lineage Tee',price:849,size:'M',color:'Ink Black',graphic:'WARRIOR\nLINEAGE'});}
+VARCHAS_CART.render();
+
+document.addEventListener('keydown',function(e){if(e.key==='Escape')VARCHAS_CART.closeSidebar();});
+
+/* ── HAMBURGER ── */
+var burger=document.getElementById('burgerBtn'),mob=document.getElementById('mobNav');
+function setMenu(o){mob.classList.toggle('show',o);document.body.classList.toggle('open',o);burger.setAttribute('aria-expanded',String(o));}
+burger.addEventListener('click',function(){setMenu(!mob.classList.contains('show'));});
+mob.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setMenu(false);});});
+document.addEventListener('click',function(e){if(mob.classList.contains('show')&&!mob.contains(e.target)&&!burger.contains(e.target))setMenu(false);});
+
+/* ── PRODUCT STATE ── */
+var currentColor='Ink Black', currentSize='M', currentQty=1;
+
+function selectColor(el,name){
+  document.querySelectorAll('.color-opt').forEach(function(o){o.classList.remove('active');});
+  el.classList.add('active');
+  currentColor=name;
+  document.getElementById('colorLabel').textContent=name;
+}
+function selectSize(el,size){
+  document.querySelectorAll('.size-opt:not(.sold-out)').forEach(function(o){o.classList.remove('active');});
+  el.classList.add('active');
+  currentSize=size;
+  document.getElementById('sizeLabel').textContent=size;
+}
+function changeQty(d){
+  currentQty=Math.max(1,Math.min(10,currentQty+d));
+  document.getElementById('qtyVal').textContent=currentQty;
+}
+function addToCart(){
+  var btn=document.getElementById('atcBtn');
+  VARCHAS_CART.add({id:'arise-arjuna-'+currentSize+'-'+currentColor.replace(/\s/g,'-').toLowerCase(),name:'Arise Arjuna Oversized Tee',price:999,size:currentSize,color:currentColor,graphic:'ARISE\nARJUNA',qty:currentQty});
+  btn.classList.add('added');
+  btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ADDED TO CART';
+  setTimeout(function(){btn.classList.remove('added');btn.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> ADD TO CART';},2500);
+}
+window.selectColor=selectColor; window.selectSize=selectSize; window.changeQty=changeQty; window.addToCart=addToCart;
+
+/* ── GALLERY THUMB ── */
+function switchThumb(el,text,c1,c2,textColor){
+  document.querySelectorAll('.thumb').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  var mi=document.getElementById('mainImg');
+  mi.style.background='linear-gradient(145deg,'+c1+','+c2+')';
+  var art=mi.querySelector('.gm-text');
+  if(art){art.textContent=text.replace('\\n','\n'); art.style.color=textColor;}
+}
+window.switchThumb=switchThumb;
+
+/* ── ACCORDION ── */
+function toggleAcc(btn){
+  var body=btn.nextElementSibling;
+  var isOpen=btn.classList.contains('open');
+  btn.classList.toggle('open',!isOpen);
+  body.classList.toggle('open',!isOpen);
+}
+window.toggleAcc=toggleAcc;
+// open first by default
+var firstAcc=document.querySelector('.acc-body');
+if(firstAcc)firstAcc.classList.add('open');
+
+/* ── TABS ── */
+function openTab(id){
+  document.querySelectorAll('.tab-btn').forEach(function(b,i){
+    var ids=['story','specs','reviews'];
+    b.classList.toggle('active',ids[i]===id);
+  });
+  document.querySelectorAll('.tab-pane').forEach(function(p){
+    p.classList.toggle('active',p.id==='tab-'+id);
+  });
+  if(id!=='story'){
+    document.querySelector('.pdp-tabs-section').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+window.openTab=openTab;
+
+/* ── COUNTDOWN TIMER ── */
+var endTime=Date.now()+((8*3600+43*60+22)*1000);
+function updateTimer(){
+  var diff=Math.max(0,Math.floor((endTime-Date.now())/1000));
+  var h=Math.floor(diff/3600), m=Math.floor((diff%3600)/60), s=diff%60;
+  var hEl=document.getElementById('cdH'),mEl=document.getElementById('cdM'),sEl=document.getElementById('cdS');
+  if(hEl)hEl.textContent=(h<10?'0':'')+h;
+  if(mEl)mEl.textContent=(m<10?'0':'')+m;
+  if(sEl)sEl.textContent=(s<10?'0':'')+s;
+}
+updateTimer(); setInterval(updateTimer,1000);
+
+/* ── STICKY ATC (mobile) ── */
+var stickyAtc=document.getElementById('stickyAtc');
+var atcBtn=document.getElementById('atcBtn');
+if(stickyAtc&&atcBtn){
+  var io=new IntersectionObserver(function(entries){
+    stickyAtc.style.transform=entries[0].isIntersecting?'translateY(100%)':'translateY(0)';
+  },{threshold:0.2});
+  io.observe(atcBtn);
+}
+
+/* ── SCROLL REVEAL ── */
+if('IntersectionObserver' in window){
+  var revEls=document.querySelectorAll('.rel-card,.review-card,.trust-item,.pillar');
+  var ro=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.style.opacity='1';en.target.style.transform='translateY(0)';ro.unobserve(en.target);}
+    });
+  },{threshold:0.08});
+  revEls.forEach(function(el,i){
+    el.style.opacity='0';el.style.transform='translateY(16px)';
+    el.style.transition='opacity .42s ease '+(i%4*.07)+'s, transform .42s ease '+(i%4*.07)+'s';
+    ro.observe(el);
+  });
+}
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,23 +1,24 @@
-﻿
 (function(){
   'use strict';
 
-  /* â”€â”€ mobile menu toggle â”€â”€ */
+  /* ── mobile menu toggle ── */
   var burger = document.getElementById('burgerBtn');
   var mob    = document.getElementById('mobNav');
   function setMenu(open){
-    mob.classList.toggle('show', open);
-    document.body.classList.toggle('open', open);
-    burger.setAttribute('aria-expanded', String(open));
+    if(mob) {
+      mob.classList.toggle('show', open);
+      document.body.classList.toggle('open', open);
+      if(burger) burger.setAttribute('aria-expanded', String(open));
+    }
   }
-  burger.addEventListener('click', function(){ setMenu(!mob.classList.contains('show')); });
-  mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+  if(burger) burger.addEventListener('click', function(){ setMenu(!mob.classList.contains('show')); });
+  if(mob) mob.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
   document.addEventListener('click', function(e){
-    if(mob.classList.contains('show') && !mob.contains(e.target) && !burger.contains(e.target)) setMenu(false);
+    if(mob && mob.classList.contains('show') && !mob.contains(e.target) && burger && !burger.contains(e.target)) setMenu(false);
   });
   document.addEventListener('keydown', function(e){ if(e.key==='Escape') setMenu(false); });
 
-  /* â”€â”€ scroll-reveal â”€â”€ */
+  /* ── scroll-reveal ── */
   if('IntersectionObserver' in window){
     var els = document.querySelectorAll('.cc,.pcard,.tc,.lbi,.pillar');
     var io = new IntersectionObserver(function(entries){
@@ -38,66 +39,176 @@
     });
   }
 
-
-  /* â”€â”€ SHARED CART STATE â”€â”€ */
+  /* ── SHOPIFY AJAX CART API ── */
   window.VARCHAS_CART = {
-    items: [],
-    threshold: 999,
-    add: function(item) {
-      var ex = this.items.find(function(i){ return i.id===item.id && i.size===item.size && i.color===item.color; });
-      if(ex){ ex.qty++; } else { this.items.push(Object.assign({qty:1},item)); }
-      this.render(); this.open();
+    cartData: null,
+    threshold: 99900, // â‚¹999.00 in cents
+
+    init: function() {
+      this.fetchCart();
     },
-    remove: function(idx) { this.items.splice(idx,1); this.render(); },
-    changeQty: function(idx,d) { this.items[idx].qty = Math.max(1, this.items[idx].qty+d); this.render(); },
-    total: function() { return this.items.reduce(function(s,i){ return s+i.price*i.qty; },0); },
-    count: function() { return this.items.reduce(function(s,i){ return s+i.qty; },0); },
+
+    fetchCart: function() {
+      fetch(window.Shopify.routes.root + 'cart.js')
+        .then(response => response.json())
+        .then(data => {
+          this.cartData = data;
+          this.render();
+        })
+        .catch(e => console.error("Error fetching cart", e));
+    },
+
     open: function() {
       var ov=document.getElementById('cartOverlay'), sb=document.getElementById('cartSidebar');
       if(ov) ov.classList.add('active');
       if(sb) sb.classList.add('active');
       document.body.style.overflow='hidden';
     },
+
     closeSidebar: function() {
       var ov=document.getElementById('cartOverlay'), sb=document.getElementById('cartSidebar');
       if(ov) ov.classList.remove('active');
       if(sb) sb.classList.remove('active');
       document.body.style.overflow='';
     },
+
+    changeQty: function(key, quantity) {
+      if(quantity < 0) quantity = 0;
+      fetch(window.Shopify.routes.root + 'cart/change.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: key,
+          quantity: quantity
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        this.cartData = data;
+        this.render();
+      })
+      .catch(e => console.error("Error updating cart", e));
+    },
+
+    submitForm: function(form, btn) {
+      if(btn) {
+         btn.disabled = true;
+         var originalText = btn.innerHTML;
+         btn.innerHTML = 'ADDING...';
+      }
+
+      fetch(window.Shopify.routes.root + 'cart/add.js', {
+        method: 'POST',
+        body: new FormData(form)
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Add to cart failed");
+        return response.json();
+      })
+      .then(item => {
+        this.fetchCart();
+        this.open();
+      })
+      .catch(e => {
+        console.error("Error adding to cart", e);
+        alert('Item could not be added to cart. It might be out of stock.');
+      })
+      .finally(() => {
+        if(btn) {
+          btn.disabled = false;
+          // btn originalText logic shouldn't ruin pdp btn
+          if(btn.id === 'atcBtn') {
+             btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> ADDED TO CART';
+             btn.classList.add('added');
+             setTimeout(function(){
+               btn.classList.remove('added');
+               btn.innerHTML = originalText;
+             }, 2500);
+          } else {
+             btn.innerHTML = originalText;
+          }
+        }
+      });
+    },
+
+    formatMoney: function(cents) {
+      return '₹ ' + (cents / 100).toLocaleString('en-IN', {minimumFractionDigits: 0});
+    },
+
     render: function() {
-      var count=this.count(), total=this.total();
-      var left=Math.max(0,this.threshold-total);
-      var pct=Math.min(100,(total/this.threshold)*100);
-      document.querySelectorAll('.cart-count,[id="cartCount"]').forEach(function(el){ el.textContent=count; });
-      var ct=document.getElementById('cartTotal'); if(ct) ct.textContent='â‚¹ '+total.toLocaleString('en-IN');
-      var cl=document.getElementById('cartItemLabel'); if(cl) cl.textContent=count+(count===1?' Item':' Items');
-      var sl=document.getElementById('shippingLeft'); if(sl) sl.textContent=left>0?'â‚¹'+left.toLocaleString('en-IN'):'FREE shipping unlocked ðŸŽ‰';
-      var sf=document.getElementById('shippingFill'); if(sf) sf.style.width=pct+'%';
-      var container=document.getElementById('cartItems');
-      var emptyEl=document.getElementById('cartEmpty');
-      var upsellEl=document.getElementById('cartUpsell');
-      var footEl=document.getElementById('cartFoot');
+      if (!this.cartData) return;
+
+      var count = this.cartData.item_count;
+      var total = this.cartData.total_price;
+      var left = Math.max(0, this.threshold - total);
+      var pct = Math.min(100, (total / this.threshold) * 100);
+
+      document.querySelectorAll('.cart-count,[id="cartCount"]').forEach(el => el.textContent = count);
+      
+      var ct = document.getElementById('cartTotal'); 
+      if(ct) ct.textContent = this.formatMoney(total);
+      
+      var cl = document.getElementById('cartItemLabel'); 
+      if(cl) cl.textContent = count + (count === 1 ? ' Item' : ' Items');
+      
+      var sl = document.getElementById('shippingLeft'); 
+      if(sl) sl.textContent = left > 0 ? this.formatMoney(left) : 'FREE shipping unlocked 🎉';
+      
+      var sf = document.getElementById('shippingFill'); 
+      if(sf) sf.style.width = pct + '%';
+      
+      var container = document.getElementById('cartItems');
+      var emptyEl = document.getElementById('cartEmpty');
+      var upsellEl = document.getElementById('cartUpsell');
+      var footEl = document.getElementById('cartFoot');
+      
       if(!container) return;
-      if(this.items.length===0){
-        container.innerHTML='';
-        if(emptyEl)  emptyEl.style.display='flex';
-        if(upsellEl) upsellEl.style.display='none';
-        if(footEl)   footEl.style.display='none';
+
+      if(count === 0){
+        container.innerHTML = '';
+        if(emptyEl)  emptyEl.style.display = 'flex';
+        if(upsellEl) upsellEl.style.display = 'none';
+        if(footEl)   footEl.style.display = 'none';
       } else {
-        if(emptyEl)  emptyEl.style.display='none';
-        if(upsellEl) upsellEl.style.display='flex';
-        if(footEl)   footEl.style.display='block';
-        var self=this;
-        container.innerHTML=this.items.map(function(item,i){
-          return '<div class="cart-item"><div class="ci-img">'+item.graphic+'</div><div class="ci-info"><div class="ci-name">'+item.name+'</div><div class="ci-variant">'+item.size+' Â· '+item.color+'</div><div class="ci-row"><div class="ci-qty"><button onclick="VARCHAS_CART.changeQty('+i+',-1)">âˆ’</button><span>'+item.qty+'</span><button onclick="VARCHAS_CART.changeQty('+i+',+1)">+</button></div><div class="ci-price">â‚¹ '+(item.price*item.qty).toLocaleString('en-IN')+'</div></div></div><button class="ci-remove" onclick="VARCHAS_CART.remove('+i+')">âœ•</button></div>';
+        if(emptyEl)  emptyEl.style.display = 'none';
+        if(upsellEl) upsellEl.style.display = 'flex'; // Optional: conditionally hide based on cart contents
+        if(footEl)   footEl.style.display = 'block';
+        
+        container.innerHTML = this.cartData.items.map(item => {
+          var optionsHtml = item.options_with_values ? item.options_with_values.map(o => o.value).join(' · ') : (item.variant_title || '');
+          if(optionsHtml === 'Default Title') optionsHtml = '';
+          
+          var imageHtml = item.image ? `<img src="${item.image}" alt="${item.title}" style="width:100%; height:100%; object-fit:contain; background:#0F0D0A;">` : `<div class="ci-img" style="background:#0F0D0A; font-family:'Bebas Neue'; color:var(--saffron); font-size:11px; display:flex; align-items:center; justify-content:center;">VARCHAS</div>`;
+
+          return `
+            <div class="cart-item">
+              <div class="ci-img" style="padding:0; overflow:hidden;">${imageHtml}</div>
+              <div class="ci-info">
+                <div class="ci-name">${item.product_title}</div>
+                <div class="ci-variant">${optionsHtml}</div>
+                <div class="ci-row">
+                  <div class="ci-qty">
+                    <button onclick="VARCHAS_CART.changeQty('${item.key}', ${item.quantity - 1})">−</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="VARCHAS_CART.changeQty('${item.key}', ${item.quantity + 1})">+</button>
+                  </div>
+                  <div class="ci-price">${this.formatMoney(item.final_line_price)}</div>
+                </div>
+              </div>
+              <button class="ci-remove" onclick="VARCHAS_CART.changeQty('${item.key}', 0)">✕</button>
+            </div>
+          `;
         }).join('');
       }
     }
   };
-  function closeCart(){ VARCHAS_CART.closeSidebar(); }
-  function addUpsell(){ VARCHAS_CART.add({id:'upsell-arise-arjuna',name:'Arise Arjuna Oversized Tee',price:999,size:'M',color:'Ink Black',graphic:'ARISE\nARJUNA'}); }
 
-  /* â”€â”€ wire cart open â”€â”€ */
+  // Initialize cart tracking on load
+  VARCHAS_CART.init();
+
+  /* ── wire cart open ── */
   var cartBtn = document.getElementById('cartBtn');
   if(cartBtn) cartBtn.onclick = function(){ VARCHAS_CART.open(); };
   var mobCartBtn = document.querySelector('.mob-cart');
@@ -109,33 +220,32 @@
 
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') VARCHAS_CART.closeSidebar(); });
 
-  /* â”€â”€ product card add to cart â”€â”€ */
-  document.querySelectorAll('.padd').forEach(function(btn){
-    btn.onclick = function(e){
+  /* ── grid product card add to cart (using standard form submissions now) ── */
+  document.querySelectorAll('form[action="/cart/add"]').forEach(function(form) {
+    // skip pdp primary form as it's handled in varchas-product.js if needed, or bind globally
+    form.addEventListener('submit', function(e) {
+      // If it's the pdp form, let varchas-product.js handle it to avoid duplicate binding if both exist
+      if(this.id === 'pdpForm') return; 
+
+      e.preventDefault();
       e.stopPropagation();
-      var card = btn.closest('.pcard');
-      var name = card.querySelector('.pname').textContent;
-      var price= parseInt(card.querySelector('.pprice').textContent.replace(/[^0-9]/g,''));
-      var graphic = card.querySelector('.pbig').textContent;
-      VARCHAS_CART.add({id:'hp-'+name.replace(/\s/g,'-').toLowerCase(),name:name,price:price,size:'M',color:'Ink Black',graphic:graphic});
-    };
+      var btn = this.querySelector('button[type="submit"]');
+      VARCHAS_CART.submitForm(this, btn);
+    });
   });
-  VARCHAS_CART.render();
 
-
-  /* â”€â”€ newsletter feedback â”€â”€ */
+  /* ── newsletter feedback ── */
   var nlf = document.getElementById('nlForm');
   if(nlf){
     nlf.addEventListener('submit', function(){
       var inp=nlf.querySelector('input');
       var btn=nlf.querySelector('button');
       if(!inp.value) return;
-      btn.textContent='âœ“ Joined!';
+      btn.textContent='✓ Joined!';
       btn.style.background='#6DBF8A';
       inp.value='';
-      setTimeout(function(){ btn.textContent='Arise â†’'; btn.style.background=''; }, 2400);
+      setTimeout(function(){ btn.textContent='Arise →'; btn.style.background=''; }, 2400);
     });
   }
 
 })();
-
