@@ -1,0 +1,42 @@
+{% schema %}
+{
+  "name": "Varchas Marquee",
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Items",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text" },
+        { "type": "checkbox", "id": "is_deva", "label": "Devanagari Font?", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Varchas Marquee",
+      "blocks": [
+        { "type": "text", "settings": { "text": "DHARMA", "is_deva": false } },
+        { "type": "text", "settings": { "text": "धर्मो रक्षति रक्षितः", "is_deva": true } },
+        { "type": "text", "settings": { "text": "WARRIOR SPIRIT", "is_deva": false } },
+        { "type": "text", "settings": { "text": "वर्चस्", "is_deva": true } },
+        { "type": "text", "settings": { "text": "ARISE", "is_deva": false } },
+        { "type": "text", "settings": { "text": "PRINTED IN INDIA", "is_deva": false } },
+        { "type": "text", "settings": { "text": "BE THE HERO YOUR ANCESTORS DREAMED OF", "is_deva": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="marquee" aria-hidden="true">
+  <div class="m-trk">
+    {% for i in (1..6) %}
+      {% for block in section.blocks %}
+        <div class="m-item">
+          {% if block.settings.is_deva %}<span class="m-dev">{{ block.settings.text }}</span>{% else %}{{ block.settings.text }}{% endif %}
+          <span class="m-dot"></span>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>

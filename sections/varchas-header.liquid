@@ -1,0 +1,58 @@
+{% schema %}
+{
+  "name": "Varchas Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Varchas Header"
+    }
+  ]
+}
+{% endschema %}
+
+<nav>
+  <a href="{{ routes.root_url }}" class="logo">VAR<span>C</span>HAS</a>
+  
+  <ul class="nav-ul">
+    {% for link in linklists[section.settings.menu].links %}
+      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+    {% else %}
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Our Dharma</a></li>
+      <li><a href="#">Lookbook</a></li>
+      <li><a href="#">About</a></li>
+    {% endfor %}
+  </ul>
+  
+  <div class="nav-right">
+    <button class="btn-cart" id="cartBtn" aria-label="Open cart" onclick="if(window.VARCHAS_CART) window.VARCHAS_CART.openSidebar()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="btn-cart-txt">Cart</span> <span class="cart-count" id="cartCount">{{ cart.item_count | default: 0 }}</span>
+    </button>
+    <button class="burger" id="burgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Drawer -->
+<nav class="mob" id="mobNav" aria-label="Mobile navigation">
+  {% for link in linklists[section.settings.menu].links %}
+    <a href="{{ link.url }}">{{ link.title }}</a>
+  {% else %}
+    <a href="#">Shop</a>
+    <a href="#">Collections</a>
+    <a href="#">Our Dharma</a>
+    <a href="#">Lookbook</a>
+    <a href="#">About</a>
+  {% endfor %}
+  <a href="{{ routes.cart_url }}" class="mob-cart" onclick="if(window.VARCHAS_CART) { window.VARCHAS_CART.openSidebar(); return false; }">Cart <span class="cart-count">{{ cart.item_count | default: 0 }}</span></a>
+</nav>

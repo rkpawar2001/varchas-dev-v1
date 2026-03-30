@@ -1,0 +1,41 @@
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Discover More" },
+    { "type": "html", "id": "headline", "label": "Headline", "default": "YOUR LINEAGE<br>CONTINUES" }
+  ],
+  "presets": [
+    { "name": "Varchas Related Products" }
+  ]
+}
+{% endschema %}
+
+<section class="related-section">
+  <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+  <h2 class="stitle">{{ section.settings.headline }}</h2>
+  <div class="related-grid" id="varchas-related">
+    {% for related in collections.all.products limit: 4 %}
+      <div class="rel-card {% cycle 'rel-1','rel-2','rel-3','rel-4' %}" onclick="location.href='{{ related.url }}'">
+        <div class="rel-img">
+          <div class="rel-bg"></div>
+          <div class="rel-mock">
+            {% if related.featured_image %}
+              <img src="{{ related.featured_image | image_url: width: 400 }}" alt="{{ related.title }}" style="position:relative; z-index:2; max-height:80%;" loading="lazy">
+            {% else %}
+              <div class="rel-gfx">{{ related.title | escape }}</div>
+            {% endif %}
+          </div>
+          <form action="/cart/add" method="post" onclick="event.stopPropagation();">
+            <input type="hidden" name="id" value="{{ related.variants.first.id }}">
+            <button type="submit" class="rel-add">+ ADD QUICKLY</button>
+          </form>
+        </div>
+        <div class="rel-info">
+          <div class="rel-name">{{ related.title }}</div>
+          <div class="rel-price">{{ related.price | money }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,901 @@
+{% doc %}
+  @prompt
+    Create a premium Shopify hero section with a dark luxury streetwear aesthetic.
+    
+    Layout:
+    - Full-width hero section with black textured/gradient background.
+    - Left side: large bold typography content.
+    - Right side: overlapping tilted cards (2–3 promotional cards).
+    
+    LEFT CONTENT:
+    - Small top label: "NEW COLLECTION 2025" with thin line before it.
+    - Main heading (very large, bold, uppercase):
+      Line 1: WEAR YOUR
+      Line 2: ROOTS. (highlight this word in orange)
+      Line 3: CREATE
+      Line 4: YOUR FUTURE.
+    
+    - Use strong condensed font style (like Bebas Neue / Anton style).
+    - Make "ROOTS." in bright orange (#ff5a1f).
+    - Rest text in off-white (#f5f5f5).
+    
+    - Add subtle huge background word behind text (like "ARISE") with very low opacity.
+    
+    - Subtext below heading:
+      "Streetwear forged from civilization-grade conviction."
+      (light grey, smaller size)
+    
+    - Buttons:
+      Primary: "SHOP THE DROP" (orange background, black text)
+      Secondary: "OUR DHARMA" (transparent with white border)
+    
+    RIGHT SIDE:
+    - Add 2–3 stacked cards with slight rotation.
+    - Cards should have gradient backgrounds (orange/red tones).
+    - Example text inside card:
+      "VARCHAS SS25"
+      "WEAR YOUR ROOTS"
+    
+    - Add slight shadow + hover animation (scale + rotate).
+    
+    STYLE:
+    - Use smooth modern spacing.
+    - Add gradient overlay on background (black to dark brown).
+    - Use subtle noise texture if possible.
+    
+    MOBILE RESPONSIVE:
+    - Stack layout vertically.
+    - Heading centered.
+    - Reduce font size proportionally.
+    - Cards should appear below text and slightly smaller.
+    - Buttons full-width on mobile.
+    
+    ANIMATIONS:
+    - Fade-in text on load.
+    - Slight floating animation for cards.
+    
+    SETTINGS (Schema):
+    - Allow editing:
+      - Heading text
+      - Highlight word
+      - Subtext
+      - Button labels + links
+      - Card texts
+      - Background image (optional)
+    
+    OUTPUT:
+    - Clean Shopify Liquid section code
+    - Include CSS inside <style>
+    - No external libraries
+    - Fully responsive
+    
+    CLASS NAMING:
+    - Use BEM style naming (hero__title, hero__card etc.)
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-hero-streetwear-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: {{ block.settings.section_height }}vh;
+    background: linear-gradient(135deg, #000000 0%, #1a0f0a 50%, #2d1810 100%);
+    overflow: hidden;
+    display: block;
+  }
+
+  .ai-hero-streetwear-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px),
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  {% if block.settings.background_image %}
+    .ai-hero-streetwear-{{ ai_gen_id }}::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('{{ block.settings.background_image | image_url: width: 2000 }}');
+      background-size: cover;
+      background-position: center;
+      opacity: {{ block.settings.background_opacity | divided_by: 100.0 }};
+      z-index: 0;
+    }
+  {% endif %}
+
+  .ai-hero-streetwear__container-{{ ai_gen_id }} {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    min-height: {{ block.settings.section_height }}vh;
+    z-index: 2;
+  }
+
+  .ai-hero-streetwear__content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 3;
+  }
+
+  .ai-hero-streetwear__label-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    color: {{ block.settings.label_color }};
+    font-size: {{ block.settings.label_size }}px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: {{ block.settings.label_font.family }}, {{ block.settings.label_font.fallback_families }};
+  }
+
+  .ai-hero-streetwear__label-line-{{ ai_gen_id }} {
+    width: 40px;
+    height: 1px;
+    background-color: {{ block.settings.label_color }};
+  }
+
+  .ai-hero-streetwear__heading-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    margin-bottom: 24px;
+  }
+
+  .ai-hero-streetwear__bg-text-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    transform: translateY(-50%);
+    font-size: clamp(80px, 15vw, 200px);
+    font-weight: 900;
+    color: {{ block.settings.bg_text_color }};
+    opacity: {{ block.settings.bg_text_opacity | divided_by: 100.0 }};
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: -1;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    letter-spacing: -2px;
+  }
+
+  .ai-hero-streetwear__heading-{{ ai_gen_id }} {
+    position: relative;
+    font-size: clamp(48px, 8vw, {{ block.settings.heading_size }}px);
+    font-weight: 900;
+    line-height: 0.9;
+    color: {{ block.settings.heading_color }};
+    text-transform: uppercase;
+    margin: 0;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    letter-spacing: -2px;
+  }
+
+  .ai-hero-streetwear__heading-line-{{ ai_gen_id }} {
+    display: block;
+  }
+
+  .ai-hero-streetwear__highlight-{{ ai_gen_id }} {
+    color: {{ block.settings.highlight_color }};
+  }
+
+  .ai-hero-streetwear__subtext-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subtext_size }}px;
+    line-height: 1.6;
+    color: {{ block.settings.subtext_color }};
+    margin-bottom: 32px;
+    max-width: 500px;
+    font-family: {{ block.settings.subtext_font.family }}, {{ block.settings.subtext_font.fallback_families }};
+  }
+
+  .ai-hero-streetwear__buttons-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .ai-hero-streetwear__button-{{ ai_gen_id }} {
+    padding: 16px 32px;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+    font-family: {{ block.settings.button_font.family }}, {{ block.settings.button_font.fallback_families }};
+  }
+
+  .ai-hero-streetwear__button--primary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.primary_btn_bg }};
+    color: {{ block.settings.primary_btn_text }};
+    border-color: {{ block.settings.primary_btn_bg }};
+  }
+
+  .ai-hero-streetwear__button--primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.primary_btn_hover_bg }};
+    color: {{ block.settings.primary_btn_hover_text }};
+    border-color: {{ block.settings.primary_btn_hover_bg }};
+    transform: translateY(-2px);
+  }
+
+  .ai-hero-streetwear__button--secondary-{{ ai_gen_id }} {
+    background-color: transparent;
+    color: {{ block.settings.secondary_btn_text }};
+    border-color: {{ block.settings.secondary_btn_border }};
+  }
+
+  .ai-hero-streetwear__button--secondary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.secondary_btn_hover_bg }};
+    color: {{ block.settings.secondary_btn_hover_text }};
+    border-color: {{ block.settings.secondary_btn_hover_border }};
+    transform: translateY(-2px);
+  }
+
+  .ai-hero-streetwear__cards-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    z-index: 3;
+  }
+
+  .ai-hero-streetwear__cards-stack-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+  }
+
+  .ai-hero-streetwear__card-{{ ai_gen_id }} {
+    position: absolute;
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(135deg, {{ block.settings.card_gradient_start }}, {{ block.settings.card_gradient_end }});
+    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .ai-hero-streetwear__card-{{ ai_gen_id }}:hover {
+    transform: scale(1.05) rotate(0deg);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  }
+
+  .ai-hero-streetwear__card-1-{{ ai_gen_id }} {
+    top: 0;
+    left: 0;
+    transform: rotate(-6deg);
+    z-index: 1;
+  }
+
+  .ai-hero-streetwear__card-2-{{ ai_gen_id }} {
+    top: 40px;
+    left: 30px;
+    transform: rotate(3deg);
+    z-index: 2;
+  }
+
+  .ai-hero-streetwear__card-3-{{ ai_gen_id }} {
+    top: 80px;
+    left: 60px;
+    transform: rotate(-2deg);
+    z-index: 3;
+  }
+
+  .ai-hero-streetwear__card-title-{{ ai_gen_id }} {
+    font-size: 32px;
+    font-weight: 900;
+    color: {{ block.settings.card_text_color }};
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+    line-height: 1;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    letter-spacing: -1px;
+  }
+
+  .ai-hero-streetwear__card-subtitle-{{ ai_gen_id }} {
+    font-size: 14px;
+    font-weight: 600;
+    color: {{ block.settings.card_text_color }};
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    font-family: {{ block.settings.subtext_font.family }}, {{ block.settings.subtext_font.fallback_families }};
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-hero-streetwear__container-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 60px 24px;
+    }
+
+    .ai-hero-streetwear__content-{{ ai_gen_id }} {
+      text-align: center;
+    }
+
+    .ai-hero-streetwear__label-{{ ai_gen_id }} {
+      justify-content: center;
+    }
+
+    .ai-hero-streetwear__heading-{{ ai_gen_id }} {
+      font-size: clamp(36px, 10vw, 64px);
+    }
+
+    .ai-hero-streetwear__bg-text-{{ ai_gen_id }} {
+      font-size: clamp(60px, 12vw, 120px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .ai-hero-streetwear__subtext-{{ ai_gen_id }} {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ai-hero-streetwear__buttons-{{ ai_gen_id }} {
+      justify-content: center;
+    }
+
+    .ai-hero-streetwear__button-{{ ai_gen_id }} {
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .ai-hero-streetwear__cards-stack-{{ ai_gen_id }} {
+      max-width: 320px;
+      height: 400px;
+    }
+
+    .ai-hero-streetwear__card-{{ ai_gen_id }} {
+      height: 320px;
+      padding: 32px;
+    }
+
+    .ai-hero-streetwear__card-1-{{ ai_gen_id }} {
+      transform: rotate(-4deg);
+    }
+
+    .ai-hero-streetwear__card-2-{{ ai_gen_id }} {
+      top: 30px;
+      left: 20px;
+      transform: rotate(2deg);
+    }
+
+    .ai-hero-streetwear__card-3-{{ ai_gen_id }} {
+      top: 60px;
+      left: 40px;
+      transform: rotate(-1deg);
+    }
+
+    .ai-hero-streetwear__card-title-{{ ai_gen_id }} {
+      font-size: 24px;
+    }
+
+    .ai-hero-streetwear__card-subtitle-{{ ai_gen_id }} {
+      font-size: 12px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-hero-streetwear__buttons-{{ ai_gen_id }} {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .ai-hero-streetwear__button-{{ ai_gen_id }} {
+      width: 100%;
+    }
+  }
+{% endstyle %}
+
+<luxury-hero-{{ ai_gen_id }} class="ai-hero-streetwear-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-streetwear__container-{{ ai_gen_id }}">
+    <div class="ai-hero-streetwear__content-{{ ai_gen_id }}">
+      {% if block.settings.label_text != blank %}
+        <div class="ai-hero-streetwear__label-{{ ai_gen_id }}">
+          <span class="ai-hero-streetwear__label-line-{{ ai_gen_id }}"></span>
+          <span>{{ block.settings.label_text }}</span>
+        </div>
+      {% endif %}
+
+      <div class="ai-hero-streetwear__heading-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.bg_text != blank %}
+          <div class="ai-hero-streetwear__bg-text-{{ ai_gen_id }}">{{ block.settings.bg_text }}</div>
+        {% endif %}
+        
+        <h1 class="ai-hero-streetwear__heading-{{ ai_gen_id }}">
+          {% if block.settings.heading_line_1 != blank %}
+            <span class="ai-hero-streetwear__heading-line-{{ ai_gen_id }}">{{ block.settings.heading_line_1 }}</span>
+          {% endif %}
+          {% if block.settings.heading_line_2 != blank %}
+            <span class="ai-hero-streetwear__heading-line-{{ ai_gen_id }}">
+              {% if block.settings.highlight_word != blank %}
+                {{ block.settings.heading_line_2 | replace: block.settings.highlight_word, '<span class="ai-hero-streetwear__highlight-' | append: ai_gen_id | append: '">' | append: block.settings.highlight_word | append: '</span>' }}
+              {% else %}
+                {{ block.settings.heading_line_2 }}
+              {% endif %}
+            </span>
+          {% endif %}
+          {% if block.settings.heading_line_3 != blank %}
+            <span class="ai-hero-streetwear__heading-line-{{ ai_gen_id }}">{{ block.settings.heading_line_3 }}</span>
+          {% endif %}
+          {% if block.settings.heading_line_4 != blank %}
+            <span class="ai-hero-streetwear__heading-line-{{ ai_gen_id }}">{{ block.settings.heading_line_4 }}</span>
+          {% endif %}
+        </h1>
+      </div>
+
+      {% if block.settings.subtext != blank %}
+        <p class="ai-hero-streetwear__subtext-{{ ai_gen_id }}">{{ block.settings.subtext }}</p>
+      {% endif %}
+
+      <div class="ai-hero-streetwear__buttons-{{ ai_gen_id }}">
+        {% if block.settings.primary_btn_label != blank %}
+          <a 
+            href="{{ block.settings.primary_btn_link }}" 
+            class="ai-hero-streetwear__button-{{ ai_gen_id }} ai-hero-streetwear__button--primary-{{ ai_gen_id }}"
+          >
+            {{ block.settings.primary_btn_label }}
+          </a>
+        {% endif %}
+        {% if block.settings.secondary_btn_label != blank %}
+          <a 
+            href="{{ block.settings.secondary_btn_link }}" 
+            class="ai-hero-streetwear__button-{{ ai_gen_id }} ai-hero-streetwear__button--secondary-{{ ai_gen_id }}"
+          >
+            {{ block.settings.secondary_btn_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ai-hero-streetwear__cards-{{ ai_gen_id }}">
+      <div class="ai-hero-streetwear__cards-stack-{{ ai_gen_id }}">
+        {% if block.settings.show_card_1 %}
+          <div class="ai-hero-streetwear__card-{{ ai_gen_id }} ai-hero-streetwear__card-1-{{ ai_gen_id }}">
+            {% if block.settings.card_1_title != blank %}
+              <h3 class="ai-hero-streetwear__card-title-{{ ai_gen_id }}">{{ block.settings.card_1_title }}</h3>
+            {% endif %}
+            {% if block.settings.card_1_subtitle != blank %}
+              <p class="ai-hero-streetwear__card-subtitle-{{ ai_gen_id }}">{{ block.settings.card_1_subtitle }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_card_2 %}
+          <div class="ai-hero-streetwear__card-{{ ai_gen_id }} ai-hero-streetwear__card-2-{{ ai_gen_id }}">
+            {% if block.settings.card_2_title != blank %}
+              <h3 class="ai-hero-streetwear__card-title-{{ ai_gen_id }}">{{ block.settings.card_2_title }}</h3>
+            {% endif %}
+            {% if block.settings.card_2_subtitle != blank %}
+              <p class="ai-hero-streetwear__card-subtitle-{{ ai_gen_id }}">{{ block.settings.card_2_subtitle }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if block.settings.show_card_3 %}
+          <div class="ai-hero-streetwear__card-{{ ai_gen_id }} ai-hero-streetwear__card-3-{{ ai_gen_id }}">
+            {% if block.settings.card_3_title != blank %}
+              <h3 class="ai-hero-streetwear__card-title-{{ ai_gen_id }}">{{ block.settings.card_3_title }}</h3>
+            {% endif %}
+            {% if block.settings.card_3_subtitle != blank %}
+              <p class="ai-hero-streetwear__card-subtitle-{{ ai_gen_id }}">{{ block.settings.card_3_subtitle }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</luxury-hero-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class LuxuryHero{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('luxury-hero-{{ ai_gen_id }}', LuxuryHero{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Luxury streetwear hero",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Section height",
+      "min": 60,
+      "max": 100,
+      "step": 5,
+      "unit": "vh",
+      "default": 90
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "background_opacity",
+      "label": "Background image opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Top label"
+    },
+    {
+      "type": "text",
+      "id": "label_text",
+      "label": "Label text",
+      "default": "NEW COLLECTION 2025"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Label size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "font_picker",
+      "id": "label_font",
+      "label": "Label font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "header",
+      "content": "Main heading"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Heading line 1",
+      "default": "WEAR YOUR"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Heading line 2",
+      "default": "ROOTS."
+    },
+    {
+      "type": "text",
+      "id": "heading_line_3",
+      "label": "Heading line 3",
+      "default": "CREATE"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_4",
+      "label": "Heading line 4",
+      "default": "YOUR FUTURE."
+    },
+    {
+      "type": "text",
+      "id": "highlight_word",
+      "label": "Highlight word",
+      "default": "ROOTS."
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 90
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight color",
+      "default": "#ff5a1f"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "bebas_neue_n4"
+    },
+    {
+      "type": "header",
+      "content": "Background text"
+    },
+    {
+      "type": "text",
+      "id": "bg_text",
+      "label": "Background text",
+      "default": "ARISE"
+    },
+    {
+      "type": "color",
+      "id": "bg_text_color",
+      "label": "Background text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "bg_text_opacity",
+      "label": "Background text opacity",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "%",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Subtext"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Streetwear forged from civilization-grade conviction."
+    },
+    {
+      "type": "range",
+      "id": "subtext_size",
+      "label": "Subtext size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "subtext_color",
+      "label": "Subtext color",
+      "default": "#b0b0b0"
+    },
+    {
+      "type": "font_picker",
+      "id": "subtext_font",
+      "label": "Subtext font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "primary_btn_label",
+      "label": "Button text",
+      "default": "SHOP THE DROP"
+    },
+    {
+      "type": "url",
+      "id": "primary_btn_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_bg",
+      "label": "Background color",
+      "default": "#ff5a1f"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_text",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_hover_bg",
+      "label": "Hover background color",
+      "default": "#ff7a3f"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_hover_text",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Secondary button"
+    },
+    {
+      "type": "text",
+      "id": "secondary_btn_label",
+      "label": "Button text",
+      "default": "OUR DHARMA"
+    },
+    {
+      "type": "url",
+      "id": "secondary_btn_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_text",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_border",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_hover_bg",
+      "label": "Hover background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_hover_text",
+      "label": "Hover text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "secondary_btn_hover_border",
+      "label": "Hover border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "font_picker",
+      "id": "button_font",
+      "label": "Button font",
+      "default": "assistant_n4"
+    },
+    {
+      "type": "header",
+      "content": "Card 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_1",
+      "label": "Show card 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_1_title",
+      "label": "Card title",
+      "default": "VARCHAS"
+    },
+    {
+      "type": "text",
+      "id": "card_1_subtitle",
+      "label": "Card subtitle",
+      "default": "SS25"
+    },
+    {
+      "type": "header",
+      "content": "Card 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_2",
+      "label": "Show card 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_2_title",
+      "label": "Card title",
+      "default": "WEAR YOUR"
+    },
+    {
+      "type": "text",
+      "id": "card_2_subtitle",
+      "label": "Card subtitle",
+      "default": "ROOTS"
+    },
+    {
+      "type": "header",
+      "content": "Card 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_card_3",
+      "label": "Show card 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "card_3_title",
+      "label": "Card title",
+      "default": "CREATE"
+    },
+    {
+      "type": "text",
+      "id": "card_3_subtitle",
+      "label": "Card subtitle",
+      "default": "YOUR FUTURE"
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_gradient_start",
+      "label": "Card gradient start",
+      "default": "#ff5a1f"
+    },
+    {
+      "type": "color",
+      "id": "card_gradient_end",
+      "label": "Card gradient end",
+      "default": "#d4380d"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Luxury streetwear hero"
+    }
+  ]
+}
+{% endschema %}

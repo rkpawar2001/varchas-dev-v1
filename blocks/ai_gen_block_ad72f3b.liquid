@@ -1,0 +1,687 @@
+{% doc %}
+  @prompt
+    COPY PROMPT
+    Create a full-width hero section for an Indian streetwear brand called VARCHAS. The design should be dark editorial and powerful. Layout: Two-column grid on desktop, stacked on mobile. Left column has text content, right column has decorative poster card elements. Left column content: - Small eyebrow label: "NEW COLLECTION 2025" in uppercase with a horizontal line before it - Large headline split across lines: "WEAR YOUR" then "ROOTS." (in saffron/orange accent colour) then "CREATE" then "YOUR FUTURE." - Subheading: "Streetwear forged from civilization-grade conviction." - Two CTA buttons side by side: primary filled button "Shop the Drop" and ghost/outline button "Our Dharma" Right column: Two overlapping poster cards — one rotated slightly left (dark saffron background), one rotated slightly right (dark red background). Each card shows large bold text "ARISE" or "VARCHAS SS25" in cream colour. Background: Very dark ink/black (#0F0D0A) with a faint large ghosted word "ARISE" in the centre. Faint Sanskrit text watermark. The section should fill 100vh minimum with content aligned to the bottom.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .varchas-hero-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    min-height: 100vh;
+    background-color: {{ block.settings.background_color }};
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .varchas-hero-background-{{ ai_gen_id }} {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: {{ block.settings.ghost_text_size }}px;
+    font-weight: 900;
+    color: {{ block.settings.ghost_text_color }};
+    opacity: {{ block.settings.ghost_text_opacity | divided_by: 100.0 }};
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .varchas-hero-sanskrit-{{ ai_gen_id }} {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    font-size: {{ block.settings.sanskrit_text_size }}px;
+    color: {{ block.settings.sanskrit_text_color }};
+    opacity: {{ block.settings.sanskrit_opacity | divided_by: 100.0 }};
+    pointer-events: none;
+    z-index: 1;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    letter-spacing: 0.2em;
+  }
+
+  .varchas-hero-container-{{ ai_gen_id }} {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    z-index: 2;
+  }
+
+  .varchas-hero-grid-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    width: 100%;
+    padding-bottom: 80px;
+  }
+
+  .varchas-hero-content-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .varchas-hero-eyebrow-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: {{ block.settings.eyebrow_color }};
+    font-size: {{ block.settings.eyebrow_size }}px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .varchas-hero-eyebrow-line-{{ ai_gen_id }} {
+    width: 40px;
+    height: 2px;
+    background-color: {{ block.settings.eyebrow_color }};
+  }
+
+  .varchas-hero-headline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.headline_size }}px;
+    line-height: 0.9;
+    font-weight: 900;
+    color: {{ block.settings.headline_color }};
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .varchas-hero-headline-accent-{{ ai_gen_id }} {
+    color: {{ block.settings.accent_color }};
+  }
+
+  .varchas-hero-subheading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    line-height: 1.5;
+    color: {{ block.settings.subheading_color }};
+    max-width: 500px;
+  }
+
+  .varchas-hero-cta-group-{{ ai_gen_id }} {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .varchas-hero-btn-{{ ai_gen_id }} {
+    padding: 16px 32px;
+    font-size: {{ block.settings.button_text_size }}px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .varchas-hero-btn-primary-{{ ai_gen_id }} {
+    background-color: {{ block.settings.primary_button_bg }};
+    color: {{ block.settings.primary_button_text_color }};
+    border: 2px solid {{ block.settings.primary_button_bg }};
+  }
+
+  .varchas-hero-btn-primary-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.primary_button_hover_bg }};
+    border-color: {{ block.settings.primary_button_hover_bg }};
+    color: {{ block.settings.primary_button_hover_text }};
+  }
+
+  .varchas-hero-btn-ghost-{{ ai_gen_id }} {
+    background-color: transparent;
+    color: {{ block.settings.ghost_button_text_color }};
+    border: 2px solid {{ block.settings.ghost_button_border }};
+  }
+
+  .varchas-hero-btn-ghost-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.ghost_button_hover_bg }};
+    border-color: {{ block.settings.ghost_button_hover_border }};
+    color: {{ block.settings.ghost_button_hover_text }};
+  }
+
+  .varchas-hero-posters-{{ ai_gen_id }} {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+  }
+
+  .varchas-hero-poster-{{ ai_gen_id }} {
+    position: absolute;
+    width: 320px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .varchas-hero-poster-1-{{ ai_gen_id }} {
+    background-color: {{ block.settings.poster_1_bg }};
+    transform: rotate({{ block.settings.poster_1_rotation }}deg);
+    z-index: 2;
+    left: -20px;
+  }
+
+  .varchas-hero-poster-2-{{ ai_gen_id }} {
+    background-color: {{ block.settings.poster_2_bg }};
+    transform: rotate({{ block.settings.poster_2_rotation }}deg);
+    z-index: 1;
+    right: -20px;
+  }
+
+  .varchas-hero-poster-text-{{ ai_gen_id }} {
+    font-size: {{ block.settings.poster_text_size }}px;
+    font-weight: 900;
+    color: {{ block.settings.poster_text_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1;
+    word-break: break-word;
+  }
+
+  @media screen and (max-width: 989px) {
+    .varchas-hero-grid-{{ ai_gen_id }} {
+      grid-template-columns: 1fr;
+      gap: 60px;
+      padding-bottom: 60px;
+    }
+
+    .varchas-hero-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.6 }}px;
+    }
+
+    .varchas-hero-posters-{{ ai_gen_id }} {
+      height: 400px;
+    }
+
+    .varchas-hero-poster-{{ ai_gen_id }} {
+      width: 240px;
+      height: 360px;
+    }
+
+    .varchas-hero-poster-text-{{ ai_gen_id }} {
+      font-size: {{ block.settings.poster_text_size | times: 0.7 }}px;
+    }
+
+    .varchas-hero-background-{{ ai_gen_id }} {
+      font-size: {{ block.settings.ghost_text_size | times: 0.5 }}px;
+    }
+
+    .varchas-hero-container-{{ ai_gen_id }} {
+      padding: 0 20px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .varchas-hero-headline-{{ ai_gen_id }} {
+      font-size: {{ block.settings.headline_size | times: 0.4 }}px;
+    }
+
+    .varchas-hero-eyebrow-{{ ai_gen_id }} {
+      font-size: {{ block.settings.eyebrow_size | times: 0.8 }}px;
+    }
+
+    .varchas-hero-subheading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheading_size | times: 0.9 }}px;
+    }
+
+    .varchas-hero-cta-group-{{ ai_gen_id }} {
+      flex-direction: column;
+    }
+
+    .varchas-hero-btn-{{ ai_gen_id }} {
+      width: 100%;
+      text-align: center;
+    }
+
+    .varchas-hero-posters-{{ ai_gen_id }} {
+      height: 320px;
+    }
+
+    .varchas-hero-poster-{{ ai_gen_id }} {
+      width: 180px;
+      height: 270px;
+      padding: 20px;
+    }
+  }
+{% endstyle %}
+
+<div class="varchas-hero-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="varchas-hero-background-{{ ai_gen_id }}">
+    {{ block.settings.ghost_text }}
+  </div>
+
+  {% if block.settings.show_sanskrit %}
+    <div class="varchas-hero-sanskrit-{{ ai_gen_id }}">
+      {{ block.settings.sanskrit_text }}
+    </div>
+  {% endif %}
+
+  <div class="varchas-hero-container-{{ ai_gen_id }}">
+    <div class="varchas-hero-grid-{{ ai_gen_id }}">
+      <div class="varchas-hero-content-{{ ai_gen_id }}">
+        {% if block.settings.eyebrow_text != blank %}
+          <div class="varchas-hero-eyebrow-{{ ai_gen_id }}">
+            <span class="varchas-hero-eyebrow-line-{{ ai_gen_id }}"></span>
+            <span>{{ block.settings.eyebrow_text }}</span>
+          </div>
+        {% endif %}
+
+        <h1 class="varchas-hero-headline-{{ ai_gen_id }}">
+          {{ block.settings.headline_line_1 }}<br>
+          <span class="varchas-hero-headline-accent-{{ ai_gen_id }}">{{ block.settings.headline_line_2 }}</span><br>
+          {{ block.settings.headline_line_3 }}<br>
+          {{ block.settings.headline_line_4 }}
+        </h1>
+
+        {% if block.settings.subheading != blank %}
+          <p class="varchas-hero-subheading-{{ ai_gen_id }}">
+            {{ block.settings.subheading }}
+          </p>
+        {% endif %}
+
+        <div class="varchas-hero-cta-group-{{ ai_gen_id }}">
+          {% if block.settings.primary_button_label != blank %}
+            <a
+              href="{{ block.settings.primary_button_link }}"
+              class="varchas-hero-btn-{{ ai_gen_id }} varchas-hero-btn-primary-{{ ai_gen_id }}"
+            >
+              {{ block.settings.primary_button_label }}
+            </a>
+          {% endif %}
+
+          {% if block.settings.ghost_button_label != blank %}
+            <a
+              href="{{ block.settings.ghost_button_link }}"
+              class="varchas-hero-btn-{{ ai_gen_id }} varchas-hero-btn-ghost-{{ ai_gen_id }}"
+            >
+              {{ block.settings.ghost_button_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="varchas-hero-posters-{{ ai_gen_id }}">
+        <div class="varchas-hero-poster-{{ ai_gen_id }} varchas-hero-poster-1-{{ ai_gen_id }}">
+          <div class="varchas-hero-poster-text-{{ ai_gen_id }}">
+            {{ block.settings.poster_1_text }}
+          </div>
+        </div>
+
+        <div class="varchas-hero-poster-{{ ai_gen_id }} varchas-hero-poster-2-{{ ai_gen_id }}">
+          <div class="varchas-hero-poster-text-{{ ai_gen_id }}">
+            {{ block.settings.poster_2_text }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "VARCHAS hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#0F0D0A"
+    },
+    {
+      "type": "text",
+      "id": "ghost_text",
+      "label": "Ghost text",
+      "default": "ARISE"
+    },
+    {
+      "type": "range",
+      "id": "ghost_text_size",
+      "label": "Ghost text size",
+      "min": 100,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "default": 240
+    },
+    {
+      "type": "color",
+      "id": "ghost_text_color",
+      "label": "Ghost text color",
+      "default": "#1A1816"
+    },
+    {
+      "type": "range",
+      "id": "ghost_text_opacity",
+      "label": "Ghost text opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sanskrit",
+      "label": "Show Sanskrit text",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "id": "sanskrit_text",
+      "label": "Sanskrit text",
+      "default": "धर्म"
+    },
+    {
+      "type": "range",
+      "id": "sanskrit_text_size",
+      "label": "Sanskrit text size",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "sanskrit_text_color",
+      "label": "Sanskrit text color",
+      "default": "#2A2622"
+    },
+    {
+      "type": "range",
+      "id": "sanskrit_opacity",
+      "label": "Sanskrit opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Eyebrow"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow text",
+      "default": "NEW COLLECTION 2025"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow color",
+      "default": "#A8A29E"
+    },
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "text",
+      "id": "headline_line_1",
+      "label": "Line 1",
+      "default": "WEAR YOUR"
+    },
+    {
+      "type": "text",
+      "id": "headline_line_2",
+      "label": "Line 2 (accent)",
+      "default": "ROOTS."
+    },
+    {
+      "type": "text",
+      "id": "headline_line_3",
+      "label": "Line 3",
+      "default": "CREATE"
+    },
+    {
+      "type": "text",
+      "id": "headline_line_4",
+      "label": "Line 4",
+      "default": "YOUR FUTURE."
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Headline size",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#F5F1ED"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#FF9933"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Streetwear forged from civilization-grade conviction."
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#D4CFC9"
+    },
+    {
+      "type": "header",
+      "content": "Primary button"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Text",
+      "default": "Shop the Drop"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_bg",
+      "label": "Background",
+      "default": "#F5F1ED"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_text_color",
+      "label": "Text color",
+      "default": "#0F0D0A"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_bg",
+      "label": "Hover background",
+      "default": "#FF9933"
+    },
+    {
+      "type": "color",
+      "id": "primary_button_hover_text",
+      "label": "Hover text",
+      "default": "#0F0D0A"
+    },
+    {
+      "type": "header",
+      "content": "Ghost button"
+    },
+    {
+      "type": "text",
+      "id": "ghost_button_label",
+      "label": "Text",
+      "default": "Our Dharma"
+    },
+    {
+      "type": "url",
+      "id": "ghost_button_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "ghost_button_text_color",
+      "label": "Text color",
+      "default": "#F5F1ED"
+    },
+    {
+      "type": "color",
+      "id": "ghost_button_border",
+      "label": "Border color",
+      "default": "#F5F1ED"
+    },
+    {
+      "type": "color",
+      "id": "ghost_button_hover_bg",
+      "label": "Hover background",
+      "default": "#F5F1ED"
+    },
+    {
+      "type": "color",
+      "id": "ghost_button_hover_text",
+      "label": "Hover text",
+      "default": "#0F0D0A"
+    },
+    {
+      "type": "color",
+      "id": "ghost_button_hover_border",
+      "label": "Hover border",
+      "default": "#F5F1ED"
+    },
+    {
+      "type": "range",
+      "id": "button_text_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Poster cards"
+    },
+    {
+      "type": "text",
+      "id": "poster_1_text",
+      "label": "Poster 1 text",
+      "default": "ARISE"
+    },
+    {
+      "type": "color",
+      "id": "poster_1_bg",
+      "label": "Poster 1 background",
+      "default": "#B8621B"
+    },
+    {
+      "type": "range",
+      "id": "poster_1_rotation",
+      "label": "Poster 1 rotation",
+      "min": -15,
+      "max": 15,
+      "step": 1,
+      "unit": "deg",
+      "default": -8
+    },
+    {
+      "type": "text",
+      "id": "poster_2_text",
+      "label": "Poster 2 text",
+      "default": "VARCHAS SS25"
+    },
+    {
+      "type": "color",
+      "id": "poster_2_bg",
+      "label": "Poster 2 background",
+      "default": "#8B2E24"
+    },
+    {
+      "type": "range",
+      "id": "poster_2_rotation",
+      "label": "Poster 2 rotation",
+      "min": -15,
+      "max": 15,
+      "step": 1,
+      "unit": "deg",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "poster_text_size",
+      "label": "Poster text size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "poster_text_color",
+      "label": "Poster text color",
+      "default": "#F5F1ED"
+    }
+  ],
+  "presets": [
+    {
+      "name": "VARCHAS hero"
+    }
+  ]
+}
+{% endschema %}

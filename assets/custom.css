@@ -1,0 +1,97 @@
+/* ═══════════════════════════════════════
+   VARCHAS DESIGN TOKENS — paste at top
+═══════════════════════════════════════ */
+:root {
+  /* Brand colours */
+  --v-saffron:    #E8540A;
+  --v-saffron-dk: #B83D00;
+  --v-saffron-lt: #FF6C1B;
+  --v-cream:      #F5EDD8;
+  --v-parchment:  #EDE0C4;
+  --v-ink:        #0F0D0A;
+  --v-ink-soft:   #1A1713;
+  --v-ink-mid:    #242019;
+  --v-gold:       #C4922A;
+  --v-blue:       #1B2FA8;
+  --v-red:        #C41B1B;
+  --v-green:      #2D9E5F;
+
+  /* Header heights — used for padding-top on hero */
+  --v-bar-h:  40px;
+  --v-nav-h:  68px;
+  --v-hdr-h:  108px;
+}
+
+/* Global body overrides */
+body {
+  background-color: var(--v-ink);
+  color: var(--v-cream);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--v-ink); }
+::-webkit-scrollbar-thumb { background: var(--v-saffron); border-radius: 2px; }
+
+/* Subtle grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .022;
+  pointer-events: none; z-index: 9999;
+}
+
+/* Typography overrides */
+h1, h2, h3, h4, .heading, [class*="heading"] {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: .02em;
+  line-height: .93;
+}
+body, p, li, input, button, select, textarea {
+  font-family: 'Barlow', sans-serif;
+}
+.label, .eyebrow, .caption,
+[class*="label"], .product__badge,
+.announcement-bar__message {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.v-deva {
+  font-family: 'Noto Serif Devanagari', serif;
+}
+/* ── Collections Grid ── */
+.collection-list__item {
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.collection-list__item:hover img {
+  transform: scale(1.05);
+}
+.collection-list__item img {
+  transition: transform .55s ease;
+}
+.card__heading {
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 24px;
+  letter-spacing: .08em;
+  color: var(--v-cream) !important;
+}
+.collection-list .card__content {
+  background: linear-gradient(to top, rgba(10,8,5,.94) 0%, transparent 100%);
+}
+
+/* Section header overrides */
+#shopify-section-collection-list .title-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+#shopify-section-collection-list h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(38px, 5vw, 68px);
+  color: var(--v-cream);
+}

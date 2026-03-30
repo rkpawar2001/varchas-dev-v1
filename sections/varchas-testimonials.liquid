@@ -1,0 +1,50 @@
+{% schema %}
+{
+  "name": "Varchas Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Community" },
+    { "type": "html", "id": "headline", "label": "Headline", "default": "VOICES OF THE<br>AWAKENED" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "stars", "label": "Stars", "default": "★★★★★" },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "\"I've been waiting for a brand like this my whole life. The 'Arise Arjuna' tee isn't just a shirt — it's a statement I wear every day to the gym.\"" },
+        { "type": "text", "id": "avatar", "label": "Avatar Initial", "default": "A" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Aryan Mehta" },
+        { "type": "text", "id": "location", "label": "Location", "default": "Mumbai, Maharashtra" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Varchas Testimonials", "blocks": [ {"type":"review","settings":{"avatar":"A","name":"Aryan Mehta","location":"Mumbai"}}, {"type":"review","settings":{"avatar":"R","name":"Riya Sharma","location":"Delhi"}}, {"type":"review","settings":{"avatar":"K","name":"Karthik Iyer","location":"Bengaluru"}} ] }
+  ]
+}
+{% endschema %}
+
+<section class="sec sec-sft">
+  <div class="sh">
+    <div>
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="stitle">{{ section.settings.headline }}</h2>
+    </div>
+  </div>
+  <div class="tgrid">
+    {% for block in section.blocks %}
+      <div class="tc">
+        <div class="tcst">{{ block.settings.stars }}</div>
+        <p class="tcq">{{ block.settings.quote }}</p>
+        <div class="tcau">
+          <div class="tcav">{{ block.settings.avatar }}</div>
+          <div>
+            <div class="tcnm">{{ block.settings.name }}</div>
+            <div class="tclc">{{ block.settings.location }}</div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

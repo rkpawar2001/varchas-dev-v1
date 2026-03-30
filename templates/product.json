@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "varchas-product-main",
+      "settings": {}
+    },
+    "tabs": {
+      "type": "varchas-product-tabs",
+      "settings": {}
+    },
+    "related": {
+      "type": "varchas-related-products",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "tabs",
+    "related"
+  ]
+}

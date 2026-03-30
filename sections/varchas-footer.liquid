@@ -1,0 +1,103 @@
+{% schema %}
+{
+  "name": "Varchas Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu 1 (Shop)",
+      "default": "footer"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu 2 (Help)",
+      "default": "footer"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Menu 3 (Company)",
+      "default": "footer"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Varchas Footer"
+    }
+  ]
+}
+{% endschema %}
+
+<footer>
+  <div class="ftg">
+    <div>
+      <div class="ftlo">VAR<span>C</span>HAS</div>
+      <span class="ftdv">वर्चस् — शक्ति, तेज, प्रताप</span>
+      <p class="fttag">Streetwear forged from civilization-grade conviction. Be the Hero your Ancestors Dreamed Of.</p>
+    </div>
+    
+    <div>
+      <div class="fthd">{{ linklists[section.settings.menu_1].title | default: 'Shop' }}</div>
+      <ul class="ftul">
+        {% for link in linklists[section.settings.menu_1].links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% else %}
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Dharma Collection</a></li>
+          <li><a href="#">Devotion Collection</a></li>
+          <li><a href="#">Warriors Collection</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <div>
+      <div class="fthd">{{ linklists[section.settings.menu_2].title | default: 'Help' }}</div>
+      <ul class="ftul">
+        {% for link in linklists[section.settings.menu_2].links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% else %}
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Shipping &amp; Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Contact Us</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <div>
+      <div class="fthd">{{ linklists[section.settings.menu_3].title | default: 'Company' }}</div>
+      <ul class="ftul">
+        {% for link in linklists[section.settings.menu_3].links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% else %}
+          <li><a href="#">Our Dharma</a></li>
+          <li><a href="#">About Varchas</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  
+  <div class="ftbot">
+    <div class="ftcp">© {{ 'now' | date: "%Y" }} {{ shop.name }} &nbsp;·&nbsp; Made with Pride in India &nbsp;·&nbsp; GST Registered</div>
+    <div class="ftsoc">
+      {% if settings.social_instagram_link != blank %}
+        <a href="{{ settings.social_instagram_link }}">Instagram</a>
+      {% else %}
+        <a href="#">Instagram</a>
+      {% endif %}
+      {% if settings.social_youtube_link != blank %}
+        <a href="{{ settings.social_youtube_link }}">YouTube</a>
+      {% else %}
+        <a href="#">YouTube</a>
+      {% endif %}
+      {% if settings.social_facebook_link != blank %}
+        <a href="{{ settings.social_facebook_link }}">Facebook</a>
+      {% else %}
+        <a href="#">Facebook</a>
+      {% endif %}
+    </div>
+  </div>
+</footer>

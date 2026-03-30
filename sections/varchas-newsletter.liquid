@@ -1,0 +1,29 @@
+{% schema %}
+{
+  "name": "Varchas Newsletter",
+  "settings": [
+    { "type": "text", "id": "bg_word", "label": "Background Word", "default": "DHARMA" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join the Reawakening" },
+    { "type": "html", "id": "headline", "label": "Headline", "default": "ANSWER THE<br>CALL OF DHARMA" },
+    { "type": "textarea", "id": "subhead", "label": "Subhead", "default": "Early access to new drops, exclusive Sanskrit prints, and the stories behind each design." },
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "Arise →" }
+  ],
+  "presets": [
+    { "name": "Varchas Newsletter" }
+  ]
+}
+{% endschema %}
+
+<section class="nlsec">
+  <div class="nlbg" aria-hidden="true">{{ section.settings.bg_word }}</div>
+  <div class="nlin">
+    <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="nltit">{{ section.settings.headline }}</h2>
+    <p class="nlsub">{{ section.settings.subhead }}</p>
+    {% form 'customer', class: 'nlfrm', id: 'nlForm' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="email" name="contact[email]" placeholder="your@email.com" autocomplete="email" aria-label="Email address" required>
+      <button type="submit">{{ section.settings.btn_text }}</button>
+    {% endform %}
+  </div>
+</section>

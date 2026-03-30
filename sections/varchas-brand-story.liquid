@@ -1,0 +1,65 @@
+{% schema %}
+{
+  "name": "Varchas Brand Story",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Origin" },
+    { "type": "html", "id": "headline", "label": "Headline", "default": "WE DIDN'T START A<br>CLOTHING LINE." },
+    { "type": "textarea", "id": "body_text", "label": "Body Text", "default": "We created a uniform for the reawakening of a great civilization. For too long, Indians grew taller — building skyscrapers, launching rockets — yet our reflection remained borrowed. Varchas bridges the timeline: the fierceness of a warrior's sword, the precision of a Yantra, and the stillness of a Yogi, woven into clothes that fit colleges, gyms, and streets of today." },
+    { "type": "text", "id": "btn_text", "label": "Button Text", "default": "Read Our Full Story →" },
+    { "type": "url", "id": "btn_link", "label": "Button Link" },
+    
+    { "type": "header", "content": "Poster Configuration" },
+    { "type": "html", "id": "poster_watermark", "label": "Poster Watermark", "default": "INDIA<br>AWAKES" },
+    { "type": "text", "id": "poster_deva", "label": "Poster Devanagari", "default": "रामो विग्रहवान् धर्मः" },
+    { "type": "text", "id": "poster_label", "label": "Poster Label", "default": "Ramo Vigrahavan Dharmah · Rama is Dharma Incarnate" },
+    { "type": "html", "id": "stamp_html", "label": "Stamp HTML", "default": "MADE<br>IN<br>INDIA" }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "limit": 3,
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "01" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Warrior Spirit" },
+        { "type": "textarea", "id": "desc", "label": "Description", "default": "Designs rooted in Kshatriya valor." }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Varchas Brand Story", "blocks": [ {"type":"pillar","settings":{"number":"01","title":"Warrior Spirit","desc":"Designs rooted in Kshatriya valor."}}, {"type":"pillar","settings":{"number":"02","title":"Sacred Aesthetics","desc":"Sanskrit & Vedic patterns in modern cuts."}}, {"type":"pillar","settings":{"number":"03","title":"Civilizational Pride","desc":"A badge of honour, not a costume."}} ] }
+  ]
+}
+{% endschema %}
+
+<section class="story">
+  <div class="svis">
+    <div class="saccent" aria-hidden="true"></div>
+    <div class="sposter">
+      <div class="spg"></div><div class="spd"></div>
+      <div class="spw" aria-hidden="true">{{ section.settings.poster_watermark }}</div>
+      <div class="spft">
+        <span class="spde">{{ section.settings.poster_deva }}</span>
+        <div class="splb">{{ section.settings.poster_label }}</div>
+      </div>
+    </div>
+    <div class="sstamp" aria-hidden="true"><span>{{ section.settings.stamp_html }}</span></div>
+  </div>
+  <div>
+    <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+    <h2 class="stitle" style="margin-bottom:20px;">{{ section.settings.headline }}</h2>
+    <p class="sbody">{{ section.settings.body_text | newline_to_br }}</p>
+    <div class="pillars">
+      {% for block in section.blocks %}
+        <div class="pillar">
+          <div class="pln">{{ block.settings.number }}</div>
+          <div class="plnm">{{ block.settings.title }}</div>
+          <div class="pldc">{{ block.settings.desc }}</div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if section.settings.btn_link != blank %}
+      <a href="{{ section.settings.btn_link }}" class="btn-b">{{ section.settings.btn_text }}</a>
+    {% endif %}
+  </div>
+</section>

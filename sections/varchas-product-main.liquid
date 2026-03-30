@@ -1,0 +1,186 @@
+{% schema %}
+{
+  "name": "Varchas Main Product",
+  "settings": [
+    {
+      "type": "text",
+      "id": "bg_word",
+      "label": "Background Image Word",
+      "default": "ARISE"
+    },
+    {
+      "type": "text",
+      "id": "bg_deva",
+      "label": "Background Devanagari",
+      "default": "तस्माद् उत्तिष्ठ"
+    }
+  ],
+  "presets": [
+    { "name": "Varchas Main Product" }
+  ]
+}
+{% endschema %}
+
+<div class="breadcrumb">
+  <div class="bc-inner">
+    <a href="{{ routes.root_url }}">Home</a> <span class="bc-sep">/</span>
+    <a href="{{ collections.all.url }}">Shop</a> <span class="bc-sep">/</span>
+    <span class="bc-current">{{ product.title }}</span>
+  </div>
+</div>
+
+<div class="pdp-wrap">
+  <!-- GALLERY -->
+  <div class="pdp-gallery">
+    <div class="gallery-main">
+      <div class="gallery-main-img">
+        <div class="gm-bg-word" aria-hidden="true">{{ section.settings.bg_word }}</div>
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title }}" style="position:relative; z-index:2; max-height:80%;" id="mainProdImg" loading="eager">
+        {% else %}
+          <div class="gm-product-art">
+            <div class="gm-text">ARISE<br>ARJUNA</div>
+            <span class="gm-deva">{{ section.settings.bg_deva }}</span>
+          </div>
+        {% endif %}
+        {% if product.available == false %}
+          <div class="img-badge limited">Sold Out</div>
+        {% elsif product.compare_at_price > product.price %}
+          <div class="img-badge">Sale</div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="gallery-thumbs">
+      {% for media in product.media %}
+        <div class="thumb thumb-{{ forloop.index | modulo: 4 | plus: 1 }} {% if forloop.first %}active{% endif %}" onclick="document.getElementById('mainProdImg').src='{{ media | image_url: width: 800 }}'; document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active')); this.classList.add('active');" style="background-image: url('{{ media | image_url: width: 200 }}'); background-size: cover; background-position: center;">
+          {% unless media %}
+            <div class="thumb-label">THUMB<br>0{{ forloop.index }}</div>
+          {% endunless %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- DETAILS -->
+  <div class="pdp-details">
+    <div class="urgency-bar">
+      <div class="ub-dot"></div>
+      <div class="ub-text">High demand: <span>Only {{ product.variants.first.inventory_quantity | default: "a few" }} left</span> in stock.</div>
+    </div>
+
+    <div class="pdp-collection">{{ product.vendor | default: "DHARMA COLLECTION" }}</div>
+    <h1 class="pdp-name">{{ product.title }}</h1>
+    
+    <div class="pdp-rating">
+      <div class="stars">★★★★★</div>
+      <div class="rating-count">4.9/5 (<a href="#reviews">128 Reviews</a>)</div>
+    </div>
+
+    <div class="pdp-price-row">
+      <div class="pdp-price">{{ product.price | money }}</div>
+      {% if product.compare_at_price > product.price %}
+        <div class="pdp-price-orig">{{ product.compare_at_price | money }}</div>
+        <div class="pdp-discount">SAVE {{ product.compare_at_price | minus: product.price | money }}</div>
+      {% endif %}
+    </div>
+    <div class="pdp-tax-note">Taxes included. Free shipping on prepaid orders.</div>
+
+    <div class="live-proof">
+      <div class="lp-icon">👀</div>
+      <div class="lp-text"><strong>{{ "now" | date: "%S" | plus: 20 }} people</strong> are viewing this right now</div>
+    </div>
+    
+    <div class="pdp-divider"></div>
+
+    {% form 'product', product, class: 'pdp-form', id: 'pdpForm' %}
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+
+      <!-- Options -->
+      {% unless product.has_only_default_variant %}
+        {% for option in product.options_with_values %}
+          <div class="pdp-option">
+            <div class="pdp-option-label">{{ option.name }} <span>Select</span></div>
+            {% if option.name == 'Color' or option.name == 'Colour' %}
+              <div class="color-opts">
+                {% for value in option.values %}
+                  <div class="color-opt {% if option.selected_value == value %}active{% endif %}" style="background-color: {{ value | handle }};" title="{{ value | escape }}" onclick="document.querySelectorAll('.color-opt').forEach(el=>el.classList.remove('active')); this.classList.add('active');"></div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <div class="size-opts">
+                {% for value in option.values %}
+                   <div class="size-opt {% if option.selected_value == value %}active{% endif %}" onclick="document.querySelectorAll('.size-opt').forEach(el=>el.classList.remove('active')); this.classList.add('active');">{{ value | escape }}</div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% endunless %}
+
+      <div class="countdown-bar">
+        <div class="cd-icon">⏳</div>
+        <div class="cd-text">Order now to ship today</div>
+        <div class="cd-timer">
+          <div class="cd-unit"><div class="cd-num">04</div><div class="cd-label">HRS</div></div>
+          <div class="cd-colon">:</div>
+          <div class="cd-unit"><div class="cd-num">32</div><div class="cd-label">MIN</div></div>
+          <div class="cd-colon">:</div>
+          <div class="cd-unit"><div class="cd-num">18</div><div class="cd-label">SEC</div></div>
+        </div>
+      </div>
+
+      <div class="stock-row">
+        <div class="stock-bar-wrap"><div class="stock-bar"></div></div>
+        <div class="stock-text">SELLING FAST</div>
+      </div>
+
+      <div class="qty-atc">
+        <div class="qty-selector">
+          <button type="button" onclick="var i=document.getElementById('pdpQty'); i.value=Math.max(1,parseInt(i.value)-1); document.getElementById('qtyDisplay').innerText=i.value;">−</button>
+          <span id="qtyDisplay">1</span>
+          <button type="button" onclick="var i=document.getElementById('pdpQty'); i.value=parseInt(i.value)+1; document.getElementById('qtyDisplay').innerText=i.value;">+</button>
+          <input type="hidden" name="quantity" id="pdpQty" value="1">
+        </div>
+        <button type="submit" name="add" class="btn-atc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" class="atc-icn" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Add to Cart
+        </button>
+      </div>
+      
+    {% endform %}
+
+    <div class="trust-strip">
+      <div class="trust-item"><div class="ti-icon">🛡️</div><div class="ti-label">PREMIUM<br>QUALITY</div></div>
+      <div class="trust-item"><div class="ti-icon">⚡</div><div class="ti-label">FAST<br>SHIPPING</div></div>
+      <div class="trust-item"><div class="ti-icon">♻️</div><div class="ti-label">EASY<br>RETURNS</div></div>
+      <div class="trust-item"><div class="ti-icon">🔒</div><div class="ti-label">SECURE<br>CHECKOUT</div></div>
+    </div>
+
+    <!-- Product Description Accordion -->
+    <div class="accordion">
+      <div class="acc-item">
+        <button class="acc-header open" onclick="this.classList.toggle('open'); this.nextElementSibling.classList.toggle('open');">
+          Product Details
+          <svg class="acc-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="acc-body open">
+          <div class="acc-inner">
+            <p>{{ product.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- STICKY ATC MOBILE -->
+<div class="sticky-atc">
+  <div class="sticky-atc-inner">
+    <div class="sa-info">
+      <div class="sa-name">{{ product.title }}</div>
+      <div class="sa-price">{{ product.price | money }}</div>
+    </div>
+    <button class="sa-btn" onclick="document.querySelector('.btn-atc').click()">Add to Cart</button>
+  </div>
+</div>

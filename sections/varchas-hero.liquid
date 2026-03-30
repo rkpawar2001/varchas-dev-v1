@@ -1,0 +1,911 @@
+{%- comment -%}
+  ╔═══════════════════════════════════════════════════════════════════╗
+  ║  VARCHAS — Hero Section  v2                                       ║
+  ║  File: sections/varchas-hero.liquid                               ║
+  ║  Fixes: font loading, poster card sizing, stats visibility,       ║
+  ║         back card offset, hover lift animation on cards,          ║
+  ║         and comprehensive Customizer settings (colors, images).   ║
+  ╚═══════════════════════════════════════════════════════════════════╝
+{%- endcomment -%}
+
+{%- liquid
+  assign eyebrow_text  = section.settings.eyebrow       | default: 'New Collection 2025'
+  assign headline_l1   = section.settings.headline_line1 | default: 'WEAR YOUR'
+  assign headline_l2   = section.settings.headline_line2 | default: 'ROOTS.'
+  assign headline_l3   = section.settings.headline_line3 | default: 'CREATE YOUR FUTURE.'
+  assign subheading    = section.settings.subheading     | default: 'Streetwear forged from civilization-grade conviction.'
+  assign btn1_label    = section.settings.btn1_label     | default: 'Shop the Drop'
+  assign btn1_url      = section.settings.btn1_url       | default: '/collections/all'
+  assign btn2_label    = section.settings.btn2_label     | default: 'Our Dharma'
+  assign btn2_url      = section.settings.btn2_url       | default: '/pages/our-dharma'
+  assign show_stats    = section.settings.show_stats
+  assign stat1_num     = section.settings.stat1_num      | default: '5000+'
+  assign stat1_label   = section.settings.stat1_label    | default: 'Warriors Clad'
+  assign stat2_num     = section.settings.stat2_num      | default: '4.9★'
+  assign stat2_label   = section.settings.stat2_label    | default: 'Rated'
+  assign bg_word       = section.settings.bg_word        | default: 'ARISE'
+  assign bg_deva       = section.settings.bg_deva        | default: 'रामो विग्रहवान् धर्मः'
+  assign card1_line1   = section.settings.card1_line1    | default: 'ARISE'
+  assign card1_sub     = section.settings.card1_sub      | default: 'Answer the Call of Dharma'
+  assign card1_badge   = section.settings.card1_badge    | default: 'V'
+  assign card2_line1   = section.settings.card2_line1    | default: 'VARCHAS'
+  assign card2_line2   = section.settings.card2_line2    | default: 'SS25'
+  assign card2_sub     = section.settings.card2_sub      | default: 'Wear Your Roots'
+  assign card2_badge   = section.settings.card2_badge    | default: '₹'
+  assign section_id    = section.id
+-%}
+
+{{- 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&family=Noto+Serif+Devanagari:wght@400;700;900&display=swap' | stylesheet_tag -}}
+
+{% style %}
+  #v-hero-{{ section_id }} {
+    --v-bg-color: {{ section.settings.color_bg }};
+    --v-text-color: {{ section.settings.color_text }};
+    --v-accent-color: {{ section.settings.color_accent }};
+    --v-subtext-color: {{ section.settings.color_subtext }};
+    --v-border-color: {{ section.settings.color_text | color_modify: 'alpha', 0.30 }};
+    --v-card-front-bg: {{ section.settings.card_front_bg }};
+    --v-card-back-bg: {{ section.settings.card_back_bg }};
+  }
+
+/* ══════════════════════════════════════════════════
+   FIX 1 — Force-load fonts inside the section scope
+══════════════════════════════════════════════════ */
+#v-hero-{{ section_id }},
+#v-hero-{{ section_id }} * {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#v-hero-{{ section_id }} .v-hero__headline {
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+}
+#v-hero-{{ section_id }} .v-hero__eyebrow,
+#v-hero-{{ section_id }} .v-hero__sub,
+#v-hero-{{ section_id }} .v-hero__btn-primary,
+#v-hero-{{ section_id }} .v-hero__btn-ghost,
+#v-hero-{{ section_id }} .v-poster__sub,
+#v-hero-{{ section_id }} .v-poster__badge,
+#v-hero-{{ section_id }} .v-hero__stat span {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+}
+#v-hero-{{ section_id }} .v-hero__sub {
+  font-family: 'Barlow', 'Arial', sans-serif;
+}
+#v-hero-{{ section_id }} .v-poster__text {
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+}
+#v-hero-{{ section_id }} .v-hero__stat strong {
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+}
+#v-hero-{{ section_id }} .v-hero__bg-deva {
+  font-family: 'Noto Serif Devanagari', serif;
+}
+
+/* ══════════════════════════════════════════════════
+   SECTION SHELL
+══════════════════════════════════════════════════ */
+.v-hero {
+  position: relative;
+  min-height: 100vh;
+  padding-top: var(--v-hdr-h, 108px);
+  background-color: var(--v-bg-color);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════
+   BACKGROUND GHOST ELEMENTS
+══════════════════════════════════════════════════ */
+.v-hero__bg-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif;
+  font-size: clamp(100px, 18vw, 280px);
+  color: var(--v-accent-color);
+  opacity: 0.06;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  z-index: 0;
+}
+
+.v-hero__bg-deva {
+  position: absolute;
+  top: calc(50% + 80px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(11px, 1.4vw, 18px);
+  color: var(--v-accent-color);
+  opacity: 0.14;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   INNER GRID
+══════════════════════════════════════════════════ */
+.v-hero__inner {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 56px 48px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 48px;
+}
+
+/* ══════════════════════════════════════════════════
+   LEFT — TEXT CONTENT
+══════════════════════════════════════════════════ */
+.v-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.40em;
+  text-transform: uppercase;
+  color: var(--v-accent-color);
+  margin-bottom: 18px;
+}
+.v-hero__eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--v-accent-color);
+  flex-shrink: 0;
+  display: block;
+}
+
+.v-hero__headline {
+  display: block;
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
+  font-size: clamp(54px, 8vw, 118px);
+  line-height: 0.93;
+  letter-spacing: 0.01em;
+  color: var(--v-text-color);
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+.v-hero__hl-line {
+  display: block;
+}
+.v-hero__hl-accent {
+  color: var(--v-accent-color);
+}
+
+.v-hero__sub {
+  font-family: 'Barlow', 'Arial', sans-serif !important;
+  font-size: clamp(15px, 1.8vw, 22px);
+  font-weight: 300;
+  color: var(--v-subtext-color);
+  opacity: 0.65;
+  letter-spacing: 0.05em;
+  line-height: 1.55;
+  margin-top: 18px;
+  margin-bottom: 36px;
+}
+
+/* ══════════════════════════════════════════════════
+   CTA BUTTONS
+══════════════════════════════════════════════════ */
+.v-hero__ctas {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.v-hero__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif !important;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: var(--v-accent-color);
+  color: var(--v-bg-color) !important;
+  text-decoration: none !important;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: filter 0.2s ease, transform 0.15s ease;
+  white-space: nowrap;
+  line-height: 1;
+}
+.v-hero__btn-primary:hover {
+  filter: brightness(1.15);
+  color: var(--v-bg-color) !important;
+  transform: translateY(-2px);
+  text-decoration: none !important;
+}
+
+.v-hero__btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif !important;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--v-text-color) !important;
+  text-decoration: none !important;
+  padding: 15px 32px;
+  border: 1px solid var(--v-border-color);
+  border-radius: 0;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  line-height: 1;
+}
+.v-hero__btn-ghost:hover {
+  border-color: var(--v-accent-color) !important;
+  color: var(--v-accent-color) !important;
+  text-decoration: none !important;
+}
+
+/* ══════════════════════════════════════════════════
+   POSTER STACK
+══════════════════════════════════════════════════ */
+.v-hero__right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.v-hero__poster-stack {
+  position: relative;
+  width: min(420px, 100%);
+  height: 500px;
+  flex-shrink: 0;
+}
+
+.v-poster {
+  position: absolute;
+  width: 240px;
+  height: 320px;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+
+.v-poster--back {
+  bottom: 60px;
+  left: 0;
+  background: var(--v-card-back-bg);
+  transform: rotate(5deg);
+  opacity: 0.92;
+  z-index: 1;
+  box-shadow: 4px 8px 32px rgba(0,0,0,0.6);
+}
+
+.v-poster--front {
+  top: 20px;
+  right: 0;
+  background: var(--v-card-front-bg);
+  transform: rotate(-2.5deg);
+  z-index: 2;
+  box-shadow: 6px 12px 40px rgba(0,0,0,0.5);
+}
+
+.v-hero__poster-stack:hover .v-poster--front {
+  transform: rotate(-2.5deg) translateY(-14px) translateX(6px);
+  box-shadow: 10px 24px 48px rgba(0,0,0,0.6);
+}
+.v-hero__poster-stack:hover .v-poster--back {
+  transform: rotate(5deg) translateY(6px) translateX(-8px);
+  box-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+}
+
+.v-poster__inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 22px;
+  position: relative;
+  z-index: 10;
+}
+
+.v-poster__bg-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.8;
+}
+.v-poster__overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.35);
+  z-index: 0;
+}
+
+.v-poster__text {
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
+  font-size: 68px;
+  color: var(--v-text-color);
+  line-height: 0.88;
+  opacity: 0.95;
+  letter-spacing: 0.01em;
+}
+
+.v-poster__sub {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif !important;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--v-text-color);
+  opacity: 0.85;
+}
+
+.v-poster__badge {
+  width: 38px;
+  height: 38px;
+  border: 2px solid var(--v-border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif !important;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--v-text-color);
+  opacity: 0.80;
+}
+
+/* ══════════════════════════════════════════════════
+   STATS
+══════════════════════════════════════════════════ */
+.v-hero__stats {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: right;
+  z-index: 5;
+}
+
+.v-hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.v-hero__stat strong {
+  display: block;
+  font-family: 'Bebas Neue', 'Arial Black', sans-serif !important;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--v-accent-color);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.v-hero__stat span {
+  display: block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif !important;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--v-subtext-color);
+  opacity: 0.65;
+  line-height: 1.3;
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════ */
+@media screen and (max-width: 1100px) {
+  .v-hero__inner {
+    padding: 48px 28px 72px;
+    gap: 28px;
+  }
+  .v-hero__poster-stack {
+    width: min(360px, 100%);
+    height: 440px;
+  }
+  .v-poster {
+    width: 204px;
+    height: 272px;
+  }
+  .v-poster__text {
+    font-size: 56px;
+  }
+  .v-poster--front {
+    top: 16px;
+    right: 0;
+  }
+  .v-poster--back {
+    bottom: 56px;
+    left: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .v-hero {
+    padding-top: 94px;
+    align-items: flex-start;
+  }
+  .v-hero__inner {
+    grid-template-columns: 1fr;
+    padding: 32px 20px 56px;
+    gap: 36px;
+  }
+  .v-hero__right {
+    justify-content: center;
+    order: -1;
+  }
+  .v-hero__poster-stack {
+    width: 300px;
+    height: 360px;
+  }
+  .v-poster {
+    width: 172px;
+    height: 230px;
+  }
+  .v-poster__text {
+    font-size: 48px;
+  }
+  .v-poster__inner {
+    padding: 16px;
+  }
+  .v-poster--front {
+    top: 12px;
+    right: 0;
+  }
+  .v-poster--back {
+    bottom: 44px;
+    left: 0;
+  }
+  .v-hero__stats {
+    bottom: 0;
+    right: 0;
+  }
+  .v-hero__stat strong {
+    font-size: 22px;
+  }
+  .v-hero__bg-word {
+    font-size: 28vw;
+  }
+  .v-hero__ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .v-hero__btn-primary,
+  .v-hero__btn-ghost {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .v-hero__inner {
+    padding: 24px 16px 48px;
+  }
+  .v-hero__poster-stack {
+    width: 260px;
+    height: 320px;
+  }
+  .v-poster {
+    width: 150px;
+    height: 200px;
+  }
+  .v-poster__text {
+    font-size: 40px;
+  }
+  .v-poster__inner {
+    padding: 13px;
+  }
+  .v-poster--back {
+    bottom: 40px;
+    left: 0;
+  }
+  .v-hero__stats {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v-poster,
+  .v-hero__btn-primary {
+    transition: none;
+  }
+  .v-hero__poster-stack:hover .v-poster--front,
+  .v-hero__poster-stack:hover .v-poster--back {
+    transform: none;
+  }
+}
+{% endstyle %}
+
+<section
+  class="v-hero"
+  id="v-hero-{{ section_id }}"
+  aria-label="Hero"
+>
+
+  <div class="v-hero__bg-word" aria-hidden="true">{{ bg_word }}</div>
+  <div class="v-hero__bg-deva" aria-hidden="true">{{ bg_deva }}</div>
+
+  <div class="v-hero__inner">
+
+    <!-- ══ LEFT: text ══ -->
+    <div class="v-hero__left">
+
+      {%- if eyebrow_text != blank -%}
+        <div class="v-hero__eyebrow">{{ eyebrow_text }}</div>
+      {%- endif -%}
+
+      <h1 class="v-hero__headline">
+        {%- if headline_l1 != blank -%}
+          <span class="v-hero__hl-line">{{ headline_l1 }}</span>
+        {%- endif -%}
+        {%- if headline_l2 != blank -%}
+          <span class="v-hero__hl-line v-hero__hl-accent">{{ headline_l2 }}</span>
+        {%- endif -%}
+        {%- if headline_l3 != blank -%}
+          <span class="v-hero__hl-line">{{ headline_l3 }}</span>
+        {%- endif -%}
+      </h1>
+
+      {%- if subheading != blank -%}
+        <p class="v-hero__sub">{{ subheading }}</p>
+      {%- endif -%}
+
+      <div class="v-hero__ctas">
+        {%- if btn1_label != blank -%}
+          <a href="{{ btn1_url }}" class="v-hero__btn-primary">{{ btn1_label }}</a>
+        {%- endif -%}
+        {%- if btn2_label != blank -%}
+          <a href="{{ btn2_url }}" class="v-hero__btn-ghost">{{ btn2_label }}</a>
+        {%- endif -%}
+      </div>
+
+    </div>
+
+    <!-- ══ RIGHT: poster stack ══ -->
+    <div class="v-hero__right">
+      <div class="v-hero__poster-stack">
+
+        <!-- Back card -->
+        <div class="v-poster v-poster--back">
+          {%- if section.settings.card1_image != blank -%}
+            {{ section.settings.card1_image | image_url: width: 600 | image_tag: class: 'v-poster__bg-img' }}
+            <div class="v-poster__overlay"></div>
+          {%- endif -%}
+          <div class="v-poster__inner">
+            <div class="v-poster__text">
+              {{ card1_line1 }}
+              {%- if section.settings.card1_line2 != blank -%}<br>{{ section.settings.card1_line2 }}{%- endif -%}
+            </div>
+            <div class="v-poster__sub">{{ card1_sub }}</div>
+            <div class="v-poster__badge">{{ card1_badge }}</div>
+          </div>
+        </div>
+
+        <!-- Front card -->
+        <div class="v-poster v-poster--front">
+          {%- if section.settings.card2_image != blank -%}
+            {{ section.settings.card2_image | image_url: width: 600 | image_tag: class: 'v-poster__bg-img' }}
+            <div class="v-poster__overlay"></div>
+          {%- endif -%}
+          <div class="v-poster__inner">
+            <div class="v-poster__text">
+              {{ card2_line1 }}
+              {%- if card2_line2 != blank -%}<br>{{ card2_line2 }}{%- endif -%}
+            </div>
+            <div class="v-poster__sub">{{ card2_sub }}</div>
+            <div class="v-poster__badge">{{ card2_badge }}</div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        {%- if show_stats -%}
+          <div class="v-hero__stats" aria-label="Brand stats">
+            <div class="v-hero__stat">
+              <strong>{{ stat1_num }}</strong>
+              <span>{{ stat1_label }}</span>
+            </div>
+            <div class="v-hero__stat">
+              <strong>{{ stat2_num }}</strong>
+              <span>{{ stat2_label }}</span>
+            </div>
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Varchas Hero",
+  "tag": "section",
+  "class": "shopify-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Theme Colors"
+    },
+    {
+      "type": "color",
+      "id": "color_bg",
+      "label": "Background",
+      "default": "#0F0D0A"
+    },
+    {
+      "type": "color",
+      "id": "color_text",
+      "label": "Text Elements",
+      "default": "#F5EDD8"
+    },
+    {
+      "type": "color",
+      "id": "color_accent",
+      "label": "Accent Color",
+      "default": "#E8540A"
+    },
+    {
+      "type": "color",
+      "id": "color_subtext",
+      "label": "Subtext",
+      "default": "#EDE0C4"
+    },
+    {
+      "type": "header",
+      "content": "Eyebrow & Headline"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "New Collection 2025",
+      "info": "Small uppercase label above the headline. Leave blank to hide."
+    },
+    {
+      "type": "text",
+      "id": "headline_line1",
+      "label": "Headline — Line 1",
+      "default": "WEAR YOUR"
+    },
+    {
+      "type": "text",
+      "id": "headline_line2",
+      "label": "Headline — Line 2",
+      "default": "ROOTS.",
+      "info": "This line always renders in the Accent Color."
+    },
+    {
+      "type": "text",
+      "id": "headline_line3",
+      "label": "Headline — Line 3",
+      "default": "CREATE YOUR FUTURE."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Streetwear forged from civilization-grade conviction."
+    },
+    {
+      "type": "header",
+      "content": "CTA Buttons"
+    },
+    {
+      "type": "text",
+      "id": "btn1_label",
+      "label": "Primary button text",
+      "default": "Shop the Drop"
+    },
+    {
+      "type": "url",
+      "id": "btn1_url",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_label",
+      "label": "Ghost button text",
+      "default": "Our Dharma",
+      "info": "Leave blank to hide."
+    },
+    {
+      "type": "url",
+      "id": "btn2_url",
+      "label": "Ghost button link"
+    },
+    {
+      "type": "header",
+      "content": "Background Watermarks"
+    },
+    {
+      "type": "text",
+      "id": "bg_word",
+      "label": "Large ghost word",
+      "default": "ARISE"
+    },
+    {
+      "type": "text",
+      "id": "bg_deva",
+      "label": "Sanskrit ghost text",
+      "default": "रामो विग्रहवान् धर्मः"
+    },
+    {
+      "type": "header",
+      "content": "Front Card"
+    },
+    {
+      "type": "color_background",
+      "id": "card_front_bg",
+      "label": "Background Gradient/Color",
+      "default": "linear-gradient(145deg, #8B2500 0%, #C44200 40%, #E8540A 100%)"
+    },
+    {
+      "type": "image_picker",
+      "id": "card2_image",
+      "label": "Background Image (Optional)",
+      "info": "Overrides background color heavily. Will add dark overlay."
+    },
+    {
+      "type": "text",
+      "id": "card2_line1",
+      "label": "Text line 1",
+      "default": "VARCHAS"
+    },
+    {
+      "type": "text",
+      "id": "card2_line2",
+      "label": "Text line 2",
+      "default": "SS25"
+    },
+    {
+      "type": "text",
+      "id": "card2_sub",
+      "label": "Caption",
+      "default": "Wear Your Roots"
+    },
+    {
+      "type": "text",
+      "id": "card2_badge",
+      "label": "Badge character",
+      "default": "₹"
+    },
+    {
+      "type": "header",
+      "content": "Back Card"
+    },
+    {
+      "type": "color_background",
+      "id": "card_back_bg",
+      "label": "Background Gradient/Color",
+      "default": "linear-gradient(145deg, #7A0000 0%, #C41B1B 55%, #3D0000 100%)"
+    },
+    {
+      "type": "image_picker",
+      "id": "card1_image",
+      "label": "Background Image (Optional)",
+      "info": "Overrides background color heavily. Will add dark overlay."
+    },
+    {
+      "type": "text",
+      "id": "card1_line1",
+      "label": "Text line 1",
+      "default": "ARISE"
+    },
+    {
+      "type": "text",
+      "id": "card1_line2",
+      "label": "Text line 2",
+      "info": "Optional. Leave blank for one line."
+    },
+    {
+      "type": "text",
+      "id": "card1_sub",
+      "label": "Caption",
+      "default": "Answer the Call of Dharma"
+    },
+    {
+      "type": "text",
+      "id": "card1_badge",
+      "label": "Badge character",
+      "default": "V"
+    },
+    {
+      "type": "header",
+      "content": "Stats"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Show stats",
+      "default": true,
+      "info": "Visible on desktop and tablet. Hidden on small mobile."
+    },
+    {
+      "type": "text",
+      "id": "stat1_num",
+      "label": "Stat 1 — number",
+      "default": "5000+"
+    },
+    {
+      "type": "text",
+      "id": "stat1_label",
+      "label": "Stat 1 — label",
+      "default": "Warriors Clad"
+    },
+    {
+      "type": "text",
+      "id": "stat2_num",
+      "label": "Stat 2 — number",
+      "default": "4.9★"
+    },
+    {
+      "type": "text",
+      "id": "stat2_label",
+      "label": "Stat 2 — label",
+      "default": "Rated"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Varchas Hero",
+      "settings": {
+        "color_bg": "#0F0D0A",
+        "color_text": "#F5EDD8",
+        "color_accent": "#E8540A",
+        "color_subtext": "#EDE0C4",
+        "card_front_bg": "linear-gradient(145deg, #8B2500 0%, #C44200 40%, #E8540A 100%)",
+        "card_back_bg": "linear-gradient(145deg, #7A0000 0%, #C41B1B 55%, #3D0000 100%)",
+        "eyebrow": "New Collection 2025",
+        "headline_line1": "WEAR YOUR",
+        "headline_line2": "ROOTS.",
+        "headline_line3": "CREATE YOUR FUTURE.",
+        "subheading": "Streetwear forged from civilization-grade conviction.",
+        "btn1_label": "Shop the Drop",
+        "btn2_label": "Our Dharma",
+        "bg_word": "ARISE",
+        "bg_deva": "रामो विग्रहवान् धर्मः",
+        "card2_line1": "VARCHAS",
+        "card2_line2": "SS25",
+        "card2_sub": "Wear Your Roots",
+        "card2_badge": "₹",
+        "card1_line1": "ARISE",
+        "card1_sub": "Answer the Call of Dharma",
+        "card1_badge": "V",
+        "show_stats": true,
+        "stat1_num": "5000+",
+        "stat1_label": "Warriors Clad",
+        "stat2_num": "4.9★",
+        "stat2_label": "Rated"
+      }
+    }
+  ]
+}
+{% endschema %}

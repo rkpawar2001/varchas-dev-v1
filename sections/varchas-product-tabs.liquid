@@ -1,0 +1,103 @@
+{% schema %}
+{
+  "name": "Product Tabs",
+  "settings": [],
+  "presets": [
+    { "name": "Varchas Product Tabs" }
+  ]
+}
+{% endschema %}
+
+<section class="pdp-tabs-section">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabStory').classList.add('active');">STORY</button>
+    <button class="tab-btn" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabSpecs').classList.add('active');">SPECS & CARE</button>
+    <button class="tab-btn" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabSize').classList.add('active');">SIZE CHART</button>
+    <button class="tab-btn" onclick="document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active')); this.classList.add('active'); document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); document.getElementById('tabReviews').classList.add('active');">REVIEWS</button>
+  </div>
+
+  <div class="tab-content">
+    
+    <!-- STORY -->
+    <div id="tabStory" class="tab-pane active">
+      <div class="story-grid">
+        <div>
+          <div class="story-quote">"SLAIN, YOU GAIN HEAVEN.<br><span>VICTORIOUS, YOU ENJOY THE EARTH.</span>"</div>
+          <p class="story-body">{{ product.description | truncatewords: 80 }}</p>
+        </div>
+        <div class="story-visual-card">
+          <div class="svc-text">INDIA<br>AWAKES</div>
+          <div class="svc-foot">
+            <span class="svc-deva">रामो विग्रहवान् धर्मः</span>
+            <div class="svc-label">Dharma Collection</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECS -->
+    <div id="tabSpecs" class="tab-pane">
+      <table class="specs-table">
+        <tbody>
+          <tr><td>MATERIAL</td><td>100% Premium Bio-Washed Cotton (240 GSM for Oversized, 180 GSM for Regular)</td></tr>
+          <tr><td>FIT</td><td>{{ product.title | append: ' Fit' }}</td></tr>
+          <tr><td>PRINT</td><td>High-density screen print with localized puff accents. Soft handfeel.</td></tr>
+          <tr><td>CARE INSTRUCTIONS</td><td>Machine wash cold, inside out. Do not iron directly on print. Do not bleach.</td></tr>
+          <tr><td>ORIGIN</td><td>Proudly conceived and crafted in India.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- SIZE -->
+    <div id="tabSize" class="tab-pane">
+      <table class="size-chart-table">
+        <thead>
+          <tr><th>SIZE</th><th>CHEST (IN)</th><th>LENGTH (IN)</th><th>SHOULDER (IN)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>S</td><td>42</td><td>28</td><td>20</td></tr>
+          <tr class="hl"><td>M</td><td>44</td><td>29</td><td>21</td></tr>
+          <tr><td>L</td><td>46</td><td>30</td><td>22</td></tr>
+          <tr><td>XL</td><td>48</td><td>31</td><td>23</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center; margin-top:16px;">
+        <span class="size-guide-link">Need Help Finding Your Size? Contact Us.</span>
+      </div>
+    </div>
+
+    <!-- REVIEWS -->
+    <div id="tabReviews" class="tab-pane">
+      <div class="reviews-summary">
+        <div class="rs-score">
+          <div class="rs-num">4.9</div>
+          <div class="rs-stars">★★★★★</div>
+          <div class="rs-count">Based on 128 Reviews</div>
+        </div>
+        <div class="rs-bars">
+          <div class="rb-row"><div class="rb-label">5 ★</div><div class="rb-track"><div class="rb-fill" style="width:90%"></div></div><div class="rb-pct">90%</div></div>
+          <div class="rb-row"><div class="rb-label">4 ★</div><div class="rb-track"><div class="rb-fill" style="width:8%"></div></div><div class="rb-pct">8%</div></div>
+          <div class="rb-row"><div class="rb-label">3 ★</div><div class="rb-track"><div class="rb-fill" style="width:2%"></div></div><div class="rb-pct">2%</div></div>
+          <div class="rb-row"><div class="rb-label">2 ★</div><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><div class="rb-pct">0%</div></div>
+          <div class="rb-row"><div class="rb-label">1 ★</div><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><div class="rb-pct">0%</div></div>
+        </div>
+      </div>
+      <div class="reviews-list">
+        <!-- Static placeholder reviews -->
+        <div class="review-card">
+          <div class="rv-header">
+            <div>
+              <div class="rv-stars">★★★★★</div>
+              <div class="rv-name">Aryan Mehta</div>
+            </div>
+            <div class="rv-date">12 May 2025</div>
+          </div>
+          <div class="rv-tag">Oversized Fit · Black</div>
+          <p class="rv-text">"I've been waiting for a brand like this my whole life. The tee isn't just a shirt — it's a statement I wear every day to the gym."</p>
+          <div class="rv-verified">✓ Verified Buyer</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

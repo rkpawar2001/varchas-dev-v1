@@ -1,0 +1,108 @@
+{% schema %}
+{
+  "name": "Varchas Product Grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Best Sellers" },
+    { "type": "html", "id": "headline", "label": "Headline", "default": "WARDROBE OF<br>THE AWAKENED" },
+    { "type": "text", "id": "link_text", "label": "Link Text", "default": "All Products →" },
+    { "type": "url", "id": "link_url", "label": "Link URL" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "limit", "label": "Products to show", "min": 3, "max": 12, "step": 3, "default": 3 }
+  ],
+  "presets": [
+    {
+      "name": "Varchas Product Grid"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="sec sec-sft">
+  <div class="sh">
+    <div>
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="stitle">{{ section.settings.headline }}</h2>
+    </div>
+    {% if section.settings.link_url != blank %}
+      <a href="{{ section.settings.link_url }}" class="slnk">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </div>
+
+  <div class="prod-grid">
+    {% assign coll = collections[section.settings.collection] %}
+    {% for product in coll.products limit: section.settings.limit %}
+      {% capture thecycle %}{% cycle 'p1', 'p2', 'p3' %}{% endcapture %}
+      
+      <div class="pcard {{ thecycle }}" onclick="location.href='{{ product.url }}'" style="cursor:pointer">
+        <div class="pimg">
+          <div class="pmock"><div class="pbg"></div>
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" style="position:relative; z-index:2; max-height:80%;" loading="lazy">
+            {% else %}
+              <div class="pgfx"><div class="pbig">{{ product.title | escape }}</div></div>
+            {% endif %}
+          </div>
+          {% if product.available == false %}
+            <div class="ptag tl">Sold Out</div>
+          {% elsif product.compare_at_price > product.price %}
+            <div class="ptag tn">Sale</div>
+          {% endif %}
+          <form method="post" action="/cart/add" class="add-to-cart-form" onclick="event.stopPropagation();">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            <button type="submit" class="padd">+ Add to Cart</button>
+          </form>
+        </div>
+        <div class="pinfo">
+          <div class="pname">{{ product.title }}</div>
+          <div class="psub">{{ product.vendor }}</div>
+          <div class="pprice">{{ product.price | money }}</div>
+          {% if product.options_by_name['Color'] %}
+            <div class="swatches">
+              {% for value in product.options_by_name['Color'].values %}
+                <div class="sw" style="background:{{ value | handle }};" title="{{ value | escape }}"></div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <!-- Placeholder items -->
+      <div class="pcard p1">
+        <div class="pimg">
+          <div class="pmock"><div class="pbg"></div><div class="pgfx"><div class="pbig">ARISE<br>ARJUNA</div><div class="pdeva">तस्माद् उत्तिष्ठ</div></div></div>
+          <div class="ptag tn">New</div>
+          <button class="padd">+ Add to Cart</button>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Arise Arjuna Oversized Tee</div>
+          <div class="psub">Dharma Collection</div>
+          <div class="pprice">₹ 999</div>
+        </div>
+      </div>
+      <div class="pcard p2">
+        <div class="pimg">
+          <div class="pmock"><div class="pbg"></div><div class="pgfx"><div class="pbig">RAMA<br>DHARMA</div><div class="pdeva">रामो विग्रहवान्</div></div></div>
+          <div class="ptag tb">Best Seller</div>
+          <button class="padd">+ Add to Cart</button>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Ramo Vigrahavan Hoodie</div>
+          <div class="psub">Devotion Collection</div>
+          <div class="pprice">₹ 1,699</div>
+        </div>
+      </div>
+      <div class="pcard p3">
+        <div class="pimg">
+          <div class="pmock"><div class="pbg"></div><div class="pgfx"><div class="pbig">WARRIOR<br>LINEAGE</div><div class="pdeva">क्षत्रिय धर्म</div></div></div>
+          <div class="ptag tl">Limited</div>
+          <button class="padd">+ Add to Cart</button>
+        </div>
+        <div class="pinfo">
+          <div class="pname">Warrior Lineage Regular Tee</div>
+          <div class="psub">Warriors Collection</div>
+          <div class="pprice">₹ 849</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

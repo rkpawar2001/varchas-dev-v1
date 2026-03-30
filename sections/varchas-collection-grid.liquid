@@ -1,0 +1,57 @@
+{% schema %}
+{
+  "name": "Varchas Collection Grid",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Collections" },
+    { "type": "html", "id": "headline", "label": "Headline", "default": "CHOOSE YOUR<br>CALLING" },
+    { "type": "text", "id": "link_text", "label": "Link Text", "default": "View All Collections →" },
+    { "type": "url", "id": "link_url", "label": "Link URL" }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection Card",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "bg_css_class", "label": "CSS Class (cc-dharma, cc-devotion, etc)", "default": "cc-dharma" },
+        { "type": "text", "id": "char_deva", "label": "Background Devanagari Character", "default": "धर्म" },
+        { "type": "text", "id": "vert_text", "label": "Vertical Text", "default": "धर्मो रक्षति" },
+        { "type": "text", "id": "custom_title", "label": "Custom Title (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Varchas Collection Grid"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="sec sec-dk">
+  <div class="sh">
+    <div>
+      <div class="eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="stitle">{{ section.settings.headline }}</h2>
+    </div>
+    {% if section.settings.link_url != blank %}
+      <a href="{{ section.settings.link_url }}" class="slnk">{{ section.settings.link_text }}</a>
+    {% endif %}
+  </div>
+
+  <div class="coll-grid">
+    {% for block in section.blocks %}
+      {% assign coll = collections[block.settings.collection] %}
+      <div class="cc {{ block.settings.bg_css_class }}" onclick="location.href='{{ coll.url | default: '#' }}'">
+        <div class="cc-bg"></div><div class="cc-hatch"></div>
+        <div class="cc-char" aria-hidden="true">{{ block.settings.char_deva }}</div>
+        <div class="cc-vert" aria-hidden="true">{{ block.settings.vert_text }}</div>
+        <div class="cc-glow"></div>
+        <div class="cc-info">
+          <div class="cc-name">{{ block.settings.custom_title | default: coll.title | default: 'COLLECTION NAME' }}</div>
+          <div class="cc-count">{{ coll.all_products_count | default: 0 }} Pieces</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

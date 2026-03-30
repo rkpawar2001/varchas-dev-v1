@@ -1,0 +1,23 @@
+{% schema %}
+{
+  "name": "Varchas Quote Strip",
+  "settings": [
+    { "type": "text", "id": "bg_word", "label": "Background Word", "default": "धर्म" },
+    { "type": "text", "id": "deva_text", "label": "Devanagari Text", "default": "हतो वा प्राप्स्यसि स्वर्गं जित्वा वा भोक्ष्यसे महीम्" },
+    { "type": "html", "id": "quote", "label": "Quote (HTML)", "default": "\"SLAIN, YOU GAIN HEAVEN.<br>VICTORIOUS, YOU ENJOY THE EARTH.\"" },
+    { "type": "text", "id": "attribution", "label": "Attribution", "default": "— Bhagavad Gita 2.37 · Shri Krishna to Arjuna" }
+  ],
+  "presets": [
+    { "name": "Varchas Quote Strip" }
+  ]
+}
+{% endschema %}
+
+<div class="qstrip">
+  <div class="qbg" aria-hidden="true">{{ section.settings.bg_word }}</div>
+  <div class="qin">
+    <div class="qdeva">{{ section.settings.deva_text }}</div>
+    <div class="qeng">{{ section.settings.quote }}</div>
+    <div class="qattr">{{ section.settings.attribution }}</div>
+  </div>
+</div>
