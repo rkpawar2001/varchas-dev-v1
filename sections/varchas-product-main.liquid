@@ -71,10 +71,10 @@
         {% endif %}
         
         {% if initial_media %}
-          <img src="{{ initial_media | image_url: width: 1000 }}" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain;" id="mainProdImg" loading="eager">
+          <img src="{{ initial_media | image_url: width: 1000 }}" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain;" id="mainProdImg" loading="eager" width="1000" height="1000">
           <div class="gm-product-art" style="display:none;"></div>
         {% else %}
-           <img src="" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain; display:none;" id="mainProdImg">
+           <img src="" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain; display:none;" id="mainProdImg" width="1000" height="1000">
            <div class="gm-product-art">
              <div class="gm-text">ARISE<br>ARJUNA</div>
              <span class="gm-deva">{{ section.settings.bg_deva }}</span>

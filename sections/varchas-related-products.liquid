@@ -29,13 +29,13 @@
             <div class="rel-bg"></div>
             <div class="rel-mock" style="position:relative; z-index:2; height:100%; display:flex; align-items:center; justify-content:center;">
               {% if related.featured_image %}
-                <img src="{{ related.featured_image | image_url: width: 400 }}" alt="{{ related.title | escape }}" style="max-height:80%; object-fit:contain;" loading="lazy">
+                <img src="{{ related.featured_image | image_url: width: 400 }}" alt="{{ related.title | escape }}" style="max-height:80%; object-fit:contain;" loading="lazy" width="400" height="auto">
               {% else %}
                 <div class="rel-gfx">{{ related.title | escape }}</div>
               {% endif %}
             </div>
             <!-- The form interacts with the new varchas-custom.js AJAX cart via the pdpForm structure or standard submit -->
-             <form action="/cart/add" method="post" onclick="event.stopPropagation();" class="rel-add-form">
+             <form action="{{ routes.cart_add_url }}" method="post" onclick="event.stopPropagation();" class="rel-add-form">
                <input type="hidden" name="id" value="{{ related.variants.first.id }}">
                <button type="button" class="rel-add" onclick="
                  if(window.VARCHAS_CART && typeof window.VARCHAS_CART.submitForm === 'function') {

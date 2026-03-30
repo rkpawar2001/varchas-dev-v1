@@ -86,8 +86,6 @@
 .pdp-details {
   padding:40px 48px 60px;
   background:var(--ink);
-  overflow-y:auto;
-  max-height:calc(100vh - var(--hdr-h) + 200px);
 }
 
 /* Urgency bar */
@@ -286,6 +284,15 @@
   font-weight:700; color:var(--cream); background: transparent; border: none;
   width:44px; text-align:center; line-height:52px;
 }
+.qty-selector input::-webkit-outer-spin-button,
+.qty-selector input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.qty-selector input[type=number] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
 .btn-atc {
   flex:1; background:var(--saffron); color:var(--ink);
   font-family:'Barlow Condensed',sans-serif; font-size:15px;
@@ -298,6 +305,17 @@
 .btn-atc.added { background:var(--green-ok); }
 .btn-atc svg { transition:transform .3s; }
 .btn-atc:hover svg { transform:scale(1.1); }
+
+.btn-buy-now {
+  width:100%; background:transparent; color:var(--saffron);
+  font-family:'Barlow Condensed',sans-serif; font-size:15px;
+  font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  border:1px solid var(--saffron); cursor:pointer; padding:16px 24px;
+  transition:background .2s, color .2s;
+  display:block; text-align:center;
+  margin-bottom:20px;
+}
+.btn-buy-now:hover { background:rgba(232,84,10,.1); }
 
 /* Trust badges */
 .trust-strip {
