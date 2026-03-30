@@ -136,13 +136,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Quantity Controls
   window.changeQty = function(d) {
     const qtyInput = document.getElementById('pdpQty');
-    const qtyDisplay = document.getElementById('qtyVal');
-    if (!qtyInput || !qtyDisplay) return;
+    if (!qtyInput) return;
     
     let currentQty = parseInt(qtyInput.value) || 1;
     let newQty = Math.max(1, currentQty + d);
     qtyInput.value = newQty;
-    qtyDisplay.textContent = newQty;
+    
+    const qtyDisplay = document.getElementById('qtyVal');
+    if(qtyDisplay) qtyDisplay.textContent = newQty;
   };
 
   // Form Submit Intercept (to work with AJAX Cart)
