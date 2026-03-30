@@ -149,6 +149,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const pdpForm = document.getElementById('pdpForm');
   if (pdpForm) {
     pdpForm.addEventListener('submit', function(e) {
+      if(e.submitter && e.submitter.classList.contains('btn-buy-now')) {
+         // Allow default form submission which will redirect to checkout because of the button's return_to value
+         return;
+      }
+      
       e.preventDefault();
       
       const formData = new FormData(pdpForm);
@@ -199,6 +204,21 @@ document.addEventListener('DOMContentLoaded', function() {
       const tabsSec = document.querySelector('.pdp-tabs-section');
       if(tabsSec) tabsSec.scrollIntoView({behavior:'smooth', block:'start'});
     }
+  };
+
+  // Size Modal
+  window.openSizeModal = function() {
+    const overlay = document.getElementById('sizeModalOverlay');
+    const modal = document.getElementById('sizeModal');
+    if(overlay) overlay.classList.add('active');
+    if(modal) modal.classList.add('active');
+  };
+  
+  window.closeSizeModal = function() {
+    const overlay = document.getElementById('sizeModalOverlay');
+    const modal = document.getElementById('sizeModal');
+    if(overlay) overlay.classList.remove('active');
+    if(modal) modal.classList.remove('active');
   };
 
   // Initial update
