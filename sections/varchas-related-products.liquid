@@ -23,14 +23,14 @@
     {% if recommendations.products_count > 0 %}
       {% assign related_items = recommendations.products %}
     {% else %}
-      {% assign related_items = collections.all.products | limit: 4 %}
+      {% assign related_items = collections.all.products %}
     {% endif %}
 
     {% if related_items.size > 0 %}
       <div class="eyebrow">{{ section.settings.eyebrow }}</div>
       <h2 class="stitle">{{ section.settings.headline }}</h2>
       <div class="related-grid">
-        {% for related in related_items %}
+        {% for related in related_items limit: 4 %}
         <div class="rel-card rel-{{ forloop.index | modulo: 4 | plus: 1 }}" onclick="location.href='{{ related.url }}'">
           <div class="rel-img">
             <div class="rel-bg"></div>

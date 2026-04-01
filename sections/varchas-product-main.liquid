@@ -74,7 +74,7 @@
           <img src="{{ initial_media | image_url: width: 1000 }}" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain;" id="mainProdImg" loading="eager" width="1000" height="1000">
           <div class="gm-product-art" style="display:none;"></div>
         {% else %}
-           <img src="" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain; display:none;" id="mainProdImg" width="1000" height="1000">
+           <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain; display:none;" id="mainProdImg" width="1000" height="1000">
            <div class="gm-product-art">
              <div class="gm-text">ARISE<br>ARJUNA</div>
              <span class="gm-deva">{{ section.settings.bg_deva }}</span>
@@ -165,16 +165,22 @@
               <div class="color-opts">
                 {% for value in option.values %}
                    {% assign color_hex = value | handle %}
-                   {% assign color_code = blank %}
-                   {% if color_hex == 'ink-black' or color_hex == 'black' %}{% assign color_code = '#0F0D0A' %}{% endif %}
-                   {% if color_hex == 'deep-maroon' or color_hex == 'maroon' %}{% assign color_code = '#1A0800' %}{% endif %}
-                   {% if color_hex == 'parchment' or color_hex == 'white' or color_hex == 'cream' %}{% assign color_code = '#F5EDD8' %}{% endif %}
-                   {% if color_hex == 'midnight-blue' or color_hex == 'navy' or color_hex == 'blue' %}{% assign color_code = '#080A1F' %}{% endif %}
-                   {% if color_hex == 'saffron' or color_hex == 'orange' %}{% assign color_code = '#E8540A' %}{% endif %}
-                   {% if color_code == blank %}{% assign color_code = value | handle %}{% endif %}
+                   {% assign bg_color = color_hex %}
+                   {% if color_hex == 'ink-black' or color_hex == 'black' %}{% assign bg_color = '#0F0D0A' %}{% endif %}
+                   {% if color_hex == 'deep-maroon' or color_hex == 'maroon' %}{% assign bg_color = '#4A0811' %}{% endif %}
+                   {% if color_hex == 'parchment' or color_hex == 'white' or color_hex == 'cream' or color_hex == 'off-white' %}{% assign bg_color = '#F5EDD8' %}{% endif %}
+                   {% if color_hex == 'midnight-blue' or color_hex == 'navy' or color_hex == 'navy-blue' or color_hex == 'blue' %}{% assign bg_color = '#080A1F' %}{% endif %}
+                   {% if color_hex == 'saffron' or color_hex == 'orange' or color_hex == 'burnt-orange' %}{% assign bg_color = '#E8540A' %}{% endif %}
+                   {% if color_hex == 'olive' or color_hex == 'military-green' or color_hex == 'army-green' or color_hex == 'green' %}{% assign bg_color = '#4B5320' %}{% endif %}
+                   {% if color_hex == 'grey' or color_hex == 'gray' or color_hex == 'charcoal' %}{% assign bg_color = '#363636' %}{% endif %}
+                   {% if color_hex == 'mustard' or color_hex == 'yellow' %}{% assign bg_color = '#E4A010' %}{% endif %}
+                   {% if color_hex == 'beige' or color_hex == 'khaki' or color_hex == 'sand' %}{% assign bg_color = '#C3B091' %}{% endif %}
+                   {% if color_hex == 'burgundy' or color_hex == 'wine' %}{% assign bg_color = '#722F37' %}{% endif %}
+                   {% if color_hex == 'teal' %}{% assign bg_color = '#008080' %}{% endif %}
+                   {% if color_hex == 'brown' or color_hex == 'chocolate' %}{% assign bg_color = '#5D4037' %}{% endif %}
 
                    <div class="color-opt {% if option.selected_value == value %}active{% endif %}" 
-                        style="background-color: {{ color_code }};" 
+                        style="background-color: {{ bg_color }}; background-image: url('{{ color_hex | append: '.png' | file_url }}'); background-size: cover; background-position: center;" 
                         title="{{ value | escape }}" 
                         data-value="{{ value | escape }}"
                         onclick="selectColor(this, '{{ option.name }}', '{{ value | escape }}')"></div>
