@@ -73,15 +73,31 @@
       <div>
         <div class="eyebrow" style="margin-bottom:20px;">Product Specifications</div>
         <table class="specs-table">
-          <tr><td>Fabric</td><td>100% Bio-washed Cotton</td></tr>
-          <tr><td>Weight</td><td>240 GSM</td></tr>
-          <tr><td>Fit</td><td>Oversized, Drop Shoulder</td></tr>
-          <tr><td>Print Method</td><td>Screen Printing</td></tr>
-          <tr><td>Neck</td><td>Ribbed Crew Neck</td></tr>
-          <tr><td>Seam</td><td>Side-seamed</td></tr>
-          <tr><td>Care</td><td>Machine Wash Cold, Inside Out</td></tr>
-          <tr><td>Origin</td><td>Made in India 🇮🇳</td></tr>
-          <tr><td>SKU</td><td>{{ product.selected_or_first_available_variant.sku | default: "VRC-GENERIC" }}</td></tr>
+          {% assign spec_fabric = product.metafields.custom.spec_fabric | default: "100% Bio-washed Cotton" %}
+          {% if spec_fabric != blank %}<tr><td>Fabric</td><td>{{ spec_fabric }}</td></tr>{% endif %}
+          
+          {% assign spec_weight = product.metafields.custom.spec_weight | default: "240 GSM" %}
+          {% if spec_weight != blank %}<tr><td>Weight</td><td>{{ spec_weight }}</td></tr>{% endif %}
+
+          {% assign spec_fit = product.metafields.custom.spec_fit | default: "Oversized, Drop Shoulder" %}
+          {% if spec_fit != blank %}<tr><td>Fit</td><td>{{ spec_fit }}</td></tr>{% endif %}
+
+          {% assign spec_print = product.metafields.custom.spec_print | default: "Screen Printing" %}
+          {% if spec_print != blank %}<tr><td>Print Method</td><td>{{ spec_print }}</td></tr>{% endif %}
+
+          {% assign spec_neck = product.metafields.custom.spec_neck | default: "Ribbed Crew Neck" %}
+          {% if spec_neck != blank %}<tr><td>Neck</td><td>{{ spec_neck }}</td></tr>{% endif %}
+
+          {% assign spec_seam = product.metafields.custom.spec_seam | default: "Side-seamed" %}
+          {% if spec_seam != blank %}<tr><td>Seam</td><td>{{ spec_seam }}</td></tr>{% endif %}
+
+          {% assign spec_care = product.metafields.custom.spec_care | default: "Machine Wash Cold, Inside Out" %}
+          {% if spec_care != blank %}<tr><td>Care</td><td>{{ spec_care }}</td></tr>{% endif %}
+
+          {% assign spec_origin = product.metafields.custom.spec_origin | default: "Made in India 🇮🇳" %}
+          {% if spec_origin != blank %}<tr><td>Origin</td><td>{{ spec_origin }}</td></tr>{% endif %}
+
+          <tr><td>SKU</td><td>{{ product.selected_or_first_available_variant.sku | default: "-" }}</td></tr>
         </table>
       </div>
       <div>

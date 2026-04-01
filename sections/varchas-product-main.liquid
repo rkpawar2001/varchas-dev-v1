@@ -76,8 +76,8 @@
         {% else %}
            <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="{{ product.title | escape }}" style="position:relative; z-index:2; max-height:90%; object-fit: contain; display:none;" id="mainProdImg" width="1000" height="1000">
            <div class="gm-product-art">
-             <div class="gm-text">ARISE<br>ARJUNA</div>
-             <span class="gm-deva">{{ section.settings.bg_deva }}</span>
+             <div class="gm-text">{{ product.metafields.custom.bg_word | default: section.settings.bg_word }}</div>
+             <span class="gm-deva">{{ product.metafields.custom.bg_deva | default: section.settings.bg_deva }}</span>
            </div>
         {% endif %}
 
